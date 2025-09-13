@@ -1,31 +1,24 @@
-/* conquer : Copyright (c) 1988 by Ed Barlow.	*/
+/*
+ * data.h - Data structures and function prototypes
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
-/*--------I DO NOT BELIEVE IT IS NECESSARY TO ALTER THIS FILE----------------*/
-#define	FAIL	1		/* fail return to shell			*/
-#define	SUCCESS	0		/* successful return to shell		*/
-#define TIME_DEAD	3600	/* number of seconds for file aging	*/
-#define	BIG	500000000L	/* BIGGER THAN ANYTHING SHOULD BE	*/
-				/* this is used to protect against overflow */
-#define	SCRARM	((LINES-14)/2)	/* number of armies to fit on screen	*/
-
-/* sometimes curses.h defines TRUE	*/
-#ifndef TRUE
-#define	TRUE		1
-#define	FALSE		0
-#endif
-
-/* definitions for mail sending */
-#define	DONEMAIL	(-3)
-#define	NEWSMAIL	(-2)
-#define	ABORTMAIL	(-1)
-
-/* definitions for screen redrawing */
-#define	DONE	0
-#define	PART	1
-#define	FULL	2
-
-#define	SCREEN_X_SIZE	(( COLS - 21) / 2)	/* divide by two as only 1/2 
-						   sectors will be shown */
 #define	SCREEN_Y_SIZE	( LINES - 5 )
 #define	HAS_SEEN(x,y)	hasseen[(x)+((y)*((COLS-10)/2))]
 #define	PASSLTH		7	/* the number of characters in the passwd*/
@@ -665,6 +658,9 @@ extern void	see(),showscore(),update();
 extern void	wmessage(),writedata(),getdstatus(),exit();
 extern void	wizardry();
 extern	char	*crypt(),**m2alloc();
+#ifdef SPEW
+extern void makemess(int n, FILE *fp);
+#endif
 #ifdef TRADE
 void trade(),uptrade(),checktrade();
 #endif /* TRADE */

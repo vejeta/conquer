@@ -1,92 +1,24 @@
-/* conquer : Copyright (c) 1988, 1989 by Ed Barlow.	
-   MODIFICATION OF THIS FILE IMPLIES THAT THE MODIFIER WILL ACCEPT
-	A LIMITED USE COPYRIGHT AS FOLLOWS:
+/*
+ * header.h - Game configuration constants and settings
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
-
-	1) This software is copyrighted and protected by law. The
-		sole owner of this software, which hereafter is known as
-		"conquer" is Edward M. Barlow, who hereby grants you a
-		personal, non-exclusive right to use this software.
-		All rights on this software are reserved.
-	2) conquer may not be redistributed in any form. Any requests for
-		new software shall, for now, be the perogative of the author.
-	3) loss or damage caused by this software shall not be
-		the responsibility of the author.
-	4) Ed Barlow or Adam Bryant shall be notified of enhancements to this 
-		software via electronic mail and, if there is no response, via 
-		US mail to:
-
-			Ed Barlow
-			115 E 34ths St.
-			NY, NY 10016
-
-		My home phone is 212-679-1439. Use it sparingly and call
-		before 11PM if it is important.  Note that I no longer have
-		access to the arpanet and cant really support conquer like
-		I used to.  If somebody knows of a cheap (free) way of getting
-		a login somewhere where there is network access - HELP ME!!!!
-		Since i am "volunteering" my time for this project, I am not 
-		about to spend millions of dollars to buy network access...  
-		I can get a modem for my PC if somebody will help me get
-		something to call into. -ED-
-	5) no attempt shall be made to make any money from this game or to
-		use any portion of this code to make any money without the
-		authors permission.
-	6) no attempt shall be made to port this software to any form of 
-		personal computer without the permission of Ed Barlow.
-	7) you agree to use your best efforts to see that any user
-		of conquer complies with the terms and conditions stated above.
-	8) The above copyright agreement will not be tampered with in any form.
-
-
-   Special thanks to Brian Beuning, Adam Bryant, and any others who helped
-	me by making enhancements and bug reports	
-*/
-
-/* --- MODIFICATION IS REQUIRED OF THE FOLLOWING DEFINE STATEMENTS ---	*/
-#define OWNER	"Adam Bryant"	/* administrators name			*/
-#define LOGIN	"adb"		/* administrators login id. IMPORTANT!	*/
-                		/* only this UID may update.		*/
-/* #define SYSV		/* uncomment this line on a UNIX SYSV machine	*/
-#define BSD		/* uncomment this line on a BSD machine		*/
-/* #define HPUX		/* uncomment for HP-UNIX			*/
-/*#define XENIX		/* this plus SYSV for XENIX machines, untested  */
-#define SYSMAIL		/* if your system supports mail			*/
-			/* conquer will notify you about system mail	*/
-
-/* ------------------MODIFICATION IS OPTIONAL ON THE FOLLOWING----------*/
-#define SPOOLDIR "/usr/spool/mail"	/* location of mail spool	*/
-#define FILELOCK	/* if your system supports BSD flock()		*/
-			/* other file locking is not well implemented	*/
-/*#define LOCKF		/* in addition to FILELOCK if you have lockf    */
-			/* this is needed on NFS remote file systems    */
-#define TIMELOG		/* if your system has the date command		*/
-
-#define NTOTAL 25	/* max # of nations ( player + npc + monster )	*/
-#define MAXPTS	65	/* points for players to buy stuff with at start*/
-#define MAXARM	50	/* maximum number of armies per nation		*/
-#define MAXNAVY	10	/* maximum number of fleets per nation		*/
-#define PDEPLETE 30	/* % of armies/sectors depleted without Capitol	*/
-#define PFINDSCOUT 50	/* percentage chance for capturing scouts	*/
-
-#define RUNSTOP		/* defined to stop update if players are in	*/
-			/* game -- not recommended with automatic update*/
-#define TRADE		/* defined to allow commerce between nations	*/
-#define	TRADEPCT 75	/* percent of sectors with exotic trade goods	*/
-#define METALPCT 33	/* percent of tradegoods that are metals	*/
-#define JEWELPCT 33	/* percent of tradegoods that are luxury items	*/
-#define HIDELOC		/* defined if news is not to report sectors	*/
-#define OGOD		/* defined if you wish to enhance god powers.   */
-#define REMAKE		/* may make a world even if datafile exists.	*/
-			/* this allows demi-gods the ability to remake  */
-			/* their world.                                 */
-#define NOSCORE		/* only show full scores to god while in game	*/
-/* #define CHECKUSER */	/* only allow owner of nation to play it        */
-#define REVSPACE 5	/* allow for this many revolts in nation list   */
-#define LASTADD 5	/* last turn players may w/out password         */
-#define USERLOG		/* log users who play a nation                  */
-#define MASK 037	/* data file protection mask (umask)            */
-#define DERVDESG	/* allow DERVISH to redesignate in DESERT/ICE	*/
 #define MONSTER	45	/* defined if pirates/savages/nomads/lzard exist.
 			   represents # of sectors of land that need to be
 			   in world per pirate/savage/nomad nation	*/

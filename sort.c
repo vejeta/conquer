@@ -1,33 +1,22 @@
 /*
- * sort.c
+ * sort.c - Data sorting utilities
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Written by Adam Bryant as a replacement for 'sort'
- * for use with the conquer program.  Note that it
- * is initially written with this program in mind and
- * will not have many features useful elsewhere.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * INITIAL FORMAT USES [YIELDS SAME RESULTS]:
- *
- *   standard in to standard out:
- *          'cat foo | conqsort > foonew'
- *   file input to standard output:
- *          'conqsort foo > foonew'
- *   file input to file output:
- *          'conqsort foo foonew'
- *
- * OR MAY EVEN OVERWRITE INITIAL FILE VIA:
- *
- *          'conqsort infoo infoo'
- *
- * Design Notes:
- *   - all of the file will have to be placed into memory;
- *   - to allow for any line length, space will be malloced()
- *      as it comes in.
- *
- * Initial Revision:		(adb@bucsf.bu.edu)
- *     Tuesday March 21th, 1989 - Began the program at 23:26 EST
- *     Wednesday March 22nd, 1989 - Finished the initial version 11:29 EST
- *     Wednesday July 5th, 1989 - Stopped use of sysexits.h 7:22 EST
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include <stdio.h>

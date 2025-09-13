@@ -1,13 +1,27 @@
+# Conquer Utilities
 
-This directory contains the code for conqrast, a program for
-displaying nice maps of conquer games on sun consoles and, sometime in
-the future, on X windows displays.
+This directory contains the **conqrast** map visualization tool for the Conquer game.
 
-See the manual page conqrast.1 for more details.
+## About conqrast
 
-Bugs should probably be sent to me, Richard Caley.
+**conqrast** creates graphical maps of Conquer games on bitmap display systems.
 
-	rjc@uk.ac.ed.aipna
+### Original Author
+- Written by Richard Caley in 1989  
+- Original email: rjc@uk.ac.ed.aipna (historical)
 
-or permutations thereof that your local mailer demands.
+### Licensing  
+- Originally Copyright (C) 1989 by Richard Caley
+- Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta)
+- Licensed under GPL v3 (compatible with original permissive license)
 
+### Versions
+- **sunconqrast**: For Sun workstations (requires Pixrect library)
+- **xconqrast**: For X Windows (incomplete implementation)
+
+### Building
+```bash
+make sunconqrast    # Sun version (legacy systems)
+make xconqrast      # X version (incomplete)
+make all           # Both versions
+{ ble-edit/exec:gexec/.save-lastarg; } &>/dev/null

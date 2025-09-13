@@ -1,18 +1,23 @@
 /*
-* additions made in tut.fi (winter 1987 and spring 1988)
-* for more information ask from mta@tut.fi or esc@tut.fi
-*/
-
-/* THESE COMMANDS are neat and I have used them throughout my code. 
-			- The Ed */
-
-/* ext_cmd()			run extended commands	*/
-/* clear_bottom(i)		clear bottom min(i,4) lines of the map */
-/* errormsg(str)		print error message to bottom line */
-/* splitarmy(army)		split ? men from army */
-/* reducearmy(army,men)		subtract men from army */
-/* change_status(army,stat)	change army stat to integer status */
-/* combinearmies(army1,army2)	add army2 to army1 */
+ * extcmds.c - Extended command processing
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
