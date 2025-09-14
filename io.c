@@ -24,6 +24,8 @@
 #include <string.h>
 #include <curses.h>
 #include <ctype.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
 #include "patchlevel.h"

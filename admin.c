@@ -28,6 +28,8 @@
 #include <signal.h>
 #include <fcntl.h>
 #include <pwd.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #include "header.h"
 #include "data.h"
 
@@ -52,6 +54,8 @@ short	dismode=2;
 short	country=0;
 struct	s_nation	*curntn;
 extern char datadir[];
+char scenario[256];
+//char defaultdir[256];
 #ifdef REMAKE
 int	remake=FALSE;
 #endif /*REMAKE*/
@@ -63,7 +67,7 @@ main(argc,argv)
 int argc;
 char **argv;
 {
-	int geteuid(), getuid(), setuid(), realuser, l;
+	int realuser, l;
 	register int i,j;
 	char *name;
 #ifndef __STDC__

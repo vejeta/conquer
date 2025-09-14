@@ -27,7 +27,9 @@
 #include <errno.h>
 #include <signal.h>
 #include <pwd.h>
+#include <sys/stat.h>
 #include <time.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
 #include "patchlevel.h"
@@ -79,7 +81,6 @@ char	**argv;
 	int checkuser_uid = 0;
 	int checkuser_list = FALSE;
 #endif
-	int geteuid(), getuid(), setuid();
 	register int i,j;
 	char name[NAMELTH+1],filename[FILELTH];
 #ifndef __STDC__

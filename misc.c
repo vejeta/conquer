@@ -19,6 +19,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,8 +29,11 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #endif /*CONQUER*/
+#include <time.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
+#include "trade.h"
 
 extern FILE *fnews;
 extern short country,redraw;
@@ -591,9 +595,7 @@ int	y;
 
 #ifdef CONQUER
 int
-units_in_sector(x,y,nation)
-int	x;
-int	y;
+units_in_sector(int x,int y,int nation)
 {
 	int count=0, armynum, nvynum;
 	struct	s_nation  *nptr = curntn;
@@ -1500,7 +1502,7 @@ int	class;
 char tmp_mail_name[LINELTH];
 
 int
-mailopen(to)
+mailopen(int to)
 {
 #ifdef CONQUER
 	char	line[LINELTH];
@@ -1561,7 +1563,7 @@ mailopen(to)
 }
 
 void
-mailclose(to)
+mailclose(int to)
 {
 	if(mailok==DONEMAIL) return;
 

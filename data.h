@@ -19,6 +19,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*--------I DO NOT BELIEVE IT IS NECESSARY TO ALTER THIS FILE----------------*/
+#define	FAIL	1		/* fail return to shell			*/
+#define	SUCCESS	0		/* successful return to shell		*/
+#define TIME_DEAD	3600	/* number of seconds for file aging	*/
+#define	BIG	500000000L	/* BIGGER THAN ANYTHING SHOULD BE	*/
+				/* this is used to protect against overflow */
+#define	SCRARM	((LINES-14)/2)	/* number of armies to fit on screen	*/
+
+/* sometimes curses.h defines TRUE	*/
+#ifndef TRUE
+#define	TRUE		1
+#define	FALSE		0
+#endif
+
+/* definitions for mail sending */
+#define	DONEMAIL	(-3)
+#define	NEWSMAIL	(-2)
+#define	ABORTMAIL	(-1)
+
+/* definitions for screen redrawing */
+#define	DONE	0
+#define	PART	1
+#define	FULL	2
+
+#define	SCREEN_X_SIZE	(( COLS - 21) / 2)	/* divide by two as only 1/2
+						                       sectors will be shown */
 #define	SCREEN_Y_SIZE	( LINES - 5 )
 #define	HAS_SEEN(x,y)	hasseen[(x)+((y)*((COLS-10)/2))]
 #define	PASSLTH		7	/* the number of characters in the passwd*/
@@ -615,7 +641,10 @@ extern int	units_in_sector(), num_powers(), tofood(), mailopen();
 extern int	get_god(), flightcost(), todigit(), getclass(), startcost();
 extern int	water_2reachp(),tg_ok(), readmap(), avian();
 extern int	cbonus(), armymove(),takeover(),getnewname();
-extern int	getleader(),execute(),peasant_revolt(),other_revolt();
+extern int getleader();
+extern int execute();
+extern void peasant_revolt(int *newnation);
+extern int other_revolt(int *new);
 extern int	aretheyon(),armygoto(),navygoto(),getselunit();
 extern int	unitvalid(),access(),orctake(),fort_val();
 extern int	addgships(),addmships(),addwships(),fltships();
@@ -626,7 +655,7 @@ extern void	do_pirate(), do_nomad(), do_savage(), do_lizard();
 extern void	getjewel(),getmetal(),loadfleet(),removemgk(),exenewmgk();
 extern struct	s_sector *rand_sector();
 extern void	subgships(),submships(),subwships(),getspace(),sackem();
-extern void	sleep(), whatcansee(), reset_god(), get_nname(), camp_info();
+extern void	whatcansee(), reset_god(), get_nname(), camp_info();
 extern void	main(), makebottom(), makeside(), check_mail(), centermap();
 extern void	checkout(),copyscreen(),bye(),credits(),init_hasseen();
 extern void	combinearmies(),change_status(),reducearmy(),splitarmy();
@@ -647,7 +676,9 @@ extern void	budget(),change(),cheat(),coffmap(),combat(),construct();
 extern void	defattr(),diploscrn(),domagic(),draft(),erupt();
 extern void	fight();
 extern void	fill_edge(),flee(),fleetrpt(),hangup(),help();
-extern void	highlight(),makemap(),makeside();
+extern void	highlight(int x, int y, short hmode);
+extern void	makemap();
+extern void	makeside();
 extern void	makeworld(),monster(),moveciv();
 extern void	mymove(),navalcbt(),newdip(),newdisplay(),newlogin();
 extern void	newspaper(),npcredes(),offmap(),place(),populate();

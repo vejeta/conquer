@@ -1517,7 +1517,7 @@ register short nation;
 
 /* +100 if undefended sectors of nation, +60 if not */
 void
-n_undefended( nation )
+n_undefended(int nation )
 {
 	register int x,y;
 	for(x=stx;x<endx;x++) for(y=sty;y<endy;y++) if(sct[x][y].owner==nation){
@@ -1549,8 +1549,7 @@ int doadd;	/* TRUE if adding, FALSE if subtracting */
 
 /* +60 if between two capitols */
 void
-n_between(nation)
-int nation;
+n_between(int nation)
 {
 	int x1,x2,y1,y2,x,y;
 

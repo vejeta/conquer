@@ -976,9 +976,8 @@ char *event;
 	if(ispc(ntn[cntry].active)) mailclose(cntry);
 }
 
-int
-peasant_revolt(newnation)	/* peasant revolt */
-int	*newnation;		/* return nation id */
+void
+peasant_revolt(int *newnation)	/* peasant revolt */
 {
 	register int i,j;
 	int	armynum;

@@ -680,7 +680,7 @@ printf("I AM VERY CONFUSED - PLEASE HELP... combat.c\n");
 /*	CBONUS() - return combat bonuses for unit i			*/
 /************************************************************************/
 int
-cbonus(num)
+cbonus(int num)
 {
 	short	armynum;
 	int	armbonus;

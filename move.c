@@ -24,6 +24,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <curses.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
 

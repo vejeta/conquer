@@ -62,6 +62,7 @@ char *Mhelp[]= { "Population: Amount of citizens in your nation",
 	"Leaders: Number of leader units, including national ruler",
 	"Raw Materials: Starting values for jewels, metal, and food" };
 
+int nstartcst(void);
 extern int pwater;		/* percent water in world (0-100) */
 extern FILE *fexe, *fopen();
 extern short country;
@@ -368,7 +369,7 @@ newlogin(realuser)
 	long x;
 	char tempc[LINELTH];
 	char passwd[PASSLTH+1];
-	register i;
+	register int i;
 
 	/* setup curses display */
 	newinit();

@@ -894,10 +894,7 @@ help()
 
 /* routine to highlight a line for news display */
 /* if country name is mentioned.  By T. Kivinen */
-mvaddstrnahil(li,col,p)
-     int li;
-     int col;
-     char *p;
+void mvaddstrnahil(int li,int col,char *p)
 {
 	int i,j;
 	move(li,col);

@@ -202,9 +202,7 @@ newdisplay()
 
 /*see what is in xy as per display modes*/
 char
-get_display_for(x,y,dmode)
-	int x,y;
-	short dmode;
+get_display_for(int x,int y,short dmode)
 {
 	int armbonus;
 
@@ -345,7 +343,7 @@ get_display_for(x,y,dmode)
 }
 
 void
-see(x,y)
+see(int x,int y)
 {
 	char ch;
 	if((x<0)||(y<0)||(x>=SCREEN_X_SIZE)||(y>=SCREEN_Y_SIZE)
@@ -367,8 +365,7 @@ see(x,y)
 
 /*highlight what is in xy as per highlight mode*/
 void
-highlight(x,y,hmode)
-	short hmode;
+highlight(int x,int y,short hmode)
 {
 	int	armynum;
 	if((x<0)||(y<0)||(x>=SCREEN_X_SIZE)||(y>=SCREEN_Y_SIZE)

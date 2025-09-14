@@ -24,12 +24,11 @@
 #include <string.h>
 #include <curses.h>
 #include <ctype.h>
-#ifndef	XENIX
+#ifndef XENIX
 #include <sys/types.h>
 #include <sys/file.h>
-#else
-#include <unistd.h>
 #endif
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
 
@@ -142,7 +141,7 @@ update()
 /* returns attractiveness 					*/
 /****************************************************************/
 int
-attract(x,y,race)
+attract(int x,int y,int race)
 {
 	register struct s_sector	*sptr = &sct[x][y];
 	int	designation;

@@ -19,6 +19,50 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/* --- MODIFICATION IS REQUIRED OF THE FOLLOWING DEFINE STATEMENTS ---	*/
+#define OWNER	"Adam Bryant"	/* administrators name			*/
+#define LOGIN	"adb"		/* administrators login id. IMPORTANT!	*/
+                		/* only this UID may update.		*/
+/* #define SYSV		/* uncomment this line on a UNIX SYSV machine	*/
+#define BSD		/* uncomment this line on a BSD machine		*/
+/* #define HPUX		/* uncomment for HP-UNIX			*/
+/*#define XENIX		/* this plus SYSV for XENIX machines, untested  */
+#define SYSMAIL		/* if your system supports mail			*/
+			/* conquer will notify you about system mail	*/
+
+/* ------------------MODIFICATION IS OPTIONAL ON THE FOLLOWING----------*/
+#define SPOOLDIR "/usr/spool/mail"	/* location of mail spool	*/
+#define FILELOCK	/* if your system supports BSD flock()		*/
+			/* other file locking is not well implemented	*/
+/*#define LOCKF		/* in addition to FILELOCK if you have lockf    */
+			/* this is needed on NFS remote file systems    */
+#define TIMELOG		/* if your system has the date command		*/
+
+#define NTOTAL 25	/* max # of nations ( player + npc + monster )	*/
+#define MAXPTS	65	/* points for players to buy stuff with at start*/
+#define MAXARM	50	/* maximum number of armies per nation		*/
+#define MAXNAVY	10	/* maximum number of fleets per nation		*/
+#define PDEPLETE 30	/* % of armies/sectors depleted without Capitol	*/
+#define PFINDSCOUT 50	/* percentage chance for capturing scouts	*/
+
+#define RUNSTOP		/* defined to stop update if players are in	*/
+			/* game -- not recommended with automatic update*/
+#define TRADE		/* defined to allow commerce between nations	*/
+#define	TRADEPCT 75	/* percent of sectors with exotic trade goods	*/
+#define METALPCT 33	/* percent of tradegoods that are metals	*/
+#define JEWELPCT 33	/* percent of tradegoods that are luxury items	*/
+#define HIDELOC		/* defined if news is not to report sectors	*/
+#define OGOD		/* defined if you wish to enhance god powers.   */
+#define REMAKE		/* may make a world even if datafile exists.	*/
+			/* this allows demi-gods the ability to remake  */
+			/* their world.                                 */
+#define NOSCORE		/* only show full scores to god while in game	*/
+/* #define CHECKUSER */	/* only allow owner of nation to play it        */
+#define REVSPACE 5	/* allow for this many revolts in nation list   */
+#define LASTADD 5	/* last turn players may w/out password         */
+#define USERLOG		/* log users who play a nation                  */
+#define MASK 037	/* data file protection mask (umask)            */
+#define DERVDESG	/* allow DERVISH to redesignate in DESERT/ICE	*/
 #define MONSTER	45	/* defined if pirates/savages/nomads/lzard exist.
 			   represents # of sectors of land that need to be
 			   in world per pirate/savage/nomad nation	*/
@@ -27,7 +71,7 @@
 			   represents # of sectors of land that need to be
 			   in world per non-player character nation	*/
 #define CHEAT		/* npcs will cheat to keep up - this is a very weak
-			   form of cheating.  I use good npc algorithms 
+			   form of cheating.  I use good npc algorithms
 			   (i think... comments)			*/
 /*#define NPC_COUNT_ARMIES   /* defined if NPC nations can always count armies
 			   This makes them to cheat by seeing even VOID and
@@ -54,7 +98,7 @@
 #define BEEP		/* defined if you wish terminal to beep		*/
 #define HILIGHT		/* defined if terminals support inverse video	*/
 #define RANEVENT 15	/* comment out if you dont want random events
-			   weather, tax revolts, and volcanoes all are	
+			   weather, tax revolts, and volcanoes all are
 			   considered random events. 			*/
 #define PWEATHER 0	/* percent for weather disaster - unimplemented	*/
 #define	PREVOLT	25	/* %/turn that a revolt acutally occurs		*/
@@ -120,7 +164,7 @@
 #define FORTSTR		5	/* percent per fortress point in forts	*/
 #define TOWNSTR		5	/* percent per fortress point in towns	*/
 #define CITYSTR		8	/* percent per fortress point in city	*/
-#define	LATESTART	2	/* new player gets 1 point/LATESTART turns, 
+#define	LATESTART	2	/* new player gets 1 point/LATESTART turns,
 				   when they start late into the game	*/
 
 /*	starting values for mercenaries	*/
@@ -131,3 +175,4 @@
 #define ST_MDEF		40	/* mercenary defense bonus	*/
 
 #define VERSION "Version 4"	/* version number of the game	*/
+

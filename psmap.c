@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "psmap.h"
 
 char buffer[BUFSIZ];
@@ -316,9 +317,8 @@ buildps()
 	    }
 }
 
-main(argc, argv)
-    int argc;
-    char **argv;
+int
+main(int argc, char *argv[])
 {
     extern char *optarg;
     extern int optind;

@@ -23,8 +23,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <curses.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
+#include "trade.h"
 
 #ifdef TRADE		
 
@@ -784,9 +786,7 @@ long longval;
 }
 
 long
-gettval(cntry1,cntry2,type,longval,extint)
-int cntry1, cntry2, extint;
-long longval;
+gettval(int cntry1,int cntry2,int type,long longval,int extint)
 {
 	int returnval=(-1);
 	long armyvalue();
@@ -1047,8 +1047,7 @@ uptrade()
 
 /* remove a nations items from the trading board */
 void 
-fixtrade (cntry)
-int cntry;
+fixtrade (int cntry)
 {
 	FILE *tfile;
 	int holdint, notopen=FALSE;

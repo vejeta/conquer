@@ -28,6 +28,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #endif /*CONQUER*/
+#include <time.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
 

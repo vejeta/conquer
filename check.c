@@ -25,6 +25,7 @@
 #include	<sys/types.h>
 #include	<sys/stat.h>
 #endif
+#include <unistd.h>
 #include	"header.h"
 #include	"data.h"
 

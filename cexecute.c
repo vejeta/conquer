@@ -23,8 +23,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <curses.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
+
 extern long startgold;
 extern short country;
 extern FILE *fexe, *fnews;

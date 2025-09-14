@@ -71,13 +71,10 @@ FILE *infile, *outfile;
 #define UPPER(x) ((islower(x))?(toupper(x)):(x))
 
 int
-main(argc, argv)
-	int argc;
-	char *argv[];
+main(int argc, char *argv[])
 {
 	/* declare temporary variables and functions */
 	int i,j,num_args=0,l,innum=0,outnum=0;
-	FILE *fopen();
 	int get_line();
 	void place(), send_out();
 
@@ -201,8 +198,7 @@ main(argc, argv)
 
 /* routine to read all characters in until carriage returns */
 int
-get_line(data)
-	char data[];
+get_line(char data[])
 {
 	int in,ch;
 
@@ -223,7 +219,7 @@ get_line(data)
 
 /* routine to output entire sorted file to outfile */
 void
-send_out()
+send_out(void)
 {
 	L_PTR temp=head;
 
@@ -235,8 +231,7 @@ send_out()
 
 /* routine to sort list as it comes in */
 void
-place(data)
-	char data[];
+place(char data[])
 {
 	L_PTR temp, build_node();
 	int comp_line();
@@ -265,8 +260,7 @@ place(data)
 /*             -1 on a preceding b                   */
 /*              1 on a following b                   */
 int
-comp_line(a,b)
-	char *a,*b;
+comp_line(char *a, char *b)
 {
 	int i;
 
@@ -287,12 +281,9 @@ comp_line(a,b)
 /* create L_DATA structure containing a line of data */
 /* and the next value set to the given location      */
 L_PTR
-build_node(data, nptr)
-	char data[];
-	L_PTR nptr;
+build_node(char data[], L_PTR nptr)
 {
 	L_PTR temp;
-	char *strcpy();
 
 	/* build the memory space */
 	if((temp=(L_PTR)malloc(sizeof(L_DATA)))==(L_PTR)NULL) {

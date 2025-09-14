@@ -25,6 +25,7 @@
 #include <curses.h>
 #include <ctype.h>
 #include <pwd.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
 
@@ -807,7 +808,7 @@ rawmaterials() 		 /*PLACE EACH SECTOR'S RAW MATERIALS */
 
 /*fill: subroutine to fill in a square edges with land or sea*/
 void
-fill_edge(AX,AY)
+fill_edge(int AX,int AY)
 {
 /*      1)   water
  *      2)   water with major islands (25% land)
