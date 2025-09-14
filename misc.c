@@ -1,4 +1,25 @@
-/* Conquer: Copyright (c) 1988 by Edward M Barlow */
+/*
+ * misc.c - Miscellaneous utility functions
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,8 +29,11 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #endif /*CONQUER*/
+#include <time.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
+#include "trade.h"
 
 extern FILE *fnews;
 extern short country,redraw;
@@ -571,9 +595,7 @@ int	y;
 
 #ifdef CONQUER
 int
-units_in_sector(x,y,nation)
-int	x;
-int	y;
+units_in_sector(int x,int y,int nation)
 {
 	int count=0, armynum, nvynum;
 	struct	s_nation  *nptr = curntn;
@@ -1480,7 +1502,7 @@ int	class;
 char tmp_mail_name[LINELTH];
 
 int
-mailopen(to)
+mailopen(int to)
 {
 #ifdef CONQUER
 	char	line[LINELTH];
@@ -1541,7 +1563,7 @@ mailopen(to)
 }
 
 void
-mailclose(to)
+mailclose(int to)
 {
 	if(mailok==DONEMAIL) return;
 

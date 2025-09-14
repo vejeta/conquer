@@ -1,47 +1,23 @@
-/* conquer : Copyright (c) 1988, 1989 by Ed Barlow.	
-   MODIFICATION OF THIS FILE IMPLIES THAT THE MODIFIER WILL ACCEPT
-	A LIMITED USE COPYRIGHT AS FOLLOWS:
-
-
-	1) This software is copyrighted and protected by law. The
-		sole owner of this software, which hereafter is known as
-		"conquer" is Edward M. Barlow, who hereby grants you a
-		personal, non-exclusive right to use this software.
-		All rights on this software are reserved.
-	2) conquer may not be redistributed in any form. Any requests for
-		new software shall, for now, be the perogative of the author.
-	3) loss or damage caused by this software shall not be
-		the responsibility of the author.
-	4) Ed Barlow or Adam Bryant shall be notified of enhancements to this 
-		software via electronic mail and, if there is no response, via 
-		US mail to:
-
-			Ed Barlow
-			115 E 34ths St.
-			NY, NY 10016
-
-		My home phone is 212-679-1439. Use it sparingly and call
-		before 11PM if it is important.  Note that I no longer have
-		access to the arpanet and cant really support conquer like
-		I used to.  If somebody knows of a cheap (free) way of getting
-		a login somewhere where there is network access - HELP ME!!!!
-		Since i am "volunteering" my time for this project, I am not 
-		about to spend millions of dollars to buy network access...  
-		I can get a modem for my PC if somebody will help me get
-		something to call into. -ED-
-	5) no attempt shall be made to make any money from this game or to
-		use any portion of this code to make any money without the
-		authors permission.
-	6) no attempt shall be made to port this software to any form of 
-		personal computer without the permission of Ed Barlow.
-	7) you agree to use your best efforts to see that any user
-		of conquer complies with the terms and conditions stated above.
-	8) The above copyright agreement will not be tampered with in any form.
-
-
-   Special thanks to Brian Beuning, Adam Bryant, and any others who helped
-	me by making enhancements and bug reports	
-*/
+/*
+ * header.h - Game configuration constants and settings
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 /* --- MODIFICATION IS REQUIRED OF THE FOLLOWING DEFINE STATEMENTS ---	*/
 #define OWNER	"Adam Bryant"	/* administrators name			*/
@@ -95,7 +71,7 @@
 			   represents # of sectors of land that need to be
 			   in world per non-player character nation	*/
 #define CHEAT		/* npcs will cheat to keep up - this is a very weak
-			   form of cheating.  I use good npc algorithms 
+			   form of cheating.  I use good npc algorithms
 			   (i think... comments)			*/
 /*#define NPC_COUNT_ARMIES   /* defined if NPC nations can always count armies
 			   This makes them to cheat by seeing even VOID and
@@ -122,7 +98,7 @@
 #define BEEP		/* defined if you wish terminal to beep		*/
 #define HILIGHT		/* defined if terminals support inverse video	*/
 #define RANEVENT 15	/* comment out if you dont want random events
-			   weather, tax revolts, and volcanoes all are	
+			   weather, tax revolts, and volcanoes all are
 			   considered random events. 			*/
 #define PWEATHER 0	/* percent for weather disaster - unimplemented	*/
 #define	PREVOLT	25	/* %/turn that a revolt acutally occurs		*/
@@ -188,7 +164,7 @@
 #define FORTSTR		5	/* percent per fortress point in forts	*/
 #define TOWNSTR		5	/* percent per fortress point in towns	*/
 #define CITYSTR		8	/* percent per fortress point in city	*/
-#define	LATESTART	2	/* new player gets 1 point/LATESTART turns, 
+#define	LATESTART	2	/* new player gets 1 point/LATESTART turns,
 				   when they start late into the game	*/
 
 /*	starting values for mercenaries	*/
@@ -199,3 +175,4 @@
 #define ST_MDEF		40	/* mercenary defense bonus	*/
 
 #define VERSION "Version 4"	/* version number of the game	*/
+

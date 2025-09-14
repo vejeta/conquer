@@ -1,4 +1,23 @@
-/* conquer : Copyright (c) 1988 by Ed Barlow.	*/
+/*
+ * data.h - Data structures and function prototypes
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 /*--------I DO NOT BELIEVE IT IS NECESSARY TO ALTER THIS FILE----------------*/
 #define	FAIL	1		/* fail return to shell			*/
@@ -24,8 +43,8 @@
 #define	PART	1
 #define	FULL	2
 
-#define	SCREEN_X_SIZE	(( COLS - 21) / 2)	/* divide by two as only 1/2 
-						   sectors will be shown */
+#define	SCREEN_X_SIZE	(( COLS - 21) / 2)	/* divide by two as only 1/2
+						                       sectors will be shown */
 #define	SCREEN_Y_SIZE	( LINES - 5 )
 #define	HAS_SEEN(x,y)	hasseen[(x)+((y)*((COLS-10)/2))]
 #define	PASSLTH		7	/* the number of characters in the passwd*/
@@ -622,7 +641,10 @@ extern int	units_in_sector(), num_powers(), tofood(), mailopen();
 extern int	get_god(), flightcost(), todigit(), getclass(), startcost();
 extern int	water_2reachp(),tg_ok(), readmap(), avian();
 extern int	cbonus(), armymove(),takeover(),getnewname();
-extern int	getleader(),execute(),peasant_revolt(),other_revolt();
+extern int getleader();
+extern int execute();
+extern void peasant_revolt(int *newnation);
+extern int other_revolt(int *new);
 extern int	aretheyon(),armygoto(),navygoto(),getselunit();
 extern int	unitvalid(),access(),orctake(),fort_val();
 extern int	addgships(),addmships(),addwships(),fltships();
@@ -633,7 +655,7 @@ extern void	do_pirate(), do_nomad(), do_savage(), do_lizard();
 extern void	getjewel(),getmetal(),loadfleet(),removemgk(),exenewmgk();
 extern struct	s_sector *rand_sector();
 extern void	subgships(),submships(),subwships(),getspace(),sackem();
-extern void	sleep(), whatcansee(), reset_god(), get_nname(), camp_info();
+extern void	whatcansee(), reset_god(), get_nname(), camp_info();
 extern void	main(), makebottom(), makeside(), check_mail(), centermap();
 extern void	checkout(),copyscreen(),bye(),credits(),init_hasseen();
 extern void	combinearmies(),change_status(),reducearmy(),splitarmy();
@@ -654,7 +676,9 @@ extern void	budget(),change(),cheat(),coffmap(),combat(),construct();
 extern void	defattr(),diploscrn(),domagic(),draft(),erupt();
 extern void	fight();
 extern void	fill_edge(),flee(),fleetrpt(),hangup(),help();
-extern void	highlight(),makemap(),makeside();
+extern void	highlight(int x, int y, short hmode);
+extern void	makemap();
+extern void	makeside();
 extern void	makeworld(),monster(),moveciv();
 extern void	mymove(),navalcbt(),newdip(),newdisplay(),newlogin();
 extern void	newspaper(),npcredes(),offmap(),place(),populate();
@@ -665,6 +689,9 @@ extern void	see(),showscore(),update();
 extern void	wmessage(),writedata(),getdstatus(),exit();
 extern void	wizardry();
 extern	char	*crypt(),**m2alloc();
+#ifdef SPEW
+extern void makemess(int n, FILE *fp);
+#endif
 #ifdef TRADE
 void trade(),uptrade(),checktrade();
 #endif /* TRADE */

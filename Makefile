@@ -1,29 +1,29 @@
-#	conquer: Copyright (c) 1989 by Edward M Barlow
 #
-#	BY CHANGING THIS FILE, YOU AGREE TO ABIDE BY THE LIMITATIONS STATED IN
-#	THE LIMITED USE CONTRACT CONTAINED IN THE FILE "header.h"
+# Makefile - Build configuration and compilation rules
 #
-#	Make sure to set your desired configuration by
-#	editing the file "header.h".
+# This file is part of Conquer.
+# Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+# Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
 #
-#       This makefile has been modified to allow compilation using
-#       a parallelized make program.  It has been used successfully
-#       on an Encore Multimax parallel computer with both 4 and
-#       6 cpus.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#       It should pose no problems for non parallel makes.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-#       Please report any problems to adb@bucsf.bu.edu
-#				   or adb@bu-cs.bu.edu
-#
-#	Conquer news mailing list: conquer-news-request@bu-cs.bu.edu.
-#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 MAKE	= /usr/bin/make
 CC	= /usr/bin/gcc
 RM      = /bin/rm -f
 
 #	LN must be "ln -s" if source and default directories span disks
-LN	= /bin/ln
+LN	= /bin/ln -s
 CP	= /bin/cp
 NULL	= 2>/dev/null
 
@@ -67,7 +67,7 @@ SHARFLG = -D -c -l$(SHARLIM) -o$(SHARNAM)
 
 #
 #	libraries for BSD systems:
-LIBRARIES = -lcurses -ltermcap -lcrypt
+LIBRARIES = -lcurses -ltermcap
 #
 #	libraries for SYSV systems:
 #LIBRARIES = -lcurses
@@ -77,15 +77,15 @@ LIBRARIES = -lcurses -ltermcap -lcrypt
 
 #	CURRENT is this directory.  The directory where the source
 #	and Makefile are located
-CURRENT = /home/conquer/src
+CURRENT = $(HOME)/conquer/src
 
 #	DEFAULT is the directory where default nations & help files will be 
 #	stored.	 It is also the default directory = where players will play 
 #	if they do not use the -d option.
-DEFAULT = /home/conquer/lib
+DEFAULT = $(HOME)/conquer/lib
 
 #	This directory is where the executables will be stored
-EXEDIR = /home/conquer/bin
+EXEDIR = $(HOME)/conquer/bin
 
 #	Definitions used for compiling conquer
 CDEFS  = -DDEFAULTDIR=\"$(DEFAULT)\" -DEXEDIR=\"$(EXEDIR)\"
@@ -158,7 +158,7 @@ $(ADMIN):	$(AOBJS)
 	-$(RM) $(DAFILS) $(NULL)
 	@echo if the next command does not work you might also need -ltermcap
 	@echo === compiling administrative functions
-	$(CC) $(OPTFLG) -o $(ADMIN) $(AOBJS) $(LIBRARIES)
+	$(CC) $(OPTFLG) $(CDEFS) -o $(ADMIN) $(AOBJS) $(LIBRARIES)
 #	comment out the next line during debugging	
 	strip $(ADMIN)
 
@@ -220,9 +220,9 @@ install:	in$(GAME) in$(ADMIN) in$(SORT) in$(PSPROG) insthelp instman
 
 new_game:	all insthelp
 	@echo Installing new game
-	-mkdir $(EXEDIR) $(NULL)
-	-mkdir $(DEFAULT)  $(NULL)
-	-mkdir $(DEFAULT)/$(GAMEID) $(NULL)
+	-mkdir -p $(EXEDIR) $(NULL)
+	-mkdir -p $(DEFAULT)  $(NULL)
+	-mkdir -p $(DEFAULT)/$(GAMEID) $(NULL)
 	chmod 755 $(EXEDIR)
 	chmod 750 $(DEFAULT)/$(GAMEID) $(DEFAULT)
 	$(CP) $(GAME) $(ADMIN) $(SORT) $(PSPROG) $(PSDATA) $(EXEDIR)
@@ -286,14 +286,15 @@ $(HELPOUT)5:	$(HELP)5 $(HELPSCR).1 $(HELPSCR).2
 	cat $(HELP)5 | sed -f $(HELPSCR).1 | sed -f $(HELPSCR).2 > $(HELPOUT)5
 
 $(HELPSCR).1:	newhelp
-	newhelp
+	./newhelp
 
 $(HELPSCR).2:	newhelp
-	newhelp
+	./newhelp
 
 newhelp:	dataG.o	newhelp.o
 	$(CC) $(OPTFLG) dataG.o newhelp.o -o newhelp
 	strip newhelp
+
 #
 #	postscript map program
 PSOPTS  = -DPSFILE=\"$(EXEDIR)/$(PSDATA)\" -D$(PSPAGE)
@@ -316,44 +317,98 @@ cpio:
 	-$(RM) core
 	find . -name '*[CrpsEech]' -print | cpio -ocBv > cpiosv
 
-shar:	
+shar:
 	echo " lines   words chars   FILENAME" > MANIFEST
 	wc $(ALLFILS) >> MANIFEST
 	$(SHAR) $(SHARFLG) $(ALLFILS) MANIFEST
 
-.cA.o:	$<
-	( trap "" 0 1 2 3 4 ; $(LN) $*.c $*A.c ;\
-	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c $*A.c ;\
-	$(RM) $*A.c )
-
-.cG.o:	$<
-	( trap "" 0 1 2 3 4 ; $(LN) $*.c $*G.c ;\
-	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c $*G.c ;\
-	$(RM) $*G.c )
-
-.c.o:	$<
-#	compiles using both defines since they
-#	are needed for the data.h definitions for
-#	each file... but should not be needed for
-#	the actual C source file being compiled
+.c.o: $<
 	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -DCONQUER -c $*.c
 
-$(GOBJS):	data.h header.h
+# Explicit rules for ADMIN objects
 
-$(AOBJS):	data.h header.h
+cexecuteA.o: cexecute.c
+	$(RM) cexecuteA.c
+	$(LN) cexecute.c cexecuteA.c
+	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c cexecuteA.c -o cexecuteA.o
+	$(RM) cexecuteA.c
 
-ioG.o:	data.h header.h patchlevel.h io.c
+ioA.o: io.c
+	$(RM) ioA.c
+	$(LN) io.c ioA.c
+	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c ioA.c -o ioA.o
+	$(RM) ioA.c
 
-ioA.o:	data.h header.h patchlevel.h io.c
+miscA.o: misc.c
+	$(RM) miscA.c
+	$(LN) misc.c miscA.c
+	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c miscA.c -o miscA.o
+	$(RM) miscA.c
 
-newlogin.o:	data.h header.h newlogin.h patchlevel.h newlogin.c
+navyA.o: navy.c
+	$(RM) navyA.c
+	$(LN) navy.c navyA.c
+	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c navyA.c -o navyA.o
+	$(RM) navyA.c
 
-main.o:	data.h header.h patchlevel.h main.c
+magicA.o: magic.c
+	$(RM) magicA.c
+	$(LN) magic.c magicA.c
+	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c magicA.c -o magicA.o
+	$(RM) magicA.c
 
-newhelp.o:	data.h header.h patchlevel.h newhelp.c
+dataA.o: data.c
+	$(RM) dataA.c
+	$(LN) data.c dataA.c
+	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c dataA.c -o dataA.o
+	$(RM) dataA.c
 
-#	Clear suffixes
-.SUFFIXES:	
+tradeA.o: trade.c
+	$(RM) tradeA.c
+	$(LN) trade.c tradeA.c
+	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c tradeA.c -o tradeA.o
+	$(RM) tradeA.c
 
-#	Suffixes for conquer files.
-.SUFFIXES:	A.o G.o .c .h .o
+# Explicit rules for GAME objects
+cexecuteG.o: cexecute.c
+	$(RM) cexecuteG.c
+	$(LN) cexecute.c cexecuteG.c
+	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c cexecuteG.c -o cexecuteG.o
+	$(RM) cexecuteG.c
+
+ioG.o: io.c
+	$(RM) ioG.c
+	$(LN) io.c ioG.c
+	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c ioG.c -o ioG.o
+	$(RM) ioG.c
+
+miscG.o: misc.c
+	$(RM) miscG.c
+	$(LN) misc.c miscG.c
+	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c miscG.c -o miscG.o
+	$(RM) miscG.c
+
+navyG.o: navy.c
+	$(RM) navyG.c
+	$(LN) navy.c navyG.c
+	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c navyG.c -o navyG.o
+	$(RM) navyG.c
+
+magicG.o: magic.c
+	$(RM) magicG.c
+	$(LN) magic.c magicG.c
+	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c magicG.c -o magicG.o
+	$(RM) magicG.c
+
+dataG.o: data.c
+	$(RM) dataG.c
+	$(LN) data.c dataG.c
+	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c dataG.c -o dataG.o
+	$(RM) dataG.c
+
+tradeG.o: trade.c
+	$(RM) tradeG.c
+	$(LN) trade.c tradeG.c
+	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c tradeG.c -o tradeG.o
+	$(RM) tradeG.c
+

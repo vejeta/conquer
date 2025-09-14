@@ -1,33 +1,22 @@
 /*
- * sort.c
+ * sort.c - Data sorting utilities
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Written by Adam Bryant as a replacement for 'sort'
- * for use with the conquer program.  Note that it
- * is initially written with this program in mind and
- * will not have many features useful elsewhere.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * INITIAL FORMAT USES [YIELDS SAME RESULTS]:
- *
- *   standard in to standard out:
- *          'cat foo | conqsort > foonew'
- *   file input to standard output:
- *          'conqsort foo > foonew'
- *   file input to file output:
- *          'conqsort foo foonew'
- *
- * OR MAY EVEN OVERWRITE INITIAL FILE VIA:
- *
- *          'conqsort infoo infoo'
- *
- * Design Notes:
- *   - all of the file will have to be placed into memory;
- *   - to allow for any line length, space will be malloced()
- *      as it comes in.
- *
- * Initial Revision:		(adb@bucsf.bu.edu)
- *     Tuesday March 21th, 1989 - Began the program at 23:26 EST
- *     Wednesday March 22nd, 1989 - Finished the initial version 11:29 EST
- *     Wednesday July 5th, 1989 - Stopped use of sysexits.h 7:22 EST
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include <stdio.h>
@@ -82,13 +71,10 @@ FILE *infile, *outfile;
 #define UPPER(x) ((islower(x))?(toupper(x)):(x))
 
 int
-main(argc, argv)
-	int argc;
-	char *argv[];
+main(int argc, char *argv[])
 {
 	/* declare temporary variables and functions */
 	int i,j,num_args=0,l,innum=0,outnum=0;
-	FILE *fopen();
 	int get_line();
 	void place(), send_out();
 
@@ -212,8 +198,7 @@ main(argc, argv)
 
 /* routine to read all characters in until carriage returns */
 int
-get_line(data)
-	char data[];
+get_line(char data[])
 {
 	int in,ch;
 
@@ -234,7 +219,7 @@ get_line(data)
 
 /* routine to output entire sorted file to outfile */
 void
-send_out()
+send_out(void)
 {
 	L_PTR temp=head;
 
@@ -246,8 +231,7 @@ send_out()
 
 /* routine to sort list as it comes in */
 void
-place(data)
-	char data[];
+place(char data[])
 {
 	L_PTR temp, build_node();
 	int comp_line();
@@ -276,8 +260,7 @@ place(data)
 /*             -1 on a preceding b                   */
 /*              1 on a following b                   */
 int
-comp_line(a,b)
-	char *a,*b;
+comp_line(char *a, char *b)
 {
 	int i;
 
@@ -298,12 +281,9 @@ comp_line(a,b)
 /* create L_DATA structure containing a line of data */
 /* and the next value set to the given location      */
 L_PTR
-build_node(data, nptr)
-	char data[];
-	L_PTR nptr;
+build_node(char data[], L_PTR nptr)
 {
 	L_PTR temp;
-	char *strcpy();
 
 	/* build the memory space */
 	if((temp=(L_PTR)malloc(sizeof(L_DATA)))==(L_PTR)NULL) {

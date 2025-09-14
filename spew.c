@@ -1,505 +1,556 @@
 /*
- * SPEW.C
+ * spew.c - NPC message generation system
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef lint
-static char *cpr[]={
-"  Copyright 1987 Greg Smith",
-"  Permission is granted to freely use and distribute this software",
-"provided this notice is left attached and no monetary gain is made."
-};
-#endif
-
-/* This file has been adapted from the "spew" program by Paul Davison,
-   pd@cs.qmc.ac.uk, on 1st March 1989. It is part of the conquer game
-   and is subject to the same conditions of use as that game. 	*/
-
-/* This in no way supersceedes the copyright notice noted above */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <curses.h>
+#include <ctype.h>
 #include "header.h"
 #include "data.h"
+
 #ifdef SPEW
-#include <ctype.h>
-#include <strings.h>
 
-char *my_alloc();
-char *save();
-
-#if 0
-#ifdef BSD
-extern char	*index();	/* This may be strchr	*/
-extern char	*rindex();	/* This may be strrchr	*/
-#else
-#define index(s,c)	strchr(s,c)
-#define rindex(s,c)	strrchr(s,c)
-extern char	*strchr();	/* This may be index	*/
-extern char	*strrchr();	/* This may be rindex	*/
-#endif
-#endif
-
-/*--------------- system configuration ------------------*/
-
-/* define some parameters */
-
-#define MAXCLASS 300		/* max # of classes */
-#define MAXLINE 256		/* max size of input line */
-#define MAXDEF 1000		/* max # bytes in a definition */
-
-/* Define the default rulesfile */
+/* Configuration parameters */
+#define MAX_CLASSES 300
+#define MAX_LINE_LEN 256
+#define MAX_DEF_LEN 1000
+#define ESCAPE_CHAR '\\'
+#define DELIMITER_CHAR '/'
+#define VARIANT_CHAR '|'
 
 #ifndef DEFFILE
-# define DEFFILE "rules"
+#define DEFFILE "rules"
 #endif
 
-/* Define the random number generator */
+/* Random number generator macro */
+#define RANDOM(n) (rand() % (n))
 
-extern long getpid();
-	/* ROLL(n) returns integer 0..n-1 */
-#define ROLL(n) ((((long)rand()&0x7ffffff)>>5)%(n))
+/* Structure to hold a single definition within a class */
+struct definition {
+    int weight;                    /* cumulative weight for selection */
+    char *text;                   /* the actual text definition */
+    struct definition *next;      /* linked list pointer */
+};
 
-/*---------------------------------------------------*/
+/* Structure to hold a class of definitions */
+struct text_class {
+    char *name;                   /* name of this class */
+    char *variants;               /* string of variant tags */
+    int total_weight;             /* total weight of all definitions */
+    struct definition *defs;      /* linked list of definitions */
+};
 
-FILE *InFile;
+/* Global variables */
+static FILE *rules_file = NULL;
+static struct text_class *classes = NULL;
+static int num_classes = 0;
+static char input_line[MAX_LINE_LEN];
+static const char *default_variants = " ";
 
-typedef struct def_struct{
-	int cumul;			/* cumulative weights */
-	char *string;			/* string which defines it */
-	struct def_struct *next;	/* link to next */
-} defn;
-defn *process();
-/*
- * within a definition, names of subdefinitions are bracketed in BSLASH
- * and SLASH chars. The whole definition ends with a '\0'.
- * The SLASH character is always follwed by a variant tag - default is ' '.
+/* Function prototypes */
+static int load_rules_file(const char *filename);
+static int parse_class_header(const char *line, struct text_class *cls);
+static struct definition *parse_definition(const char *line);
+static struct text_class *find_class(const char *name, int name_len);
+static void generate_text(const char *class_spec, char variant_tag, FILE *output);
+static void cleanup_memory(void);
+static char *duplicate_string(const char *str);
+static int read_line(void);
+static int compare_classes(const void *a, const void *b);
+
+/**
+ * Main entry point for message generation
+ * @param count Number of messages to generate
+ * @param output File to write messages to
  */
-#define BSLASH '\\'
-#define SLASH  '/'
-#define VBAR	 '|'
-
-typedef struct{
-	int weight;	/* total weight of definitions in class */
-	defn *list;	/* list of them */
-	char *name;	/* name of this class */
-	char *tags;	/* pointer to list of tags */
-} classrec;
-
-classrec * Classptr;	/* pointer to array of class records */
-char *NullTags = " ";	/* default tags ( shared ) */
-int Classes;	/* number of them */
-int HowMany = 1;
-int CompIn = FALSE;	/* is input file in compressed format? */
-int CompMain;		/* class # of MAIN class when compressed */
-
-char InLine[MAXLINE];
-
-makemess(n,fp)
-int n;
-FILE *fp;
+void makemess(int count, FILE *output)
 {
-	char fname[BIGLTH];
-	char main_class[20];
-	int i;
-	HowMany = n;
+    char main_class[32];
+    int i;
 
-	/* read in only the rules file in defaultdir */
-	sprintf(fname, "%s/%s", DEFAULTDIR, DEFFILE);
-	InFile = fopen( fname, "r" );
-	if( InFile == NULL ){
-		fprintf( stderr, "Can\'t open: %s\n", fname );
-		exit(1);
-	}
-	init();
-	if( CompIn ) sprintf( main_class, "%d/ ", CompMain);
-	else	     strcpy( main_class, "MAIN/ ");
-		for(i=0; i<HowMany; ++i) display(main_class,' ',fp);
+    if (!output) {
+        fprintf(stderr, "Error: No output file provided\n");
+        return;
+    }
+
+    /* Try to load the rules file */
+    char filename[256];
+    snprintf(filename, sizeof(filename), "%s/%s", DEFAULTDIR, DEFFILE);
+
+    if (load_rules_file(filename) != 0) {
+        fprintf(stderr, "Error: Cannot load rules file: %s\n", filename);
+        return;
+    }
+
+    /* Generate the requested number of messages */
+    strcpy(main_class, "MAIN/ ");
+    for (i = 0; i < count; i++) {
+        generate_text(main_class, ' ', output);
+        if (i < count - 1) {
+            fprintf(output, "\n");
+        }
+    }
+
+    cleanup_memory();
 }
 
-init(){
-	readtext();
-}
-readtext(){
-	register classrec *cp;
-	register defn *dp;
-	defn **update;
-	int clcomp();
-
-	Classptr = (classrec *)my_alloc( (unsigned)(MAXCLASS * sizeof(classrec)) );
-	Classes = 0;
-
-	cp = Classptr;
-	readline();
-	if( InLine[0]!='%'){
-		fprintf( stderr,"Class definition expected at: %s\n", InLine);
-		exit(1);
-	}
-	while( InLine[1] != '%' ){
-		if( Classes == MAXCLASS ){
-			fprintf(stderr,"Too many classes -- max = %d\n", MAXCLASS);
-			exit(1);
-		}
-		setup( cp );		/* set up the class struct */
-		readline();
-		if( InLine[0] == '%' ){
-			fprintf( stderr, "Expected class instance at: %s\n", InLine);
-			exit(1);
-		}
-		update = &(cp->list);	/* update pointer */
-		do{
-			dp = process();
-			*update = dp;
-			cp->weight += dp->cumul;	/* add new stuff */
-			dp->cumul = cp->weight;		/* set breakpoint */
-			update = &(dp->next);
-		}while( readline(), InLine[0]!= '%' );
-		++Classes;		/* count them */
-		++cp;
-		*update = NULL;
-	}
-	qsort( (char*)Classptr, Classes, sizeof( classrec ), clcomp);
-}
-/*
- * display is given a class name ( delimited by SLASH, not '\0' ),
- * and will (1) find its class descriptor, by calling lookup
- * (2) pick a definition  (3) output that definition, and
- * recursively display any definitions in it, and convert any escapes.
- * The variant tag after the SLASH is used to pick out the appropriate
- * variants. If that variant tag is '&', the tag 'deftag' is used, which
- * is the active variant of the containing activation.
+/**
+ * Load and parse the rules file
  */
-display(s,deftag,fp)
-char *s;
-int deftag;
-FILE *fp;
+static int load_rules_file(const char *filename)
 {
-	register classrec *cp;
-	register defn *dp;
-	register char *p;
-	classrec *lookup();
-	int i,variant,incurly;
-	register int c,writing;
+    rules_file = fopen(filename, "r");
+    if (!rules_file) {
+        return -1;
+    }
 
-	if( CompIn ){		/* input is compressed */
-		cp = &Classptr[ atoi(s) ];		/* explicit class # */
-	}else{
-		cp = lookup(s);
-		if( cp == NULL ) {		/* none found */
-			fprintf(fp,"???");
-			while( *s != SLASH ) putc( *s++,fp );
-			fprintf(fp,"???");
-			return;
-		}
-	}
-	c = index(s,SLASH)[1];		/* get variant tag */
-	if( c != '&' ) deftag=c;	/* use given tag */
-	p = index(cp->tags, deftag);		/* look it up */
-	if(p == NULL ){
-		variant = 0;
-		fprintf(fp,"\?\?/%c\?\?", deftag );
-		deftag = ' ';		/* for passing as deftag */
-	}else variant = p - cp->tags;
+    /* Allocate memory for classes */
+    classes = calloc(MAX_CLASSES, sizeof(struct text_class));
+    if (!classes) {
+        fclose(rules_file);
+        return -1;
+    }
 
-	i = ROLL( cp->weight );
-	dp = cp->list;
-	while(dp->cumul <= i){	/* pick one based on cumul. weights */
-		dp = dp->next;
-	}
+    /* Read the first line - should start with '%' */
+    if (!read_line() || input_line[0] != '%') {
+        fprintf(stderr, "Error: Rules file must start with class definition\n");
+        fclose(rules_file);
+        return -1;
+    }
 
-	incurly = 0;		/* not in curlies */
-	writing = 1;		/* writing */
-	p = dp->string;		/* this is the string */
-	for(;;)switch(c = *p++){
-		case '\0': return;
-		case BSLASH:
-			if(( c = *p++) == '\0' ) return; /* ?? */
-			else if( c == '!' ){
-				 if(writing)putc('\n',fp); /* \! = newline */
-			}else if( isalnum(c) ){	/* reference */
-				if(writing)display(p-1,deftag,fp);  /* recurse */
-				while( *p!=SLASH )++p;
-				p += 2;		/* skip variant tag */
-			}else{
-				if(writing) putc(c,fp);
-			}
-			break;
-		case '{':
-			if( !incurly ){
-				incurly = 1;
-				writing = (variant == 0 );
-			}else{
-				if( writing )putc('{',fp);
-			}
-			break;
-		case VBAR:
-			if( incurly ){
-				writing = ( variant == incurly++ );
-			}else{
-				putc(VBAR,fp);
-			}
-			break;
-		case '}':
-			if( incurly ){
-				writing = 1;
-				incurly = 0;
-			}else putc('}',fp);
-			break;
-		default:
-			if( writing) putc(c,fp);
-	}
-}
-classrec *
-lookup( str )		/* delimited by SLASH, not '\0' */
-char *str;
-{
-	int first, last, try, comp;
-	int namecomp();
+    /* Parse all classes */
+    while (input_line[1] != '%') {
+        if (num_classes >= MAX_CLASSES) {
+            fprintf(stderr, "Error: Too many classes (max %d)\n", MAX_CLASSES);
+            fclose(rules_file);
+            return -1;
+        }
 
-	first = 0;
-	last = Classes-1;
-	while( first <= last ){
-		try = (first+last)>>1;
-		comp = namecomp( str, Classptr[try].name );
-		if( comp == 0 ) return &Classptr[try];
-		if( comp > 0 ) first = try+1;
-		else last = try-1;
-	}
-	return NULL;
-}
-int namecomp(a,b)	/* 'a' is delim. by SLASH, 'b' by NULL */
-register char *a,*b;
-{
-	register int ac;
-	for(;;){
-		ac = *a++;
-		if(ac == SLASH ) ac = '\0';
-		if( ac < *b ) return -1;
-		if( ac > *b++ ) return 1;
-		if( ac == '\0' ) return 0;
-	}
-}
-readline(){
-	register char *p;
-	do{
-		if( fgets( InLine, MAXLINE, InFile ) == NULL ){
-			InLine[0] = InLine[1] = '%';
-			InLine[2] = '\0';	/* create EOF */
-		}else if( (p=rindex( InLine, '\n'))!= NULL ) *p = '\0';
-		p = InLine;
-		while( (p = index( p, BSLASH )) != NULL ){
-			if(p[1] == '*' ){
-				*p = 0;	/* kill comment */
-				break;
-			}else ++p;
-		}
-	}while( InLine[0] == '\0' );
+        /* Parse class header */
+        if (parse_class_header(input_line, &classes[num_classes]) != 0) {
+            fclose(rules_file);
+            return -1;
+        }
+
+        /* Parse definitions for this class */
+        struct definition **def_ptr = &classes[num_classes].defs;
+        while (read_line() && input_line[0] != '%') {
+            struct definition *def = parse_definition(input_line);
+            if (!def) {
+                continue;
+            }
+
+            *def_ptr = def;
+            classes[num_classes].total_weight += def->weight;
+            def->weight = classes[num_classes].total_weight; /* Make cumulative */
+            def_ptr = &def->next;
+        }
+
+        num_classes++;
+    }
+
+    fclose(rules_file);
+
+    /* Sort classes by name for binary search */
+    qsort(classes, num_classes, sizeof(struct text_class), compare_classes);
+
+    return 0;
 }
 
-int clcomp(a,b)			
-register classrec *a,*b;
-{
-	if( a==b) return 0;
-	return strcmp( a->name, b->name );
-}
-char *save(str)
-char *str;
-{
-	register char *p;
-	p = (char *) my_alloc( (unsigned)((strlen(str)+1)*sizeof(char)));
-	return strcpy(p,str);
-}
-/*
- * setup a class record. The 'class' line is in InLine.
+/**
+ * Parse a class header line
  */
-setup(cp)
-register classrec *cp;
+static int parse_class_header(const char *line, struct text_class *cls)
 {
-	char temp[100];
-	register char *p,*p2;
+    static char temp_name[100];
+    static char temp_variants[100];
+    const char *p = line + 1; /* Skip the '%' */
+    char *name_ptr = temp_name;
 
-	p = &InLine[1];		/* point after the % */
-	while( *p == ' ' )++p;
-	if( !isalnum(*p) ) goto baddec;
-	p2 = temp;
-	do *p2++ = *p++; while( isalnum(*p));
-	*p2 = '\0';
-	cp->weight = 0;		/* save the name of it */
-	cp->name = save( temp );
-	cp->list = NULL;
-	cp->tags = NullTags;	/* by default */
-	for(;;)switch(*p++){
-	case '\0':
-		return;	/* all done; */
-	case ' ':
-		break;		/* allowed those */
-	case '{':		/* tags list */
-		if( cp->tags  != NullTags ) goto baddec; /* already */
-		p2 = temp;
-		*p2++ = ' ';	/* provide null tag */
-		while(*p!='}'){
-			if( !isalnum(*p)) goto baddec;
-			*p2++ = *p++;
-		}
-		++p;	/* junk rh brace */
-		*p2 = 0;
-		cp->tags = save(temp);
-		break;
-	default: goto baddec;
-	}
-  baddec:
-	fprintf(stderr,"Bad class header: %s\n", InLine );
-	exit(1);
+    /* Initialize the class */
+    cls->name = NULL;
+    cls->variants = (char *)default_variants;
+    cls->total_weight = 0;
+    cls->defs = NULL;
+
+    /* Skip whitespace */
+    while (*p == ' ') p++;
+
+    /* Extract class name */
+    if (!isalnum(*p)) {
+        fprintf(stderr, "Error: Invalid class name in: %s\n", line);
+        return -1;
+    }
+
+    while (isalnum(*p)) {
+        *name_ptr++ = *p++;
+    }
+    *name_ptr = '\0';
+    cls->name = duplicate_string(temp_name);
+
+    /* Look for variant tags */
+    while (*p) {
+        if (*p == ' ') {
+            p++;
+            continue;
+        } else if (*p == '{') {
+            p++;
+            char *var_ptr = temp_variants;
+            *var_ptr++ = ' '; /* Default variant */
+
+            while (*p && *p != '}') {
+                if (isalnum(*p)) {
+                    *var_ptr++ = *p;
+                }
+                p++;
+            }
+
+            if (*p == '}') p++;
+            *var_ptr = '\0';
+            cls->variants = duplicate_string(temp_variants);
+            break;
+        } else {
+            fprintf(stderr, "Error: Invalid class header: %s\n", line);
+            return -1;
+        }
+    }
+
+    return 0;
 }
-/*
- * create a 'processed' version of the InLine, and return a pointer to
- * the definition. The 'cumul' field is temporarily used to hold the
- * assigned weight of the line.
+
+/**
+ * Parse a definition line
  */
-defn *process(){
-	static char stuff[ MAXDEF ];
-	register char *p,*pout;
-	register defn *dp;
-	register int c;
-
-	dp = (defn *) my_alloc( (unsigned) sizeof( defn ));
-
-	p = InLine;
-	pout = stuff;
-	if( *p == '(' ){		/* get a weight */
-		while(*++p ==' ');	/* scan */
-		if(!isdigit(*p)) goto badweight;
-		c = *p - '0';
-		while(isdigit(*++p)) c = c*10 + (*p - '0' );
-		while( *p == ' ')++p;
-		if( *p != ')') goto badweight;
-		++p;
-		dp->cumul = c;
-	}else{
-		dp->cumul = 1;	/* default weight */
-	}
-	while((c = *p++)!='\0')switch(c){
-	case BSLASH:
-		*pout++ = BSLASH;
-		if( isalnum(*p)){	/* is a ref */
-			do{ *pout++ = *p++;
-			}while( isalnum(*p));
-			*pout++ = SLASH;		/* delimit */
-			if( *p == SLASH ){	/* get variant char */
-				++p;
-				if( !isalnum(*p)&& *p!= ' ' && *p!= '&' ){
-					*pout++ = ' ';
-				}else *pout++ = *p++;
-			}else *pout++ = ' ';
-		}else{
-			*pout++ = *p;
-			if( *p!= '\0'){
-				 ++p;
-			}else{
-				--pout;	/* delete spurious '\' */
-				readline();	/* get new line */
-				p = InLine;	/* point to it */
-			}
-		}
-		break;
-	default:
-		*pout++ = c;
-	}
-	*pout = '\0';
-	dp->string = save( stuff );
-	return dp;
-
-  badweight:
-	fprintf(stderr, "Bad line weight: %s\n", InLine );
-	exit(1);
-	/*NOTREACHED*/
-}
-
-char *my_alloc(n)
-unsigned n;
+static struct definition *parse_definition(const char *line)
 {
-	register char *p;
-	p = (char *) malloc( n );
-	if( p==NULL ){
-		fprintf(stderr, "Out Of Memory\n");
-		exit(1);
-	}
-	return p;
+    struct definition *def;
+    const char *p = line;
+    int weight = 1; /* default weight */
+    static char processed_text[MAX_DEF_LEN];
+    char *out = processed_text;
+
+    def = malloc(sizeof(struct definition));
+    if (!def) {
+        return NULL;
+    }
+
+    /* Check for weight specification */
+    if (*p == '(') {
+        p++;
+        while (*p == ' ') p++;
+
+        if (isdigit(*p)) {
+            weight = 0;
+            while (isdigit(*p)) {
+                weight = weight * 10 + (*p - '0');
+                p++;
+            }
+        }
+
+        while (*p == ' ') p++;
+        if (*p == ')') p++;
+    }
+
+    /* Process the text, handling escape sequences */
+    while (*p && (out - processed_text) < MAX_DEF_LEN - 10) {
+        if (*p == ESCAPE_CHAR) {
+            *out++ = ESCAPE_CHAR;
+            p++;
+            if (isalnum(*p)) {
+                /* Copy class reference */
+                while (isalnum(*p)) {
+                    *out++ = *p++;
+                }
+                *out++ = DELIMITER_CHAR;
+
+                /* Handle variant tag */
+                if (*p == DELIMITER_CHAR) {
+                    p++;
+                    if (isalnum(*p) || *p == ' ' || *p == '&') {
+                        *out++ = *p++;
+                    } else {
+                        *out++ = ' ';
+                    }
+                } else {
+                    *out++ = ' ';
+                }
+            } else if (*p == '!') {
+                /* Newline escape */
+                *out++ = '!';
+                p++;
+            } else if (*p) {
+                /* Other escapes */
+                *out++ = *p++;
+            }
+        } else {
+            *out++ = *p++;
+        }
+    }
+
+    *out = '\0';
+
+    def->weight = weight;
+    def->text = duplicate_string(processed_text);
+    def->next = NULL;
+
+    return def;
 }
 
-
-compdef(dp)
-register defn *dp;
+/**
+ * Find a class by name using binary search
+ */
+static struct text_class *find_class(const char *name, int name_len)
 {
-	register char *p;
-	register int c;
-	putw( dp-> cumul , stdout );	/* write its cumul weight */
-	p = dp->string;
-	while( (c = *p++) != '\0' ){
-		if( c==BSLASH){
-			if(!CompIn && isalnum(*p) ){	/* a ref */
-				classrec *cp;
-				cp = lookup(p);		/* find it */
-				if( cp == NULL ){
-					fprintf( stderr, "Undefined class: ");
-					while( *p != SLASH ) fputc( *p++, stderr);
-					fputc('\n', stderr );
-					exit(1);
-				}else{
-					printf("%c%d", BSLASH, cp-Classptr );
-					while( *p != SLASH ) ++p;
-				}
-			}else{		/* is escape seq */
-				putchar( BSLASH );
-				putchar( *p++ );
-			}
-		}else{
-			putchar(c);
-		}
-	}
-	putchar(0);
+    int low = 0, high = num_classes - 1;
+
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        int cmp = strncmp(name, classes[mid].name, name_len);
+
+        if (cmp == 0 && classes[mid].name[name_len] == '\0') {
+            return &classes[mid];
+        } else if (cmp < 0) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+
+    return NULL;
 }
 
-readcclass(cp)
-register classrec *cp;
+/**
+ * Generate text from a class specification
+ */
+static void generate_text(const char *class_spec, char default_variant, FILE *output)
 {
-	register int n;
-	register defn *dp;
-	defn **dput;
+    const char *slash_pos = strchr(class_spec, DELIMITER_CHAR);
+    if (!slash_pos) {
+        fprintf(output, "???%s???", class_spec);
+        return;
+    }
 
-	char store[MAXDEF];	/* for tags */
-	cp->weight = getw( InFile );
-	instring(store,MAXDEF);
-	cp->tags = ( store[0] == '\0' )? NullTags: save( store );
-	n = getw( InFile );
-	if( n<=0 ) badfile();
-	dput = &(cp->list);	/* link on here */
-	while(n--){
-		dp = (defn *)my_alloc( (unsigned) sizeof( defn));
-		*dput = dp;
-		dp->cumul = getw( InFile );
-		instring(store, MAXDEF );
-		dp->string = save( store );
-		dput = &(dp->next);
-	}
-	*dput = NULL;		/* last one */
+    int name_len = slash_pos - class_spec;
+    char variant_tag = slash_pos[1];
+    if (variant_tag == '&') {
+        variant_tag = default_variant;
+    }
+
+    /* Find the class */
+    struct text_class *cls = find_class(class_spec, name_len);
+    if (!cls) {
+        fprintf(output, "???");
+        fwrite(class_spec, 1, name_len, output);
+        fprintf(output, "???");
+        return;
+    }
+
+    /* Find variant index */
+    int variant_idx = 0;
+    if (cls->variants) {
+        const char *var_pos = strchr(cls->variants, variant_tag);
+        if (var_pos) {
+            variant_idx = var_pos - cls->variants;
+        }
+    }
+
+    /* Select a random definition */
+    if (cls->total_weight == 0) {
+        return;
+    }
+
+    int rand_val = RANDOM(cls->total_weight);
+    struct definition *def = cls->defs;
+    while (def && def->weight <= rand_val) {
+        def = def->next;
+    }
+
+    if (!def) {
+        return;
+    }
+
+    /* Process the definition text */
+    const char *p = def->text;
+    int in_variants = 0;
+    int writing = 1;
+    int current_variant = 0;
+
+    while (*p) {
+        if (*p == ESCAPE_CHAR) {
+            p++;
+            if (*p == '!') {
+                if (writing) {
+                    fprintf(output, "\n");
+                }
+                p++;
+            } else if (isalnum(*p)) {
+                /* Recursive class reference */
+                if (writing) {
+                    const char *start = p - 1;
+                    while (*p != DELIMITER_CHAR && *p) p++;
+                    if (*p == DELIMITER_CHAR) {
+                        p += 2; /* Skip delimiter and variant tag */
+                        char temp_spec[64];
+                        int spec_len = (p - start);
+                        if (spec_len < sizeof(temp_spec)) {
+                            memcpy(temp_spec, start, spec_len);
+                            temp_spec[spec_len] = '\0';
+                            generate_text(temp_spec, default_variant, output);
+                        }
+                    }
+                } else {
+                    /* Skip over the reference */
+                    while (*p != DELIMITER_CHAR && *p) p++;
+                    if (*p == DELIMITER_CHAR) p += 2;
+                }
+            } else if (*p) {
+                if (writing) {
+                    fputc(*p, output);
+                }
+                p++;
+            }
+        } else if (*p == '{') {
+            if (!in_variants) {
+                in_variants = 1;
+                writing = (variant_idx == 0);
+                current_variant = 0;
+            } else if (writing) {
+                fputc('{', output);
+            }
+            p++;
+        } else if (*p == VARIANT_CHAR) {
+            if (in_variants) {
+                current_variant++;
+                writing = (variant_idx == current_variant);
+            } else if (writing) {
+                fputc(VARIANT_CHAR, output);
+            }
+            p++;
+        } else if (*p == '}') {
+            if (in_variants) {
+                writing = 1;
+                in_variants = 0;
+            } else if (writing) {
+                fputc('}', output);
+            }
+            p++;
+        } else {
+            if (writing) {
+                fputc(*p, output);
+            }
+            p++;
+        }
+    }
 }
 
-instring( where, how_many )
-register char *where;
-register int how_many;
+/**
+ * Read a line from the rules file, skipping comments and empty lines
+ */
+static int read_line(void)
 {
-	register int c;
-	do{
-		c = getc( InFile );
-		if( c == EOF ) badfile();
-		*where++ = c;
-		if( c== '\0' ) return;
-	}while(--how_many);
-	badfile();
+    char *comment_pos;
+
+    do {
+        if (!fgets(input_line, MAX_LINE_LEN, rules_file)) {
+            strcpy(input_line, "%%"); /* EOF marker */
+            return 0;
+        }
+
+        /* Remove newline */
+        char *newline = strrchr(input_line, '\n');
+        if (newline) *newline = '\0';
+
+        /* Remove comments (marked by \*) */
+        comment_pos = strstr(input_line, "\\*");
+        if (comment_pos) {
+            *comment_pos = '\0';
+        }
+
+        /* Trim trailing whitespace */
+        int len = strlen(input_line);
+        while (len > 0 && isspace(input_line[len-1])) {
+            input_line[--len] = '\0';
+        }
+
+    } while (input_line[0] == '\0');
+
+    return 1;
 }
-badfile(){
-	fprintf(stderr,"Bad file format\n");
-	exit(1);
+
+/**
+ * Compare function for sorting classes by name
+ */
+static int compare_classes(const void *a, const void *b)
+{
+    const struct text_class *cls_a = (const struct text_class *)a;
+    const struct text_class *cls_b = (const struct text_class *)b;
+    return strcmp(cls_a->name, cls_b->name);
+}
+
+/**
+ * Duplicate a string
+ */
+static char *duplicate_string(const char *str)
+{
+    if (!str) return NULL;
+
+    int len = strlen(str);
+    char *copy = malloc(len + 1);
+    if (copy) {
+        strcpy(copy, str);
+    }
+    return copy;
+}
+
+/**
+ * Clean up allocated memory
+ */
+static void cleanup_memory(void)
+{
+    if (!classes) return;
+
+    for (int i = 0; i < num_classes; i++) {
+        free(classes[i].name);
+        if (classes[i].variants != default_variants) {
+            free(classes[i].variants);
+        }
+
+        struct definition *def = classes[i].defs;
+        while (def) {
+            struct definition *next = def->next;
+            free(def->text);
+            free(def);
+            def = next;
+        }
+    }
+
+    free(classes);
+    classes = NULL;
+    num_classes = 0;
+}
+
+#else
+/* If SPEW is not defined, provide stub implementation */
+void makemess(int count, FILE *output)
+{
+    /* Do nothing if SPEW is disabled */
 }
 #endif /* SPEW */

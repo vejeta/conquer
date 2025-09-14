@@ -1,32 +1,32 @@
-/*conquer : Copyright (c) 1988 by Ed Barlow.
- *  I spent a long time writing this code & I hope that you respect this.  
- *  I give permission to alter the code, but not to copy or redistribute
- *  it without my explicit permission.  If you alter the code, 
- *  please document changes and send me a copy, so all can have it.  
- *  This code, to the best of my knowledge works well,  but it is my first
- *  'C' program and should be treated as such.  I disclaim any
- *  responsibility for the codes actions (use at your own risk).  I guess
- *  I am saying "Happy gaming", and am trying not to get sued in the process.
- *                                                Ed
- */
-
 /*
- *  The following file "trade.c" was written by Adam Bryant who
- *  gives all rights to this code to Ed Barlow provided that this
- *  message remains intact.
+ * trade.c - Trade and commerce system
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/* thanks adam -- Ed */
-
-/*	trade.c		*/
-
-/*include files*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <curses.h>
+#include <unistd.h>
 #include "header.h"
 #include "data.h"
+#include "trade.h"
 
 #ifdef TRADE		
 
@@ -786,9 +786,7 @@ long longval;
 }
 
 long
-gettval(cntry1,cntry2,type,longval,extint)
-int cntry1, cntry2, extint;
-long longval;
+gettval(int cntry1,int cntry2,int type,long longval,int extint)
 {
 	int returnval=(-1);
 	long armyvalue();
@@ -1049,8 +1047,7 @@ uptrade()
 
 /* remove a nations items from the trading board */
 void 
-fixtrade (cntry)
-int cntry;
+fixtrade (int cntry)
 {
 	FILE *tfile;
 	int holdint, notopen=FALSE;

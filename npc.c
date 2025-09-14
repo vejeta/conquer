@@ -1,13 +1,22 @@
-/*conquer : Copyright (c) 1988 by Ed Barlow.
- *  I spent a long time writing this code & I hope that you respect this.
- *  I give permission to alter the code, but not to copy or redistribute
- *  it without my explicit permission.  If you alter the code,
- *  please document changes and send me a copy, so all can have it.
- *  This code, to the best of my knowledge works well,  but it is my first
- *  'C' program and should be treated as such.  I disclaim any
- *  responsibility for the codes actions (use at your own risk).  I guess
- *  I am saying "Happy gaming", and am trying not to get sued in the process.
- *                                                Ed
+/*
+ * npc.c - Non-player character AI and behavior
+ * 
+ * This file is part of Conquer.
+ * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include <stdio.h>
@@ -1508,7 +1517,7 @@ register short nation;
 
 /* +100 if undefended sectors of nation, +60 if not */
 void
-n_undefended( nation )
+n_undefended(int nation )
 {
 	register int x,y;
 	for(x=stx;x<endx;x++) for(y=sty;y<endy;y++) if(sct[x][y].owner==nation){
@@ -1540,8 +1549,7 @@ int doadd;	/* TRUE if adding, FALSE if subtracting */
 
 /* +60 if between two capitols */
 void
-n_between(nation)
-int nation;
+n_between(int nation)
 {
 	int x1,x2,y1,y2,x,y;
 
