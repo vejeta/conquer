@@ -742,7 +742,7 @@ This documentation follows the advice from Debian Legal discussions, specificall
 
 - **GNU Savannah task:** http://savannah.gnu.org/task/?5945
 - **Debian Legal discussion:** http://lists.debian.org/debian-legal/2006/10/msg00063.html
-- **Community validation:** http://preguntas.barrapunto.com/~vejeta/journal/22901
+- **Community validation:** https://web.archive.org/web/20180707202804/http://barrapunto.com/~vejeta/journal/22901
 
 ---
 

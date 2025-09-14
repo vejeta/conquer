@@ -63,7 +63,7 @@ The original code could be extracted and assembled from the original USENET mess
 ### Community Discussions
 
 **Asking on barrapunto about how to relicense it:**
-[Barrapunto discussion](http://preguntas.barrapunto.com/~vejeta/journal/22901)
+[Barrapunto discussion](https://web.archive.org/web/20180707202804/http://barrapunto.com/~vejeta/journal/22901)
 
 **About conquer and dominion:**
 - [Spanish Unix discussion](https://groups.google.com/group/es.comp.os.unix/browse_thread/thread/808b677b6af29aea/79a5a3abd161f7f1?q=conquer+vejeta+estrategia#79a5a3abd161f7f1)
