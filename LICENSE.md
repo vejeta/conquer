@@ -5,7 +5,8 @@
 This software is licensed under the **GNU General Public License v3.0 or later** (GPL-3.0-or-later).
 
 **Copyright (C) 1987-1988 Ed Barlow and Adam Bryant**  
-**Copyright (C) 2006-present Vejeta (GPL relicensing and maintenance)**
+**Copyright (C) 1989 Martin Forssen (MaF) - PostScript utilities**   
+**Copyright (C) 2006-present Vejeta (GPL relicensing and maintenance)**  
 
 See the full text of the GPL-3.0 license in the file `GPL-3.0.txt` included with this distribution, or visit: https://www.gnu.org/licenses/gpl-3.0.html
 
