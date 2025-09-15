@@ -1,4 +1,26 @@
+CONQPS.INFO - A program to convert conquer maps to postscript
 
+This file is part of Conquer.
+Originally Copyright (C) 1989 by Martin Forssen (MaF)
+Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original author
+
+Original author: Martin Forssen <d8forma@dtek.chalmers.se> (historical)
+Permission granted by: Martin Forssen <maf@recordedfuture.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+================================================================================
 
   Description
 
@@ -22,9 +44,9 @@ a LaserWriter II.
   c  Turns off printing of coordinates around the edge of the map.
 
   f fontname  Sets the font to 'fontname', you can use any font that is in your
-	      printer. Default is Times-Roman. The program also looks for
-	      the environment variable CONQ_PSFONT. The f option overrides
-	      both the default and the environment variable.
+          printer. Default is Times-Roman. The program also looks for
+          the environment variable CONQ_PSFONT. The f option overrides
+          both the default and the environment variable.
   
   g  Turns off printing of the grid at the unknown parts of the map.
 
@@ -41,24 +63,24 @@ a LaserWriter II.
 
   o x,y  If you want to print just a small part of a bigger map use this
          option. It makes conqps just to produce one page centered around
-	 coordinates x,y.
+     coordinates x,y.
 
   p type  Sets the type of paper you have in the printer. Possible values
-	  today are: A4 (European standard) LETTER (American standard) or
-	  OTHER (should be local standard). You shouldn't have to use this
-	  option since the person who maintains conquer at your site should
-	  have set the right papersize as default (This is done in the
-	  Makefile).
+      today are: A4 (European standard) LETTER (American standard) or
+      OTHER (should be local standard). You shouldn't have to use this
+      option since the person who maintains conquer at your site should
+      have set the right papersize as default (This is done in the
+      Makefile).
 
   s size  Sets the size of each square of the map. This is useful to get
-	  more map printed on fewer pages, but it will be smaller.
-	  Default value is 9.
+      more map printed on fewer pages, but it will be smaller.
+      Default value is 9.
 
   t string  Conqps tries to guess a nice title to the map for you. Normally
-	    this is something like 'Designation Map for Nation Midkemia on
-	    Turn 2' (this title is actually provided from the conquer program).
-	    If however you would like to have your own title shown, just use
-	    the t option, which replaces the default title with string.
+        this is something like 'Designation Map for Nation Midkemia on
+        Turn 2' (this title is actually provided from the conquer program).
+        If however you would like to have your own title shown, just use
+        the t option, which replaces the default title with string.
 
   u  Normally conqps put small pictures in some of your squares instead of
      just letters. This option forces conqps not to do this, but instead
@@ -68,21 +90,20 @@ a LaserWriter II.
      is and how big it will be on the printer.
 
   L,W,X,Y  If none of the paper types fits your needs you can alter the size
-	   directly with these options. All these options use one postscript
-	   point (1/72 inch) as their unit. L sets the length of the page.
-	   W sets the width. X sets the x coordinate for the leftmost viewable
-	   pixel on the output, and Y sets the y coordinate. These options
-	   are normally never used, instead you should experiment with
-	   the p option.
+       directly with these options. All these options use one postscript
+       point (1/72 inch) as their unit. L sets the length of the page.
+       W sets the width. X sets the x coordinate for the leftmost viewable
+       pixel on the output, and Y sets the y coordinate. These options
+       are normally never used, instead you should experiment with
+       the p option.
 
   Bugs
 
  Hopefully no.
 
-
   Comments
 
- If you have any comments or ideas mail them to d8forma@dtek.chalmers.se  .
+ For questions about this GPL v3 licensed version, contact the current maintainer.
+ For historical reference, original author was Martin Forssen (MaF).
 
-						MaF
-
+                   Originally by MaF, GPL v3 licensed with permission

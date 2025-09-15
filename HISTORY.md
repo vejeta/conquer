@@ -75,6 +75,12 @@ Conquer is a Middle Earth multi-player strategy game that was originally distrib
 
 The game's distribution method through USENET was typical of the era, when source code was shared across newsgroups and assembled by users from multiple parts posted sequentially.
 
+## PostScript Utilities
+
+Martin Forssen's PostScript utilities added professional map printing capabilities to Conquer, allowing players to generate high-quality printed maps suitable for PostScript printers. 
+
+This was particularly valuable in the era before widespread graphical user interfaces, providing a way to visualize the game state in print.
+
 ## Legacy
 
 This historical documentation preserves the timeline of one of the early multi-player computer games and demonstrates the evolution of open source software licensing practices. The successful relicensing effort by Vejeta (2006-2011) serves as an example of how legacy software can be preserved and made available to modern audiences under open source licenses.

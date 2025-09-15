@@ -721,6 +721,243 @@ lege partners will be happy with the news.</div>
 
 ---
 
+## Permission from Martin Forssen (2025)
+
+**Context:** Martin Forssen (MaF) was a contributor for psmap.c, psmap.h, psmap.ps and CONQPS.INFO, 
+a tool to convert conquer maps to postscript. Contact established in 2025, providing explicit GPL permission.
+
+**Key Quote:** *"Oh, that was a long time ago. But yes, that was me. And I have no problem
+with relicensing it to GPL."*
+
+### Complete Email Evidence
+
+```
+Delivered-To: vejeta@gmail.com
+Received: by 2002:a05:6214:3189:b0:771:2ea2:b9a5 with SMTP id lb9csp1064900qvb;
+        Sun, 14 Sep 2025 23:07:41 -0700 (PDT)
+X-Received: by 2002:a05:690c:6a87:b0:721:c0d:9dd9 with SMTP id 00721157ae682-7306609c65amr96296677b3.52.1757916461647;
+        Sun, 14 Sep 2025 23:07:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1757916461; cv=none;
+        d=google.com; s=arc-20240605;
+        b=jmKNV1niB+TRLg4cEsg6KS2TmlbvGECyvjY13X5HuxpVkqJwaBmVV6f+dwluGbxx1T
+         GkIz4Bqt6600qu0nbbzdDaqGHZOgf5KiBLy6koGZqxDmJPfR6xszCpsOEAIvU50glSMI
+         pQ9zKSfMoASQQ2LqktKM+Wrbm/X7Lwz8WlWrSIS9X11ndYHyia5ZZaTJY9cKmpJlg7Gf
+         7Dqc/Hy6q3jEH68pBWRhGb/Or0IExwfGgCD6vbvDjnN6HueW6frTa5Brqlcx178/RXFJ
+         iaYK7/Hhg9PaOo4jFef6p/dStMRyhN54IWDnjx3awNE9dPapZRjzw3yHymurRZsT0tFP
+         r6lQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=+JCYV0wGpX8SKyUGN6Rey2Qzp5qHgnZHagpNto9OweY=;
+        fh=21tBcJpjA6s6ZIz3rrnEJwEKqE4tqy4BRFXeBxNoNzE=;
+        b=Rx4NAn61KqmhWSAfoOlbPhju2/PvWUGou7Y3LGfO3fkxcQX6bGuO7BbPnKPMfVJg6w
+         QNZ0FjUhSSL2bXuIVqKMEnHo+HlXZh/Lll/F15HVF8uue+p3wTfc2JjUDMf4mHugXAtr
+         4bfnKJtTBQDzuA33eor/9i7pw9q6XrQz2jWF2ICLcgI0f5hHM2UZKWVnQ4FxJxpZXDU9
+         iIk7NYxtvoFf6Fa6mQztftrvw2NmPbPvZh3f8TrXO6665IcW1t1RL91c7oXnH0wvsfcS
+         MFmU3NCFUBV8gCrVouV4BZGsuUakkWnja5i7bNZI+P+pBvHUBDCdvGxwygx0RshRDezu
+         zCeQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@recordedfuture.com header.s=google header.b=IULv9xlC;
+       spf=pass (google.com: domain of maf@recordedfuture.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=maf@recordedfuture.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=recordedfuture.com;
+       dara=pass header.i=@gmail.com
+Return-Path: <maf@recordedfuture.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id 956f58d0204a3-629d23ab243sor2374253d50.14.2025.09.14.23.07.41
+        for <vejeta@gmail.com>
+        (Google Transport Security);
+        Sun, 14 Sep 2025 23:07:41 -0700 (PDT)
+Received-SPF: pass (google.com: domain of maf@recordedfuture.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@recordedfuture.com header.s=google header.b=IULv9xlC;
+       spf=pass (google.com: domain of maf@recordedfuture.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=maf@recordedfuture.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=recordedfuture.com;
+       dara=pass header.i=@gmail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=recordedfuture.com; s=google; t=1757916461; x=1758521261; dara=google.com;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+JCYV0wGpX8SKyUGN6Rey2Qzp5qHgnZHagpNto9OweY=;
+        b=IULv9xlCcYqjs2pFrAxu2GrkqxkV9hXj7AKDUmda+K8znW01PLGSZKsmWNcXYsLh7o
+         7mEsMMV848XUO0u0wfS/cj1JHKe/tmuufGyqEJkRaue/btaP91l+XUcydW523bcdqaP1
+         pHqC6ROmpF59Pyzr6Cr+4kvPSQ7OzCtco6fiQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757916461; x=1758521261;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+JCYV0wGpX8SKyUGN6Rey2Qzp5qHgnZHagpNto9OweY=;
+        b=wV9H0rZAZ13r3eIxJC6sUEjAnHVx57S22N0vh9FPGRmMKrIGaUvDp0xPl0oAK80/ik
+         k9XrVTyalGoybkMPOiY7KNRbbWVbxVFF839DwbPzOLZniHGH7P/eVh0x7yNEryHRtIbe
+         nuCjLR3CTRySGEmOpFj7haG21SuU3jcXiCeMyrzmK8QRdEFnhFoH7yn7SmZt1QYx/68g
+         +r2fy6UArA33sc2tM8Vf9uZnsBPc9VU8DoH/L6+EwOY3sBbOQJazM6w46egzYW/nQgyd
+         1kHwCR1UcPyGM08PTXbV3sGmfBWYMv6lOe2I0o6n3p/g57vbYH8cDHXJgSFUj4NL1mGq
+         fpvg==
+X-Gm-Message-State: AOJu0YxeLEigEXZPXsOXHqbdIF1p6t1prsTH+RQeVzmNTXbHkejWDO7g 6e9szXI78U4kUyhLM3uFZ/2W/x2C+LqDXu+R6zh/vS10XKaycNLn4f/PbRH4e1Qg2Zn9SLJbI5p /iwtJJ6M16OhwQWTQbbMpOgPKKcDwwGFGRTIQhJXsPQHqc2hJKJSRdWM=
+X-Gm-Gg: ASbGncu61X+w51VCht3BNt6nl5dyZYjjN5OtK2s/vle3OOylnkKwT7mPSd3U7S0ZxpC 0cE3A9pXc0HpON7rCoY3upf+Oc91aMZ4OtP6eL6LKQv0QYKQupxJcerGX4/u11vB1MX3AtfC+RF LTln1rDoEkXGEr/eMZTrJCZSEYwes+T1PDSxdyPB2KJEdpGzxqB8ZZ5Xu2O76ngvPcp7Evy9cXy JcmVCM11PGdLOj2Bx0=
+X-Google-Smtp-Source: AGHT+IGwD8DnYOX7m7E/6Eq1voDV1H6Rv82BDypfP6ozhLIuOk60SVc9XJmPl2wrAo+2ZfTbLERfdQatoRhEB77LvIs=
+X-Received: by 2002:a05:690e:159b:20b0:62b:3ee0:6d07 with SMTP id 956f58d0204a3-62b3ee06ed7mr5164533d50.3.1757916460625; Sun, 14 Sep 2025 23:07:40 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAPRyRFn3VcAakEuLsQkR5sCzpAR0O2S6_Ukf16YpkSCkX_MRVQ@mail.gmail.com> <CAPRyRFmoD4ixgCg7VLRcnVP=YqzKvV8Y0PHwaYxxfFju0zy1hQ@mail.gmail.com> <CAPRyRFkWo2UGRy3opRzni-0a5s8Ukvyo46Uwxa924L5A9DP5=A@mail.gmail.com>
+In-Reply-To: <CAPRyRFkWo2UGRy3opRzni-0a5s8Ukvyo46Uwxa924L5A9DP5=A@mail.gmail.com>
+From: Martin Forssen <maf@recordedfuture.com>
+Date: Mon, 15 Sep 2025 08:07:29 +0200
+X-Gm-Features: Ac12FXxmtXrXwDFXGs5SqsZZ3PSolUaHHISJz7kR1IPmMdeREAja53_PnM8KoCM
+Message-ID: <CAL3e5LtbasXXyGmBON5_aDJRMuJXhHhYCvk6p+Jo8-UOmPZpCw@mail.gmail.com>
+Subject: Re: Conquer (Unix computer game) relicensing
+To: Juan Mendez <vejeta@gmail.com>
+Content-Type: multipart/alternative; boundary="0000000000002e4f39063ed0d288"
+
+--0000000000002e4f39063ed0d288
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Oh, that was a long time ago. But yes, that was me. And I have no problem
+with relicensing it to GPL.
+
+    /MaF
+
+On Sun, Sep 14, 2025 at 12:38=E2=80=AFPM Juan Mendez <vejeta@gmail.com> wro=
+te:
+
+> Hi Martin, I am currently in the process of relicensing Conquer. Do
+> you remember that old game?
+>
+> I am a computer developer from Spain. I was a university student at
+> the beginning of the 90s.
+> I found your email by looking in
+> https://github.com/vejeta/conquer/blob/master/CONQPS.INFO
+>
+> Looking for the email address, I thought it might belong to you.
+> ```
+> d8forma@dtek.chalmers.se (Martin Fors sen)
+> ```
+> In case it is you, one of the contributors for the conqps utility, I
+> would like to contact you for having relicensing permissions to GPL
+> v3, otherwise, I will be removing the old code. Please, contact
+> me if you read this.
+>
+> I started the project of preserving the legacy of Conquer 20 years ago
+> by contacting Edward Barlow and Adam Bryant first, and finally, I
+> believe it is close to completion.
+>
+> Wishing you the best,
+>
+> Juan
+>
+> --
+> http://vejeta.com
+> Fidonet: 2:345/432.2
+> I'm an FSF member -- Help us support software freedom!
+> https://my.fsf.org/join?referrer=3D327575
+>
+>
+> --
+> http://vejeta.com
+> Fidonet: 2:345/432.2
+> I'm an FSF member -- Help us support software freedom!
+> https://my.fsf.org/join?referrer=3D327575
+>
+
+
+--=20
+
+Martin Forss=C3=A9n
+
+Director of Product Security
+
+Recorded Future <https://www.recordedfuture.com/>
+
++46 760 252357
+
+maf@recordedfuture.com
+
+--0000000000002e4f39063ed0d288
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Oh, that was a long time ago. But yes, that was me. A=
+nd I have no problem with relicensing it to GPL.</div><div><br></div><div>=
+=C2=A0 =C2=A0 /MaF</div></div><br><div class=3D"gmail_quote gmail_quote_con=
+tainer"><div dir=3D"ltr" class=3D"gmail_attr">On Sun, Sep 14, 2025 at 12:38=
+=E2=80=AFPM Juan Mendez &lt;<a href=3D"mailto:vejeta@gmail.com">vejeta@gmai=
+l.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex">Hi Martin, I am currently in the process of relicensing Conquer. Do<br=
+>
+you remember that old game?<br>
+<br>
+I am a computer developer from Spain. I was a university student at<br>
+the beginning of the 90s.<br>
+I found your email by looking in<br>
+<a href=3D"https://github.com/vejeta/conquer/blob/master/CONQPS.INFO" rel=
+=3D"noreferrer" target=3D"_blank">https://github.com/vejeta/conquer/blob/ma=
+ster/CONQPS.INFO</a><br>
+<br>
+Looking for the email address, I thought it might belong to you.<br>
+```<br>
+<a href=3D"mailto:d8forma@dtek.chalmers.se" target=3D"_blank">d8forma@dtek.=
+chalmers.se</a> (Martin Fors sen)<br>
+```<br>
+In case it is you, one of the contributors for the conqps utility, I<br>
+would like to contact you for having relicensing permissions to GPL<br>
+v3, otherwise, I will be removing the old code. Please, contact<br>
+me if you read this.<br>
+<br>
+I started the project of preserving the legacy of Conquer 20 years ago<br>
+by contacting Edward Barlow and Adam Bryant first, and finally, I<br>
+believe it is close to completion.<br>
+<br>
+Wishing you the best,<br>
+<br>
+Juan<br>
+<br>
+--<br>
+<a href=3D"http://vejeta.com" rel=3D"noreferrer" target=3D"_blank">http://v=
+ejeta.com</a><br>
+Fidonet: 2:345/432.2<br>
+I&#39;m an FSF member -- Help us support software freedom!<br>
+<a href=3D"https://my.fsf.org/join?referrer=3D327575" rel=3D"noreferrer" ta=
+rget=3D"_blank">https://my.fsf.org/join?referrer=3D327575</a><br>
+<br>
+<br>
+-- <br>
+<a href=3D"http://vejeta.com" rel=3D"noreferrer" target=3D"_blank">http://v=
+ejeta.com</a><br>
+Fidonet: 2:345/432.2<br>
+I&#39;m an FSF member -- Help us support software freedom!<br>
+<a href=3D"https://my.fsf.org/join?referrer=3D327575" rel=3D"noreferrer" ta=
+rget=3D"_blank">https://my.fsf.org/join?referrer=3D327575</a><br>
+</blockquote></div><div><br clear=3D"all"></div><br><span class=3D"gmail_si=
+gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
+iv dir=3D"ltr"><div><div dir=3D"ltr"><span><p dir=3D"ltr" style=3D"line-hei=
+ght:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:13.3333=
+px;font-family:Arial;color:rgb(0,0,0);font-weight:700;vertical-align:baseli=
+ne;white-space:pre-wrap;background-color:transparent">Martin Forss=C3=A9n</=
+span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bot=
+tom:0pt"><span style=3D"font-size:13.3333px;font-family:Arial;color:rgb(0,0=
+,0);font-style:italic;vertical-align:baseline;white-space:pre-wrap;backgrou=
+nd-color:transparent">Director of Product Security</span></p><p dir=3D"ltr"=
+ style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><a href=3D"htt=
+ps://www.recordedfuture.com/" style=3D"text-decoration:none" target=3D"_bla=
+nk"><span style=3D"font-size:13.3333px;font-family:Arial;text-decoration:un=
+derline;vertical-align:baseline;white-space:pre-wrap;background-color:trans=
+parent">Recorded Future</span></a><span style=3D"font-size:13.3333px;font-f=
+amily:Arial;color:rgb(0,0,0);vertical-align:baseline;white-space:pre-wrap;b=
+ackground-color:transparent"></span></p><p dir=3D"ltr" style=3D"line-height=
+:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:13.3333px;=
+font-family:Arial;color:rgb(0,0,0);vertical-align:baseline;white-space:pre-=
+wrap;background-color:transparent">+46 760 252357<br></span></p><p style=3D=
+"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-siz=
+e:13.3333px;font-family:Arial;color:rgb(0,0,0);vertical-align:baseline;whit=
+e-space:pre-wrap;background-color:transparent"><a href=3D"mailto:maf@record=
+edfuture.com" target=3D"_blank">maf@recordedfuture.com</a><br></span></p></=
+span></div></div></div></div>
+
+--0000000000002e4f39063ed0d288--
+```
+
+
 ## Legal Analysis and Validation
 
 ### Permission Summary
