@@ -53,9 +53,13 @@ short	dismode=2;
 /* nation id of owner*/
 short	country=0;
 struct	s_nation	*curntn;
-extern char datadir[];
-char scenario[256];
-//char defaultdir[256];
+
+/* External declaration for datadir which is defined in makeworl.c */
+extern char datadir[FILELTH];
+
+/* Note: scenario is already declared in data.h when ADMIN is defined */
+/* char scenario[256]; -- REMOVED to avoid conflict */
+
 #ifdef REMAKE
 int	remake=FALSE;
 #endif /*REMAKE*/

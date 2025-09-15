@@ -500,7 +500,7 @@ change()
 
 #ifdef OGOD
 	if(isgod==TRUE) mvaddstr(LINES-3,COLS/2-33,"HIT 8 TO DESTROY, 9 TO CHANGE COMMODITY OR '0' TO CHANGE DEMI-GOD");
-#else OGOD
+#else
 	if(isgod==TRUE) mvaddstr(LINES-3,COLS/2-24,"HIT 8 TO DESTROY NATION, OR '0' TO CHANGE DEMI-GOD");
 #endif /* OGOD */
 	else mvaddstr(LINES-3,COLS/2-14,"HIT ANY OTHER KEY TO CONTINUE");

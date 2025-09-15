@@ -19,16 +19,17 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 MAKE	= /usr/bin/make
-CC	= /usr/bin/gcc
+CC	    = /usr/bin/gcc
 RM      = /bin/rm -f
 
 #	LN must be "ln -s" if source and default directories span disks
-LN	= /bin/ln -s
+LN	= /bin/ln -sf
 CP	= /bin/cp
 NULL	= 2>/dev/null
 
 #	Flags to lint
-LTFLG   = -h -lcurses
+LTFLG   = -h -lcurse
+
 
 #	Options for the postscript map printing program.
 #	The file 'conqps.ps' will be installed in the EXEDIR
@@ -66,8 +67,11 @@ SHARFLG = -D -c -l$(SHARLIM) -o$(SHARNAM)
 #GETOPT	= getopt.o
 
 #
+#   libraries for Linux systems:
+LIBRARIES = -lncurses -lcrypt
+#
 #	libraries for BSD systems:
-LIBRARIES = -lcurses -ltermcap
+#LIBRARIES = -lcurses -ltermcap -lcrypt
 #
 #	libraries for SYSV systems:
 #LIBRARIES = -lcurses
@@ -77,10 +81,11 @@ LIBRARIES = -lcurses -ltermcap
 
 #	CURRENT is this directory.  The directory where the source
 #	and Makefile are located
+
 CURRENT = $(HOME)/conquer/src
 
-#	DEFAULT is the directory where default nations & help files will be 
-#	stored.	 It is also the default directory = where players will play 
+#	DEFAULT is the directory where default nations & help files will be
+#	stored.	 It is also the default directory = where players will play
 #	if they do not use the -d option.
 DEFAULT = $(HOME)/conquer/lib
 
@@ -91,7 +96,11 @@ EXEDIR = $(HOME)/conquer/bin
 CDEFS  = -DDEFAULTDIR=\"$(DEFAULT)\" -DEXEDIR=\"$(EXEDIR)\"
 
 #	Options flag used for normal compilation
-OPTFLG  = -O 
+#OPTFLG  = -O  # Old flags 1989
+OPTFLG = -g -fno-strict-aliasing -fwrapv -Wall -Wextra -O2 # Modern flags 2025
+## Insert current user as LOGIN definition. LOGIN is used in header.h
+OPTFLG += -DLOGIN=\"$(shell whoami)\"
+
 
 #	Options flag used for debugging purposes
 #	[make sure to comment out 'strip' commands in install section]
@@ -185,33 +194,33 @@ clean:
 	$(RM) *.o lint[ag] conquer.doc $(NULL)
 
 in$(GAME):	$(GAME)
+	-mkdir -p $(EXEDIR) $(NULL)
 	-$(RM) $(EXEDIR)/$(GAME)
 	mv $(GAME) $(EXEDIR)
 	chmod 4751 $(EXEDIR)/$(GAME)
-	touch $(GAME)
 	touch in$(GAME)
 
 in$(ADMIN):	$(ADMIN)
+	-mkdir -p $(EXEDIR) $(NULL)
 	-$(RM) $(EXEDIR)/$(ADMIN)
 	mv $(ADMIN) $(EXEDIR)
 	chmod 4751 $(EXEDIR)/$(ADMIN)
-	touch $(ADMIN)
 	touch in$(ADMIN)
 
 in$(SORT):	$(SORT)
+	-mkdir -p $(EXEDIR) $(NULL)
 	-$(RM) $(EXEDIR)/$(SORT)
 	mv $(SORT) $(EXEDIR)
 	chmod 751 $(EXEDIR)/$(SORT)
-	touch $(SORT)
 	touch in$(SORT)
 
 in$(PSPROG):	$(PSPROG)
+	-mkdir -p $(EXEDIR) $(NULL)
 	-$(RM) $(EXEDIR)/$(PSPROG)
 	mv $(PSPROG) $(EXEDIR)
 	$(CP) $(PSDATA) $(EXEDIR)
 	chmod 751 $(EXEDIR)/$(PSPROG)
 	chmod 644 $(EXEDIR)/$(PSDATA)
-	touch $(PSPROG)
 	touch in$(PSPROG)
 
 install:	in$(GAME) in$(ADMIN) in$(SORT) in$(PSPROG) insthelp instman
@@ -239,22 +248,18 @@ new_game:	all insthelp
 
 insthelp:	helpfile
 	@echo Installing helpfiles
-	-$(RM) $(DEFAULT)/$(HELPOUT)0
-	-$(LN) $(CURRENT)/$(HELPOUT)0 $(DEFAULT)/$(HELPOUT)0
-	-$(RM) $(DEFAULT)/$(HELPOUT)1
-	-$(LN) $(CURRENT)/$(HELPOUT)1 $(DEFAULT)/$(HELPOUT)1
-	-$(RM) $(DEFAULT)/$(HELPOUT)2
-	-$(LN) $(CURRENT)/$(HELPOUT)2 $(DEFAULT)/$(HELPOUT)2
-	-$(RM) $(DEFAULT)/$(HELPOUT)3
-	-$(LN) $(CURRENT)/$(HELPOUT)3 $(DEFAULT)/$(HELPOUT)3
-	-$(RM) $(DEFAULT)/$(HELPOUT)4
-	-$(LN) $(CURRENT)/$(HELPOUT)4 $(DEFAULT)/$(HELPOUT)4
-	-$(RM) $(DEFAULT)/$(HELPOUT)5
-	-$(LN) $(CURRENT)/$(HELPOUT)5 $(DEFAULT)/$(HELPOUT)5
+	-mkdir -p $(DEFAULT) $(NULL)
+	$(CP) $(HELPOUT)0 $(DEFAULT)/$(HELPOUT)0
+	$(CP) $(HELPOUT)1 $(DEFAULT)/$(HELPOUT)1
+	$(CP) $(HELPOUT)2 $(DEFAULT)/$(HELPOUT)2
+	$(CP) $(HELPOUT)3 $(DEFAULT)/$(HELPOUT)3
+	$(CP) $(HELPOUT)4 $(DEFAULT)/$(HELPOUT)4
+	$(CP) $(HELPOUT)5 $(DEFAULT)/$(HELPOUT)5
 	touch insthelp
 
 instman:
 	@echo Installing man pages
+	-mkdir -p $(EXEDIR) $(NULL)
 	$(CP) man.pag $(EXEDIR)
 
 helpfile:	$(HELPOUT)0 $(HELPOUT)1 $(HELPOUT)2 $(HELPOUT)3 $(HELPOUT)4 $(HELPOUT)5
@@ -294,7 +299,6 @@ $(HELPSCR).2:	newhelp
 newhelp:	dataG.o	newhelp.o
 	$(CC) $(OPTFLG) dataG.o newhelp.o -o newhelp
 	strip newhelp
-
 #
 #	postscript map program
 PSOPTS  = -DPSFILE=\"$(EXEDIR)/$(PSDATA)\" -D$(PSPAGE)
@@ -317,98 +321,44 @@ cpio:
 	-$(RM) core
 	find . -name '*[CrpsEech]' -print | cpio -ocBv > cpiosv
 
-shar:
+shar:	
 	echo " lines   words chars   FILENAME" > MANIFEST
 	wc $(ALLFILS) >> MANIFEST
 	$(SHAR) $(SHARFLG) $(ALLFILS) MANIFEST
 
-.c.o: $<
+.cA.o:	$<
+	( trap "" 0 1 2 3 4 ; $(LN) $*.c $*A.c ;\
+	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c $*A.c ;\
+	$(RM) $*A.c )
+
+.cG.o:	$<
+	( trap "" 0 1 2 3 4 ; $(LN) $*.c $*G.c ;\
+	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c $*G.c ;\
+	$(RM) $*G.c )
+
+.c.o:	$<
+#	compiles using both defines since they
+#	are needed for the data.h definitions for
+#	each file... but should not be needed for
+#	the actual C source file being compiled
 	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -DCONQUER -c $*.c
 
-# Explicit rules for ADMIN objects
+$(GOBJS):	data.h header.h
 
-cexecuteA.o: cexecute.c
-	$(RM) cexecuteA.c
-	$(LN) cexecute.c cexecuteA.c
-	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c cexecuteA.c -o cexecuteA.o
-	$(RM) cexecuteA.c
+$(AOBJS):	data.h header.h
 
-ioA.o: io.c
-	$(RM) ioA.c
-	$(LN) io.c ioA.c
-	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c ioA.c -o ioA.o
-	$(RM) ioA.c
+ioG.o:	data.h header.h patchlevel.h io.c
 
-miscA.o: misc.c
-	$(RM) miscA.c
-	$(LN) misc.c miscA.c
-	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c miscA.c -o miscA.o
-	$(RM) miscA.c
+ioA.o:	data.h header.h patchlevel.h io.c
 
-navyA.o: navy.c
-	$(RM) navyA.c
-	$(LN) navy.c navyA.c
-	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c navyA.c -o navyA.o
-	$(RM) navyA.c
+newlogin.o:	data.h header.h newlogin.h patchlevel.h newlogin.c
 
-magicA.o: magic.c
-	$(RM) magicA.c
-	$(LN) magic.c magicA.c
-	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c magicA.c -o magicA.o
-	$(RM) magicA.c
+main.o:	data.h header.h patchlevel.h main.c
 
-dataA.o: data.c
-	$(RM) dataA.c
-	$(LN) data.c dataA.c
-	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c dataA.c -o dataA.o
-	$(RM) dataA.c
+newhelp.o:	data.h header.h patchlevel.h newhelp.c
 
-tradeA.o: trade.c
-	$(RM) tradeA.c
-	$(LN) trade.c tradeA.c
-	$(CC) $(OPTFLG) $(CDEFS) -DADMIN -c tradeA.c -o tradeA.o
-	$(RM) tradeA.c
+#	Clear suffixes
+.SUFFIXES:	
 
-# Explicit rules for GAME objects
-cexecuteG.o: cexecute.c
-	$(RM) cexecuteG.c
-	$(LN) cexecute.c cexecuteG.c
-	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c cexecuteG.c -o cexecuteG.o
-	$(RM) cexecuteG.c
-
-ioG.o: io.c
-	$(RM) ioG.c
-	$(LN) io.c ioG.c
-	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c ioG.c -o ioG.o
-	$(RM) ioG.c
-
-miscG.o: misc.c
-	$(RM) miscG.c
-	$(LN) misc.c miscG.c
-	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c miscG.c -o miscG.o
-	$(RM) miscG.c
-
-navyG.o: navy.c
-	$(RM) navyG.c
-	$(LN) navy.c navyG.c
-	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c navyG.c -o navyG.o
-	$(RM) navyG.c
-
-magicG.o: magic.c
-	$(RM) magicG.c
-	$(LN) magic.c magicG.c
-	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c magicG.c -o magicG.o
-	$(RM) magicG.c
-
-dataG.o: data.c
-	$(RM) dataG.c
-	$(LN) data.c dataG.c
-	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c dataG.c -o dataG.o
-	$(RM) dataG.c
-
-tradeG.o: trade.c
-	$(RM) tradeG.c
-	$(LN) trade.c tradeG.c
-	$(CC) $(OPTFLG) $(CDEFS) -DCONQUER -c tradeG.c -o tradeG.o
-	$(RM) tradeG.c
-
+#	Suffixes for conquer files.
+.SUFFIXES:	A.o G.o .c .h .o

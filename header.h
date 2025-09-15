@@ -20,8 +20,10 @@
  */
 
 /* --- MODIFICATION IS REQUIRED OF THE FOLLOWING DEFINE STATEMENTS ---	*/
-#define OWNER	"Adam Bryant"	/* administrators name			*/
-#define LOGIN	"adb"		/* administrators login id. IMPORTANT!	*/
+#define OWNER	"God"	/* administrators name			*/
+#ifndef LOGIN
+#define LOGIN "defaultuser" /* administrators login id. IMPORTANT!	*/
+#endif
                 		/* only this UID may update.		*/
 /* #define SYSV		/* uncomment this line on a UNIX SYSV machine	*/
 #define BSD		/* uncomment this line on a BSD machine		*/
@@ -57,7 +59,7 @@
 			/* this allows demi-gods the ability to remake  */
 			/* their world.                                 */
 #define NOSCORE		/* only show full scores to god while in game	*/
-/* #define CHECKUSER */	/* only allow owner of nation to play it        */
+#define CHECKUSER 	/* only allow owner of nation to play it        */
 #define REVSPACE 5	/* allow for this many revolts in nation list   */
 #define LASTADD 5	/* last turn players may w/out password         */
 #define USERLOG		/* log users who play a nation                  */
