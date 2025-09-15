@@ -21,6 +21,8 @@ See the full text of the GPL-3.0 license in the file `GPL-3.0.txt` included with
 
 2. **Adam Bryant (2011):** *"Just wanted to confirm that I had no issues with publication of version 4 of Conquer under the GPL."* - Confirmed permission to release under GPL.
 
+3. **Martin Forssen (MaF) (2025):** *"And I have no problem with relicensing it to GPL."* - Granted permission to relicense under GPL.
+
 ### Legal Documentation
 
 **⚠️ COMPLETE EMAIL EVIDENCE:** The full, unedited email correspondence containing the explicit relicensing permissions from both original authors is preserved in [`RELICENSING-PERMISSIONS.md`](RELICENSING-PERMISSIONS.md) for legal compliance and transparency.
@@ -40,7 +42,8 @@ You should have received a copy of the GNU General Public License along with thi
 - Original USENET posts and historical references can be found in [`HISTORY.md`](HISTORY.md)
 - The relicensing process began in 2006 when Vejeta contacted the original authors
 - This relicensing effort was discussed on Debian Legal mailing lists and other forums
-- All source code extraction and compilation from original USENET posts was performed by the maintainer
+- All source code extraction and compilation from original USENET posts was performed by the maintainer and **quixadhal (Dread Quixadhal)** - https://github.com/quixadhal
+- PostScript utilities by Martin Forssen were relicensed in 2025
 
 ## Files in This Repository
 
@@ -54,6 +57,6 @@ You should have received a copy of the GNU General Public License along with thi
 
 **Repository Maintainer:** Juan Manuel Méndez Rey (Vejeta)
 **Relicensing Contact:** vejeta@gmail.com  
-**Last Updated:** 13th September 2025
+**Last Updated:** 15th September 2025
 
 **For complete legal documentation:** See [`RELICENSING-PERMISSIONS.md`](RELICENSING-PERMISSIONS.md)

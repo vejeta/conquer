@@ -19,6 +19,17 @@ This file lists the contributors to the Conquer game project.
 - Active in USENET community discussions
 - Copyright holder (1987-1988)
 
+## Additional Original Contributors (1989)
+** Martin Forssen (MaF)** <d8forma@dtek.chalmers.se> (historical)> / <maf@recordedfuture.com> (current)
+*PostScript utilities author*
+
+- Created psmap.c - PostScript map generator for Conquer
+- Developed CONQPS.INFO documentation and utilities
+- Created PostScript visualization components
+- Original "Feel free to hack" licensing approach
+- Copyright holder for PostScript utilities (1989)
+- Granted GPL v3 relicensing permission (2025)
+
 ## Historical Context
 
 The original Conquer was developed during the late 1980s when source code was commonly distributed through USENET newsgroups. Both authors contributed significantly to early computer gaming and open source distribution methods.
@@ -78,6 +89,7 @@ The original Conquer was developed during the late 1980s when source code was co
 - **Juan Manuel Méndez Rey (Vejeta)**: Legal coordination, author contact, documentation
 - **Ed Barlow**: Permission granting, historical clarification
 - **Adam Bryant**: Permission confirmation, copyright clarification
+- **Martin Forssen**: PostScript utilities, relicensing permission (2025)
 
 ### Current Era (2011-present)
 - **Vejeta**: Primary maintainer, documentation, community coordination

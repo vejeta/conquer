@@ -1,10 +1,13 @@
 /*
- * psmap.c - Game functionality module
- * 
+ * psmap.c - A program to convert conquer-maps to postscript
+ *
  * This file is part of Conquer.
- * Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
- * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original authors
- * 
+ * Originally Copyright (C) 1989 by Martin Forssen (MaF)
+ * Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta) - Licensed under GPL v3 with permission from original author
+ *
+ * Original author: Martin Forssen <d8forma@dtek.chalmers.se> (historical)
+ * Permission granted by: Martin Forssen <maf@recordedfuture.com>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
