@@ -40,7 +40,7 @@
 			/* this is needed on NFS remote file systems    */
 #define TIMELOG		/* if your system has the date command		*/
 
-#define NTOTAL 25	/* max # of nations ( player + npc + monster )	*/
+#define NTOTAL 35	/* max # of nations ( player + npc + monster )	*/
 #define MAXPTS	65	/* points for players to buy stuff with at start*/
 #define MAXARM	50	/* maximum number of armies per nation		*/
 #define MAXNAVY	10	/* maximum number of fleets per nation		*/
