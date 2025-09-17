@@ -333,7 +333,7 @@ char	**argv;
 	if ((checkuser_mod) || (checkuser_list)) {
 		if ((owneruid == (getpwnam(LOGIN))->pw_uid) ||
         	    (owneruid == (getpwnam(ntn[0].leader))->pw_uid)) {
-			/* don't change - already set */	
+			/* don't change - already set */
 		}
 		else {
 			checkuser_mod = FALSE;
@@ -342,11 +342,8 @@ char	**argv;
 		      	exit(FAIL);
 		}
 	}
-#else
-		fprintf (stderr,"CHECKUSER not on\n");
-		exit (FAIL);
 #endif
-	country=(-1);
+       country=(-1);
 	for(i=0;i<NTOTAL;i++)
 	if(strcmp(name,ntn[i].name)==0) {
 		country=i;
