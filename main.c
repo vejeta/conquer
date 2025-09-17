@@ -305,7 +305,9 @@ char	**argv;
 		if (pflag != FALSE)
 			fprintf(stderr,"Display map for what nation: ");
 		else fprintf(stderr,"What nation would you like to be: ");
-		gets(name);
+		if (fgets(name, NAMELTH+1, stdin) != NULL) {
+				name[strcspn(name, "\n")] = '\0';
+		}
 	}
 #ifdef OGOD
 	if(strcmp(name,"god")==0 || strcmp(name,"unowned")==0) {
