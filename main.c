@@ -287,7 +287,8 @@ char	**argv;
 		(void) setuid (geteuid ()) ;
 	}
 
-	fprintf(stderr,"conquer %s.%s: Copyright (c) 1988 by Edward M Barlow\n",VERSION,PATCHLEVEL);
+	fprintf(stderr,"conquer %s.%s: Copyright (c) 1988 Edward M Barlow\n",VERSION,PATCHLEVEL);
+    fprintf(stderr,"GPL v3 licensed version (c) 2025 - original authors' permission granted\n");
 
 	/* check for update in progress */
 	sprintf(filename,"%sup",isonfile);
@@ -333,7 +334,7 @@ char	**argv;
 	if ((checkuser_mod) || (checkuser_list)) {
 		if ((owneruid == (getpwnam(LOGIN))->pw_uid) ||
         	    (owneruid == (getpwnam(ntn[0].leader))->pw_uid)) {
-			/* don't change - already set */	
+			/* don't change - already set */
 		}
 		else {
 			checkuser_mod = FALSE;
@@ -342,11 +343,8 @@ char	**argv;
 		      	exit(FAIL);
 		}
 	}
-#else
-		fprintf (stderr,"CHECKUSER not on\n");
-		exit (FAIL);
 #endif
-	country=(-1);
+       country=(-1);
 	for(i=0;i<NTOTAL;i++)
 	if(strcmp(name,ntn[i].name)==0) {
 		country=i;
@@ -1407,32 +1405,34 @@ void
 copyscreen()
 {
 #ifdef TIMELOG
-	FILE *timefp, *fopen();
-	char string[LINELTH+1];
+    FILE *timefp, *fopen();
+    char string[LINELTH+1];
 #endif /* TIMELOG */
 
-	clear();
-	standout();
-	mvprintw(8,COLS/2-12,"Conquer %s.%s",VERSION,PATCHLEVEL);
-	standend();
-	mvaddstr(10,COLS/2-21, "Copyright (c) 1988 by Edward M Barlow");
-	mvaddstr(11,COLS/2-22,"Written Edward M Barlow and Adam Bryant");
-	mvaddstr(12,COLS/2-12,"All Rights Reserved");
-	mvaddstr(LINES-8,COLS/2-21,"This version is for personal use only");
-	mvaddstr(LINES-6,COLS/2-32,"It is expressly forbidden port this software to any form of");
-	mvaddstr(LINES-5,COLS/2-32,"Personal Computer or to redistribute this software without");
-	mvaddstr(LINES-4,COLS/2-26,"the permission of Edward Barlow or Adam Bryant");
+    clear();
+    standout();
+    mvprintw(8,COLS/2-12,"Conquer %s.%s",VERSION,PATCHLEVEL);
+    standend();
+    mvaddstr(10,COLS/2-21, "Original Copyright (c) 1988 Edward M Barlow");
+    mvaddstr(11,COLS/2-20,"Written by Edward M Barlow and Adam Bryant");
+    mvaddstr(12,COLS/2-9,"All Rights Reserved");
+    mvaddstr(13,COLS/2-16,"GPL v3 Licensed Version (c) 2025");
+    mvaddstr(14,COLS/2-28,"Released under GPL v3 with original authors' permission");
+
+    mvaddstr(LINES-8,COLS/2-32,"This GPL v3 version may be freely redistributed under the terms");
+    mvaddstr(LINES-7,COLS/2-27,"of the GNU General Public License version 3 or later");
+    mvaddstr(LINES-6,COLS/2-26,"See LICENSE file for complete terms and conditions");
+
 #ifdef TIMELOG
-	if ((timefp=fopen(timefile,"r"))!=NULL) {
-		fgets(string, 50, timefp);
-		mvprintw(LINES-1, 0, "Last Update: %s", string);
-		fclose(timefp);
-	}
+    if ((timefp=fopen(timefile,"r"))!=NULL) {
+        fgets(string, 50, timefp);
+        mvprintw(LINES-1, 0, "Last Update: %s", string);
+        fclose(timefp);
+    }
 #endif /* TIMELOG */
-	mvaddstr(LINES-1, COLS-20, "PLEASE WAIT");
-	refresh();
+    mvaddstr(LINES-1, COLS-20, "PLEASE WAIT");
+    refresh();
 }
-
 /************************************************************************/
 /*	BYE()	-	exit gracefully from curses			*/
 /************************************************************************/
@@ -1458,16 +1458,28 @@ credits()
 {
 	clear();
 	mvprintw(4,0,"Conquer %s.%s",VERSION,PATCHLEVEL);
-	mvaddstr(5,0,"Copyright (c) 1988 by Edward M Barlow");
-	mvaddstr(6,0,"written Edward M Barlow and Adam Bryant");
-	mvaddstr(12,0,"I would like to thank the following for comments,");
-	mvaddstr(13,0,"   patches, and playtesting:");
-	mvaddstr(15,0,"Derick Hirasawa    Brian Rauchfuss      Joe E. Powell");
-	mvaddstr(16,0,"Andrew Collins     Joe Nolet");
-	mvaddstr(17,0,"Kenneth Moyle      Brian Bresnahan");
-	mvaddstr(18,0,"Paul Davison       Robert Deroy");
-	mvaddstr(20,0,"Also thanks to the many playtesters at Boston University");
-	mvaddstr(21,0,"and at the Communications Hex");
+	mvaddstr(5,0,"Original Copyright (c) 1988 by Edward M Barlow");
+	mvaddstr(6,0,"Written by Edward M Barlow and Adam Bryant");
+	mvaddstr(7,0,"All Rights Reserved (Original Version)");
+
+	mvaddstr(9,0,"GPL v3 Licensed Version (c) 2025");
+	mvaddstr(10,0,"Modernized and relicensed with original authors' permission");
+	mvaddstr(11,0,"Cross-platform compatibility and modern C standard support added");
+
+	mvaddstr(13,0,"Original contributors and acknowledgments:");
+	mvaddstr(14,0,"Thanks to the following for comments, patches, and playtesting:");
+	mvaddstr(16,0,"Derick Hirasawa    Brian Rauchfuss      Joe E. Powell");
+	mvaddstr(17,0,"Andrew Collins     Joe Nolet");
+	mvaddstr(18,0,"Kenneth Moyle      Brian Bresnahan");
+	mvaddstr(19,0,"Paul Davison       Robert Deroy");
+
+	mvaddstr(21,0,"Also thanks to the many playtesters at Boston University");
+	mvaddstr(22,0,"and at the Communications Hex");
+
+	mvaddstr(LINES-4,0,"This version is free software licensed under GPL v3");
+	mvaddstr(LINES-3,0,"You may redistribute and modify it under the GPL v3 terms");
+	mvaddstr(LINES-2,0,"See LICENSE file for complete terms and conditions");
+
 	errormsg("");
 }
 
