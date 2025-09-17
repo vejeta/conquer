@@ -417,7 +417,11 @@ WARNING:  This patch may require re-creation of any worlds from scratch
 	o requires/uses god password
 334. made the CHECKUSER option change data structure only if enabled.
 335. changed all "#endif FOO" statements to "#endif /* FOO */".
-
+==4.0 patch number eleven released => 4.12 ==(Vejeta)====================
+INFO: This is just an update made in 2025 to modernize the build system,
+      better support for modern OS detection, and feature conquer being
+      relicensed under GPL v3.
+    - Vejeta (vejeta@gmail.com)
 -------------------------------------------------------------------------
 | 2.0 POSSIBLE SHORT-TERM ENHANCEMENTS/FIXES FOR CONQUER V5             |
 -------------------------------------------------------------------------

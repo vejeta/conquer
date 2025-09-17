@@ -8,7 +8,7 @@
 
 PACKAGE_NAME = conquer
 VERSION = 4
-PATCHLEVEL = 11a
+PATCHLEVEL = 12
 
 # Main targets
 TARGET_GAME = conquer
