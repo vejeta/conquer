@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /*
  * sunconqrast.h - Sun workstation graphics definitions
  * 
