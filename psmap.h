@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /*
 /*
  * psmap.c - Header file for conqps. A program to convert conquer-maps to postscript
