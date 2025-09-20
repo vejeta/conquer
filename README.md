@@ -1,3 +1,5 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Relicensed: 2025](https://img.shields.io/badge/Relicensed-2025-green.svg)](./RELICENSING-PERMISSIONS.md)
 *********************************************************
 *	README FILE FOR THE INSTALLER OF CONQUER	*
 *********************************************************
