@@ -1,0 +1,49 @@
+Source: conquer
+Section: games
+Priority: optional
+Maintainer: Vejeta <vejeta@example.com>
+Build-Depends: debhelper-compat (= 13),
+               libncurses-dev,
+               pkg-config,
+               gcc,
+               libc6-dev,
+               make,
+               sed,
+               coreutils
+Standards-Version: 4.6.2
+Homepage: https://github.com/vejeta/conquer
+Vcs-Git: https://github.com/vejeta/conquer.git
+Vcs-Browser: https://github.com/vejeta/conquer
+
+Package: conquer
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libncurses6
+Description: Classic ncurses multiplayer fantasy war game (1987-1992, recently GPLv3)
+ Conquer is a historic multiplayer fantasy war game originally created by
+ Ed Barlow and Adam Bryant between 1987-1992. This classic Unix terminal game
+ was distributed through comp.sources.games and has been recently relicensed
+ under GPLv3 for modern Linux systems.
+ .
+ Built with ncurses, Conquer runs entirely in your terminal with a character-based
+ interface that captures the authentic feel of 1980s Unix gaming. Originally
+ described as "not really empire, but close enough to be easily understood by
+ those used to empire," it features tactical gameplay, magical powers, and
+ multiple fantasy scenarios.
+ .
+ Terminal-based features:
+  * Full ncurses terminal user interface
+  * Multiplayer gameplay with multiple administrators
+  * Multiple fantasy war scenarios with different maps
+  * Magical powers and comprehensive spell system
+  * Large variety of unit types and tactical options
+  * Originally supporting maps up to 256x256 grid size, now bigger.
+  * Screen-based real-time display and interaction
+ .
+ Perfect for terminal enthusiasts and retro gaming fans, this package brings
+ the classic 1980s Unix gaming experience to modern Debian and Ubuntu systems.
+ Play locally or set up multiplayer sessions - all you need is a terminal
+ and the strategic mind of a fantasy warlord.
+ .
+ Run 'conquer' to start playing, or 'conqrun -h' for server administration.
