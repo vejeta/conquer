@@ -8,7 +8,7 @@ This software is licensed under the **GNU General Public License v3.0 or later**
 **Copyright (C) 1989 Martin Forssen (MaF) - PostScript utilities**   
 **Copyright (C) 2006-present Vejeta (GPL relicensing and maintenance)**  
 
-See the full text of the GPL-3.0 license in the file `GPL-3.0.txt` included with this distribution, or visit: https://www.gnu.org/licenses/gpl-3.0.html
+See the full text of the GPL-3.0 license in the file `LICENSES/GPL-3.0-or-later.txt` included with this distribution, or visit: https://www.gnu.org/licenses/gpl-3.0.html
 
 ## Relicensing History
 
@@ -48,9 +48,9 @@ You should have received a copy of the GNU General Public License along with thi
 
 ## Files in This Repository
 
-- `LICENSE` - This file (main license information)
+- `LICENSE.md` - This file (main license information)
 - `RELICENSING-PERMISSIONS.md` - Complete email correspondence (legal evidence)
-- `GPL-3.0.txt` - Full GPL-3.0 license text
+- `LICENSES/GPL-3.0.txt` - Full GPL-3.0 license text
 - `HISTORY.md` - Historical information about the game
 - `AUTHORS.md` - Credits and contributors
 

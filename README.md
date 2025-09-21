@@ -1,3 +1,5 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Relicensed: 2025](https://img.shields.io/badge/Relicensed-2025-green.svg)](./RELICENSING-PERMISSIONS.md)
 *********************************************************
 *	README FILE FOR THE INSTALLER OF CONQUER	*
 *********************************************************
@@ -19,6 +21,50 @@ This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
 Foundation, either version 3 of the License, or (at your option) any later
 version. See the COPYING file for the complete GPL v3 license text.
+
+
+### Relicensing Documentation
+
+This game has been successfully relicensed from its original restrictive license to GPL v3 through a **15-year effort** (2006-2025) with explicit written permission from all copyright holders:
+
+📄 **[Full Legal Documentation](./RELICENSING-PERMISSIONS.md)** - Complete email permissions with headers  
+📄 **[Authors & Attribution](./AUTHORS.md)** - All contributors and their roles  
+📄 **[Project History](./HISTORY.md)** - Timeline from 1987 USENET release to present  
+📄 **[License Text](./COPYING)** - Full GPL v3 license  
+
+### Summary of Permissions
+
+| Copyright Holder | Role | Permission Date | Status |
+|-----------------|------|-----------------|--------|
+| **Ed Barlow** | Original creator | March 12, 2016 | ✅ Granted |
+| **Adam Bryant** | Co-developer | Feb 23, 2011 | ✅ Granted |
+| **Martin Forssen** | PostScript utilities | Sept 15, 2025 | ✅ Granted |
+
+> *"Just wanted to confirm that I had no issues with publication of version 4 of Conquer under the GPL."* - Adam Bryant, 2011
+
+> *"Yes i delegated it all to adam aeons ago. Im easy on it all.... copyleft didnt exist when i wrote it and it was all for fun so..."* - Ed Barlow, 2016
+
+> *""Oh, that was a long time ago. But yes, that was me. And I have no problem with relicensing it to GPL."* - Martin Forssen, 2025
+
+### Legal Validation
+
+This relicensing effort has been:
+- ✅ Discussed on [Debian Legal mailing lists](http://lists.debian.org/debian-legal/2006/10/msg00063.html)
+- ✅ Tracked as [GNU Savannah task #5945](http://savannah.gnu.org/task/?5945)
+- ✅ Documented at [vejeta.com](http://vejeta.com/historia-del-conquer/)
+- ✅ Preserved with complete email headers for authentication
+
+### What This Means For You
+
+- ✅ **Free to use, modify, and distribute** under GPL v3 terms
+- ✅ **No legal concerns** - all permissions properly obtained
+- ✅ **Contribute with confidence** - clear legal foundation
+- ✅ **Fork freely** - create your own versions under GPL v3
+
+For questions about the relicensing process: vejeta@gmail.com
+
+---
+
 
 HISTORICAL NOTE:
 ================

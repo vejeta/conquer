@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /*
  * sunstuff.c - Sun workstation specific graphics code
  * 
