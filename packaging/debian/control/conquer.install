@@ -1,0 +1,3 @@
+# Additional files to install (if any)
+# Format: source_file destination_directory
+# This file is used by dh_install if needed for additional files

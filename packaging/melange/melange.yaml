@@ -1,0 +1,122 @@
+package:
+  name: conquer
+  version: 4.12
+  epoch: 0
+  description: "Classic multi-player strategy game"
+  url: https://github.com/vejeta/conquer
+  copyright:
+    - license: GPL-3.0-or-later
+      paths:
+        - "*"
+  dependencies:
+    runtime:
+      - ncurses
+      - ncurses-terminfo-base
+
+environment:
+  contents:
+    repositories:
+      - https://dl-cdn.alpinelinux.org/alpine/edge/main
+      - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    packages:
+      - alpine-baselayout-data
+      - busybox
+      - build-base
+      - ncurses-dev
+      - make
+      - sed
+      - coreutils
+      - pkgconfig
+      - gcc
+      - libc-dev
+
+pipeline:
+  - uses: git-checkout
+    with:
+      repository: https://github.com/vejeta/conquer
+      destination: /home/build/conquer
+
+  - name: "Fix Makefile for correct paths"
+    runs: |
+      cd /home/build/conquer
+      echo "=== Fixing Makefile paths ==="
+      
+      # Show current CDEFS
+      echo "Original CDEFS:"
+      grep -n "CDEFS" Makefile | head -3
+      
+      # Create a backup
+      cp Makefile Makefile.backup
+      
+      # Fix the CDEFS line in the Makefile itself (more reliable than command line override)
+      sed -i 's|CDEFS = -DDEFAULTDIR=\\"$(DEFAULT)\\" -DEXEDIR=\\"$(EXEDIR)\\"|CDEFS = -DDEFAULTDIR=\\"/usr/lib/conquer\\" -DEXEDIR=\\"/usr/bin\\"|g' Makefile
+      
+      # Also ensure we don't have the comment line blocking this
+      sed -i 's|^#CDEFS = -DDEFAULTDIR=\\"$(DEFAULT)\\" -DEXEDIR=\\"$(EXEDIR)\\"|CDEFS = -DDEFAULTDIR=\\"/usr/lib/conquer\\" -DEXEDIR=\\"/usr/bin\\"|g' Makefile
+      
+      echo "Fixed CDEFS:"
+      grep -n "CDEFS.*usr/lib" Makefile
+
+  - name: "Build with corrected Makefile"
+    runs: |
+      cd /home/build/conquer
+      echo "=== Building with Makefile's own CDEFS ==="
+      
+      export LEGACY_CFLAGS="-std=gnu99 -D_GNU_SOURCE -Wno-implicit-function-declaration -Wno-incompatible-pointer-types -Wno-implicit-int -Wno-return-type -Wno-old-style-definition -Wno-unused-variable -Wno-unused-function -Wno-format"
+      
+      make clean || true
+      
+      # Build using the Makefile's fixed CDEFS (don't override on command line)
+      make all OPTFLG="$LEGACY_CFLAGS"
+      
+      echo "=== Verifying paths in binaries ==="
+      for exe in conquer conqrun; do
+        if [ -x "./$exe" ]; then
+          echo "Built: $exe"
+          if strings $exe | grep -q "/usr/lib/conquer"; then
+            echo "✓ Correct runtime path found"
+          else
+            echo "⚠ Path check results:"
+            strings $exe | grep -E "(lib/conquer|home/build)" | head -2
+          fi
+        else
+          echo "Failed to build: $exe"
+          exit 1
+        fi
+      done
+
+  - name: "Install game files"
+    runs: |
+      cd /home/build/conquer
+      
+      mkdir -p ${{targets.destdir}}/usr/bin
+      mkdir -p ${{targets.destdir}}/usr/lib/conquer
+      mkdir -p ${{targets.destdir}}/usr/share/licenses/conquer
+      
+      # Install executables
+      install -m 755 conquer ${{targets.destdir}}/usr/bin/
+      install -m 755 conqrun ${{targets.destdir}}/usr/bin/
+      
+      for exe in conqsort conqps; do
+        if [ -x "$exe" ]; then
+          install -m 755 "$exe" ${{targets.destdir}}/usr/bin/
+        fi
+      done
+      
+      # Install help files
+      for i in 0 1 2 3 4 5; do
+        if [ -f "help$i" ]; then
+          install -m 644 "help$i" ${{targets.destdir}}/usr/lib/conquer/
+        fi
+      done
+      
+      # Install game data files directly
+      install -m 644 nations ${{targets.destdir}}/usr/lib/conquer/nations
+      install -m 644 rules ${{targets.destdir}}/usr/lib/conquer/rules
+      
+      # Install license
+      if [ -f "COPYING" ]; then
+        install -m 644 COPYING ${{targets.destdir}}/usr/share/licenses/conquer/COPYING
+      fi
+
+  - uses: strip

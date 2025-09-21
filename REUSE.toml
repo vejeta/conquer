@@ -4,18 +4,11 @@ SPDX-PackageSupplier = "Juan Manuel Méndez Rey <vejeta@gmail.com>"
 SPDX-PackageDownloadLocation = "https://github.com/vejeta/conquer"
 
 [[annotations]]
-path = ["Src/**.c", "Src/**.h"]
+path = ["*.c", "*.h", "utilities/**.c", "utilities/**.h"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = ["1987-1988 Ed Barlow <barlowedward@hotmail.com>", "1987-1988 Adam Bryant <adb@usa.com>", "1989 Martin Forssen <maf@recordedfuture.com>", "2006-2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"]
 SPDX-License-Identifier = "GPL-3.0-or-later"
 SPDX-FileComment = "\n  - Ed Barlow: Original creator, core engine, initial release (1987-1988)\n  - Adam Bryant: Co-author, maintainer, enhancements (1987-1988)\n  - Martin Forssen: PostScript utilities, contributed 1989\n  - Juan Manuel Méndez Rey: Relicensing coordinator (2006-2025), current maintainer\n  - All original authors granted permission to relicense under GPLv3-or-later."
-
-[[annotations]]
-path = "Docs/**"
-precedence = "aggregate"
-SPDX-FileCopyrightText = ["1987-1989 Original Authors (see headers)", "2006-2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"]
-SPDX-License-Identifier = "GPL-3.0-or-later"
-SPDX-FileComment = "Documentation originally distributed with Conquer USENET releases.\n          Updated and relicensed by Juan Manuel Méndez Rey."
 
 [[annotations]]
 path = "**"

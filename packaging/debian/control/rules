@@ -1,0 +1,55 @@
+#!/usr/bin/make -f
+
+# Export environment variables for legacy C code compatibility
+export LEGACY_CFLAGS = -std=gnu99 -D_GNU_SOURCE -Wno-implicit-function-declaration -Wno-incompatible-pointer-types -Wno-implicit-int -Wno-return-type -Wno-old-style-definition -Wno-unused-variable -Wno-unused-function -Wno-format
+export DEB_CFLAGS_APPEND = $(LEGACY_CFLAGS)
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	# Fix Makefile paths (same logic as melange)
+	cp Makefile Makefile.backup
+	sed -i 's|CDEFS = -DDEFAULTDIR=\\"$$(DEFAULT)\\" -DEXEDIR=\\"$$(EXEDIR)\\"|CDEFS = -DDEFAULTDIR=\\"/usr/lib/conquer\\" -DEXEDIR=\\"/usr/bin\\"|g' Makefile
+	sed -i 's|^#CDEFS = -DDEFAULTDIR=\\"$$(DEFAULT)\\" -DEXEDIR=\\"$$(EXEDIR)\\"|CDEFS = -DDEFAULTDIR=\\"/usr/lib/conquer\\" -DEXEDIR=\\"/usr/bin\\"|g' Makefile
+
+override_dh_auto_build:
+	# Build with corrected Makefile and legacy flags
+	$(MAKE) clean || true
+	$(MAKE) all OPTFLG="$(LEGACY_CFLAGS)"
+
+override_dh_auto_install:
+	# Create installation directories
+	mkdir -p debian/conquer/usr/bin
+	mkdir -p debian/conquer/usr/lib/conquer
+	mkdir -p debian/conquer/usr/share/doc/conquer
+
+	# Install executables
+	install -m 755 conquer debian/conquer/usr/bin/
+	install -m 755 conqrun debian/conquer/usr/bin/
+
+	# Install optional executables if they exist
+	for exe in conqsort conqps; do \
+		if [ -x "$$exe" ]; then \
+			install -m 755 "$$exe" debian/conquer/usr/bin/; \
+		fi; \
+	done
+
+	# Install help files
+	for i in 0 1 2 3 4 5; do \
+		if [ -f "help$$i" ]; then \
+			install -m 644 "help$$i" debian/conquer/usr/lib/conquer/; \
+		fi; \
+	done
+
+	# Install game data files
+	install -m 644 nations debian/conquer/usr/lib/conquer/nations
+	install -m 644 rules debian/conquer/usr/lib/conquer/rules
+
+	# Install documentation
+	if [ -f "COPYING" ]; then \
+		install -m 644 COPYING debian/conquer/usr/share/doc/conquer/copyright; \
+	fi
+
+override_dh_strip:
+	dh_strip

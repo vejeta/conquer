@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+    configure)
+        # Ensure game directory has correct permissions
+        if [ -d /usr/lib/conquer ]; then
+            chmod 755 /usr/lib/conquer
+            chmod 644 /usr/lib/conquer/*
+        fi
+
+        echo "Conquer game installed successfully!"
+        echo "Run 'conquer' to start the game"
+        echo "Run 'conqrun -h' for administrative options"
+        ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

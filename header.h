@@ -311,7 +311,9 @@
 /* VERSION INFORMATION */
 /* ================================================================== */
 
+#ifndef VERSION
 #define VERSION "Version 4"     /* version number of the game */
+#endif
 
 /* ================================================================== */
 /* MODERN UTILITY MACROS (safe additions) */

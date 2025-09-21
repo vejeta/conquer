@@ -1,0 +1,8 @@
+conquer (4.12-1) unstable; urgency=medium
+
+  * Initial Debian packaging
+  * Ported from Alpine/melange packaging
+  * Fixed Makefile paths for proper system installation
+  * Added runtime dependencies for ncurses
+
+ -- Vejeta <vejeta@gmail.com>  Sun, 21 Sep 2025 12:00:00 +0000
