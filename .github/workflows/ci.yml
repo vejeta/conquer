@@ -1,0 +1,34 @@
+name: CI/CD Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: sudo apt-get install libncurses5-dev
+      - name: Build
+        run: make
+      - name: Test
+        run: make test
+
+  package-deb:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build DEB package
+        run: |
+          sudo apt-get install debhelper devscripts
+          dpkg-buildpackage -us -uc
+
+  package-apk:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build APK with Melange
+        run: |
+          melange build melange.yaml
