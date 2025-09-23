@@ -31,15 +31,15 @@ environment:
       - libc-dev
 
 pipeline:
-  - name: "Copy local source"
-    runs: |
-      # Copy source from local gpl-release folder
-      mkdir -p /home/build
-      cp -r /work/gpl-release /home/build/conquer
+  - uses: git-checkout
+    with:
+      repository: https://github.com/vejeta/conquer
+      destination: /home/build/conquer
 
   - name: "Fix Makefile for correct paths"
     runs: |
-      cd /home/build/conquer
+      cd /home/build/conquer/gpl-release
+      echo "=== ConquerV5 Build Process (in gpl-release/) ==="
       echo "=== Fixing Makefile paths ==="
 
       # Show current CDEFS
@@ -86,9 +86,9 @@ pipeline:
         fi
       done
 
-  - name: "Install game files"
+  - name: "Install Conquer"
     runs: |
-      cd /home/build/conquer
+      cd /home/build/conquer/gpl-release
 
       mkdir -p ${{targets.destdir}}/usr/bin
       mkdir -p ${{targets.destdir}}/usr/lib/conquer

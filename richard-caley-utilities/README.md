@@ -43,6 +43,11 @@ for it, nor distribute the program without the source.
 
 See `LICENSE` file for complete terms.
 
+
+### Contact Attempts
+
+In September 2025, we attempted to contact Richard Caley through the University of Edinburgh Alumni Services to request explicit permission for GPL relicensing. Due to data protection policies, the university was unable to provide contact information or forward messages. This preservation effort proceeds under his original permissive license terms, using his code exactly as he intended: freely shared with full attribution and source code availability.
+
 ## About Richard Caley
 
 Richard Caley was a researcher at the University of Edinburgh's Centre for Speech Technology Research (CSTR), where he made significant contributions to computational linguistics and speech synthesis technology. He was a key contributor to the Festival Speech Synthesis System, an influential open-source text-to-speech platform that became widely used in research and industry.
