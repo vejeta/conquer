@@ -2,16 +2,6 @@
 
 **Conquer** is the classic multi-player strategy game originally created by Edward M. Barlow and Adam Bryant in the late 1980s. This repository preserves both the historical distribution and provides a modern GPL-licensed version for continued development.
 
-## 🗺️ Special Recognition: Richard Caley's Map Utility
-
-This repository includes a significant historical contribution: **Richard Caley's map drawing utility** from 1989. Richard Caley, a researcher at the University of Edinburgh's Centre for Speech Technology Research and contributor to the Festival Speech Synthesis System, created a bitmap visualization tool for Conquer game worlds.
-
-His work represents an early example of game data visualization, created with the generous spirit typical of the late 1980s Unix computing community. Richard wrote: *"You may copy, distribute, modify or do what you will with this code"* - embodying the collaborative ethos that shaped early computer gaming.
-
-**📖 Learn more about Richard Caley's contributions**: See [`richard-caley-utilities/`](richard-caley-utilities/) for detailed biographical information, technical context, and links to his archived research and personal materials.
-
-*Richard Caley passed away in 2006. This code is preserved in his memory and as a testament to the early Unix gaming community's collaborative spirit.*
-
 ## Relicensing Achievement
 
 This repository represents a successful **15-year relicensing effort** (2006-2025) that transformed Conquer from a restrictively licensed game into a modern GPL v3 project. All original copyright holders provided explicit written permission:
@@ -60,6 +50,16 @@ This repository uses a dual-licensing approach to balance historical preservatio
 - **[`richard-caley-utilities/`](richard-caley-utilities/)** - Detailed documentation of Richard Caley's contributions
 - **[`LICENSES/`](LICENSES/)** - All license texts for REUSE compliance
 - **[`LICENSE-NOTICE.md`](LICENSE-NOTICE.md)** - Comprehensive licensing framework explanation
+
+## 🗺️ Special Recognition: Richard Caley's Map Utility
+
+This repository includes a significant historical contribution: **Richard Caley's map drawing utility** from 1989. Richard Caley, a researcher at the University of Edinburgh's Centre for Speech Technology Research and contributor to the Festival Speech Synthesis System, created a bitmap visualization tool for Conquer game worlds.
+
+His work represents an early example of game data visualization, created with the generous spirit typical of the late 1980s Unix computing community. Richard wrote: *"You may copy, distribute, modify or do what you will with this code"* - embodying the collaborative ethos that shaped early computer gaming.
+
+**📖 Learn more about Richard Caley's contributions**: See [`richard-caley-utilities/`](richard-caley-utilities/) for detailed biographical information, technical context, and links to his archived research and personal materials.
+
+*Richard Caley passed away in 2006. This code is preserved in his memory and as a testament to the early Unix gaming community's collaborative spirit.*
 
 ## Quick Start
 

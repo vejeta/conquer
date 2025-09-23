@@ -22,20 +22,22 @@ jobs:
       - name: Build project
         run: |
           # Test that the project builds correctly
+          cd gpl-release
           make clean || true
-          make all
+          make
 
       - name: Verify executables
         run: |
           # Check that executables were created
-          ls -la conquer conqrun
-          file conquer conqrun
+          cd gpl-release
+          ls -la conquer conqrun conqsort conqps
+          file conquer conqrun conqsort conqps
 
       - name: Basic functionality test
         run: |
           # Test that executables can run (help/version)
-          ./conquer -h || echo "conquer help test completed"
-          ./conqrun -h || echo "conqrun help test completed"
+          ./gpl-release/conquer -h || echo "conquer help test completed"
+          ./gpl-release/conqrun -h || echo "conqrun help test completed"
 
   package-apk:
     name: Build APK Package (Alpine/Melange)
@@ -117,7 +119,7 @@ jobs:
             dpkg-deb --contents "$DEB_FILE" | head -20
           fi
 
-      - name: Upload DEB artifacts
+      - name: Upload DEB atrifacts
         uses: actions/upload-artifact@v4
         if: github.ref == 'refs/heads/master'
         with:
