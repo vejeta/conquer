@@ -38,22 +38,23 @@ pipeline:
 
   - name: "Fix Makefile for correct paths"
     runs: |
-      cd /home/build/conquer
+      cd /home/build/conquer/gpl-release
+      echo "=== ConquerV5 Build Process (in gpl-release/) ==="
       echo "=== Fixing Makefile paths ==="
-      
+
       # Show current CDEFS
       echo "Original CDEFS:"
       grep -n "CDEFS" Makefile | head -3
-      
+
       # Create a backup
       cp Makefile Makefile.backup
-      
+
       # Fix the CDEFS line in the Makefile itself (more reliable than command line override)
       sed -i 's|CDEFS = -DDEFAULTDIR=\\"$(DEFAULT)\\" -DEXEDIR=\\"$(EXEDIR)\\"|CDEFS = -DDEFAULTDIR=\\"/usr/lib/conquer\\" -DEXEDIR=\\"/usr/bin\\"|g' Makefile
-      
+
       # Also ensure we don't have the comment line blocking this
       sed -i 's|^#CDEFS = -DDEFAULTDIR=\\"$(DEFAULT)\\" -DEXEDIR=\\"$(EXEDIR)\\"|CDEFS = -DDEFAULTDIR=\\"/usr/lib/conquer\\" -DEXEDIR=\\"/usr/bin\\"|g' Makefile
-      
+
       echo "Fixed CDEFS:"
       grep -n "CDEFS.*usr/lib" Makefile
 
@@ -61,14 +62,14 @@ pipeline:
     runs: |
       cd /home/build/conquer
       echo "=== Building with Makefile's own CDEFS ==="
-      
+
       export LEGACY_CFLAGS="-std=gnu99 -D_GNU_SOURCE -Wno-implicit-function-declaration -Wno-incompatible-pointer-types -Wno-implicit-int -Wno-return-type -Wno-old-style-definition -Wno-unused-variable -Wno-unused-function -Wno-format"
-      
+
       make clean || true
-      
+
       # Build using the Makefile's fixed CDEFS (don't override on command line)
       make all OPTFLG="$LEGACY_CFLAGS"
-      
+
       echo "=== Verifying paths in binaries ==="
       for exe in conquer conqrun; do
         if [ -x "./$exe" ]; then
@@ -85,35 +86,35 @@ pipeline:
         fi
       done
 
-  - name: "Install game files"
+  - name: "Install Conquer"
     runs: |
-      cd /home/build/conquer
-      
+      cd /home/build/conquer/gpl-release
+
       mkdir -p ${{targets.destdir}}/usr/bin
       mkdir -p ${{targets.destdir}}/usr/lib/conquer
       mkdir -p ${{targets.destdir}}/usr/share/licenses/conquer
-      
+
       # Install executables
       install -m 755 conquer ${{targets.destdir}}/usr/bin/
       install -m 755 conqrun ${{targets.destdir}}/usr/bin/
-      
+
       for exe in conqsort conqps; do
         if [ -x "$exe" ]; then
           install -m 755 "$exe" ${{targets.destdir}}/usr/bin/
         fi
       done
-      
+
       # Install help files
       for i in 0 1 2 3 4 5; do
         if [ -f "help$i" ]; then
           install -m 644 "help$i" ${{targets.destdir}}/usr/lib/conquer/
         fi
       done
-      
+
       # Install game data files directly
       install -m 644 nations ${{targets.destdir}}/usr/lib/conquer/nations
       install -m 644 rules ${{targets.destdir}}/usr/lib/conquer/rules
-      
+
       # Install license
       if [ -f "COPYING" ]; then
         install -m 644 COPYING ${{targets.destdir}}/usr/share/licenses/conquer/COPYING

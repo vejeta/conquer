@@ -1,0 +1,74 @@
+#below is a shell script that runs updates 3 times a day every day but sunday
+#
+#PLEASE CHANGE TIME* VARIABLES TO APPROPRIATE TIMES, and CHANGE PATH VARIABLES
+#
+#KEEP THE TIMES IN CHRONOLOGICAL ORDER AND THE TIME1H and TIME2H values
+#represent the hours of TIME1 and TIME2
+#########################################################
+# use the command "at -l" to get a list of existing at jobs
+# use the command "at -r <jobname>" to remove existing at jobs
+#########################################################
+TIME1=1000
+TIME1H=10
+TIME2=1700
+TIME2H=17
+TIME3=2300
+#Below is the full command to update a game of conquer 
+PATHTOCONQ="/d7/c7913/smile/oldgame/conquer -x -d/d7/c7913/smile/oldgame/temp"
+#Path to this file
+PATHTORUN=/d7/c7913/smile/oldgame/run
+#LOG is full path name of log file
+LOG=/d7/c7913/smile/oldgame/runlog
+
+/bin/date >> $LOG
+$PATHTOCONQ >> $LOG
+
+DAY=`/bin/date | /usr/bin/awk '{ print $1 }'`
+echo "day is $DAY" >> $LOG
+HOUR=`/bin/date|/usr/bin/awk '{ print $4 }'|/usr/bin/awk -F: '{ print $1 }'`
+echo "hour is $HOUR" >> $LOG
+#BELOW IS AN EXAMPLE OF A BSD SCRIPT
+#switch $DAY
+#	case Sat:
+#		set nextday=mon
+#		breaksw
+#	default:
+#		set nextday =
+#		breaksw
+#endsw
+case $DAY in
+	Sat)
+ 		nextday=mon
+		;;
+	*)
+ 		nextday=""
+		;;
+esac
+#switch $HOUR
+#	case 00:
+#		set nexthour=$TIME1
+#		breaksw
+#	default:
+#		set nexthour=$TIME2
+#		breaksw
+#endsw
+case $HOUR in
+$TIME1H)
+ 	nexthour=$TIME2
+	echo "nexthour is $nexthour" >> $LOG
+	;;
+$TIME2H)
+ 	nexthour=$TIME3
+	echo "nexthour is $nexthour" >> $LOG
+	;;
+*)
+	nexthour=$TIME1
+	echo "nexthour is $nexthour" >> $LOG
+	;;
+esac
+#below for bsd (i think)
+#/usr/bin/at $nexthour $nextday $PATHTORUN 
+#below for SYSV
+echo "/usr/bin/at $nexthour $nextday < $PATHTORUN" >> $LOG
+echo "XXX" >> $LOG
+/usr/bin/at $nexthour $nextday < $PATHTORUN 

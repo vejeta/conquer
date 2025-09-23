@@ -1,0 +1,69 @@
+# GAME MASTERS FILE ON NPC NATIONS:  COMPILE TIME ONLY
+#  comments are offset by a # sign in the first column
+#
+#  The following nations will be added to the world when it is created.
+#	This works for up to to MAXNTN nations (but then there is no room
+#	for players) and one nation is placed per MONSTER (see header.h)
+#	sectors.
+#
+# name 		:nations name
+#		:examples include Darboth Ummaya Rugar Jute Atlantis Iberia
+#		:Kuybyshev Avar Grodor Bantanya Fung Codor Delph Macitania
+# leader 	: permitted leaders are "dwarfking","elfking","elfdruid",
+#			"elfwizard","demon","dragon","wizard","priest",
+#			"shadow","king","priestking","wizard","demigod"
+# race   	:Character, ORC='O',ELF='E',DWARF='D',LZARD='L',HUMAN='H'
+#		:BRIGAND='P' BARBARIAN='B'
+# mark		:unique mark for race (ie & or ! or 1 or H...)
+# loc	 	:G,F,R  location (good,fair,random)
+# aplus 	:attack percentage plus (multiples of 10 (ie 10,20,30))
+# dplus		:defence percentage plus (multiples of 10 (ie 10,20,30))
+# maxmove 	:movement rate 
+# gold		:total gold at start
+# mil	 	:total military at start
+# points 	:total point score at start -> civilians are calculated from
+#               : points not allcoated to other things.  See Maxpts.  The
+#               : default is 40 points per nation
+# repro-rate    :reproduction rate of nation (percentage)
+# allignment    :(g)ood, (n)eutral, (e)vil, (i)solationist - for NPC Nations.
+#		:(G)ood, (N)eutral, (E)vil - for PC Nations.
+# x,y		:x and y values - read if you have read in a map to makeworld
+#               : good idea to keep -1s here for now.
+#
+#  THE NATIONS LISTED BELOW ARE CALIBRATED AS FOLLOWS
+#
+# isolationist: 320 	good: 250 	neutral: 320 	evil: 335
+# human: 420		elf: 260	dwarf:  260	orc: 285
+#
+# This represents a world geared to GOOD player nations
+#
+# Npc nations can have classes too (as follows):
+#	NPC	0 	KING	1	EMPEROR	2
+#	WIZARD	3 	PRIEST	4 	PIRATE	5 	TRADER	6
+#	WARLORD	7 	DEMON	8 	DRAGON	9 	SHADOW	10
+# Entering these values assures that class.
+# But leaders are of the appropriate types, as is scoring...
+#
+# format:     (note that offset by a space)
+#
+# name leader race mark loc atk def move gold mil pts repro allign x y class
+#########################################################################
+argos    The_Ed     H A F 10 10  9  50000  1000 60 8  i -1 -1 1
+anorian  Anudil     E a F 30 40  8  70000  1500 60 8  g -1 -1 3
+bobland  Dogon      O B G 20 0   6  12000  1500 70 12 i -1 -1 9
+darboth  balrog     O D R 0  0   7  70000  1500 70 12 e -1 -1 8
+edland   Debbra     H E R 10 15  12 30000  1000 60 8  g -1 -1 1
+fung     Fungus     E F G 10 40  8  50000  1000 70 8  i -1 -1 1
+goldor   Train      D G F 10 15  8  30000  1000 70 8  n -1 -1 2
+haro     Cesear     H H R 10 10  9  30000  1500 60 7  i -1 -1 1
+jodoba   Ganalf     H J R 10 10  2  30000  1500 60 8  n -1 -1 3
+#lint     Lynne      E L F 20 30  8  50000  1500 70 10 g -1 -1 3
+muldor   Gilur      D M F 10 30  6  160000 1500 70 9  n -1 -1 1
+#noria    Gloin      D N R 10 30  6  50000  1000 60 8  n -1 -1 1
+tokus    Sumu       H T R 10 10  8  30000  1000 60 8  e -1 -1 1
+woooo    Nastus     O W F 10 10  10 60000  3500 75 11 e -1 -1 10
+#zaos     Dragonus   O Z R 20 0   8  12000  1500 70 12 e -1 -1 9
+frika    Frik       D f F 10 10  8  50000  1200 60 10 n -1 -1 1
+amazon   Diana      E X F 10 10  8  50000  1200 60 10 e -1 -1 2
+#tasman   Obilisk    H t F 10 10  8  50000  1200 60 10 g -1 -1 3
+sahara   Barbar     H S F 10 10  8  50000  1200 60 10 i -1 -1 4

@@ -1,0 +1,249 @@
+                           SCORING & CHARACTER CLASSES
+
+Each nation has a types (class), which is chosen when it it is created, and
+which determines how Victory points are received.  Some classes start with
+powers and have a starting cost. Warlord/Monster powers get all prerequisite
+powers, and thus starting cost can varies.
+
+         Per   1000   1000  100K  100K  100K  Magic  10  Start
+       Sector People Troops Gold Jewels Metal Power Ship Cost  Races Powers
+king     1      1       2     3    0     0      0     0   0    HDE   None
+empire   1.5    0       0     1    1     0      0     0   0    HDE   None
+wizard   0      2       1     0    3     5      7     0   4    HE    SUMMON
+priest   1      1       0     0    3     0      3     0   2    H     RELIGION
+pirate   0      0       5     0   10    10      1     5   2    HOD   SAILOR
+trader   1      1       0     0    1     1      1     8   2    HE    URBAN
+warlord  1      1       2     0    1     1      1     0   *    HOD   WARLORD
+demon    1      0       1     0    1     0      5     0   4    O     DESTROYER
+dragon   0      0       0    10   20     0      0     0   4    O     MA_MONST
+shadow   1      0       0     0    0     5      0     0   2    O     VOID
+monster  1      1       0     0    1     1      1     0   0    HDEO  None
+END
+                               ADDITIONAL SCORING
+
+Nations can get points by having large values in their important national
+attributes.  This bonus to scoring is calculated as follows.
+
+king     ( Popularity   +  Prestige   -  Poverty      ) / 10
+empire   ( Power        +  Prestige   -  Poverty      ) / 10
+wizard   ( Knowledge    +  Power      -  50           ) / 10
+priest   ( Wealth       +  Terror     -  Poverty      ) / 10
+pirate   ( Reputation   +  Wealth     -  50           ) / 10
+trader   ( Wealth       +  Prestige   -  Tax Rate * 5 ) / 10
+warlord  ( Reputation   +  Prestige   -  50           ) / 10
+demon    ( Knowledge    +  Terror     -  50           ) / 10
+dragon   ( Wealth       +  Terror     -  50           ) / 10
+shadow   ( Power        +  Terror     -  50           ) / 10
+END
+                               LEADERS
+
+Leader units represent individual leaders and may not be merged or joined
+with other leader units.
+
+Leaders are born (randomly created), not summoned or drafted.  A new
+leader will be placed in the owning players capitol.  Leader types
+are created based on a nations class based on the table on the next page.
+They can move at double speed and ignore enemy zones of control.  They
+can not, however, capture land.  They work by the same rules that magic
+monsters do... if they take damage in combat, there is a percent chance 
+that they will be killed.  A leader is required to be in the same sector
+for an army to move at full movement rate (if no leader is present, the
+unit can move only half as far).  Leaders are the foundations of army
+groups, and armies in a group move at +2 sectors per turn, and fight
+at +20% in all combats.
+END
+                                LEADERS STATS
+
+Nation     # Start  % Born   Nation  combat  combat   Minor  combat  combat
+Class      Leaders   Year    Leader  bonus  strength  Leader bonus strength
+                             Name                     Name
+
+trader     1/4        50     KING      +30    100     BARON    +20   50
+king       1/4        50     KING      +30    100     BARON    +20   50
+empire     1/4        50     EMPEROR   +30    100     PRINCE   +20   50
+wizard     1/4        25     WIZARD    +30    250     MAGI     +20   50
+priest     1/6        25     APOSTLE   +30    100     BISHOP   +20   50
+pirate     1/6        25     ADMIRAL   +30    100     CAPTAIN  +20   50
+warlord    1/6        25     WARLORD   +30    250     LORD     +20   100
+demon      1/6        25     DEMON     +50    250     DEVIL    +20   50
+dragon     1/6        2      DRAGON    +50    500     WYRM     +40   100
+shadow     1/6        2      SHADOW    +50    250     NAZGUL   +40   120
+NPC        1/4        50     KING      +30    100     BARON    +20   50
+END
+                        LOSING YOUR NATIONAL LEADER
+
+If you lose your nations leader, your nation is thrown into chaos.  None of
+your armies can move for the turn (this works for npcs too).  There is a
+30% chance per turn that your nation is restored to normalcy (a new leader
+ascends to the throne... and you get your nations leader back).  This
+is a disaster to your country and is designed to knock you out of the
+game for a few turns (after all - losing your king is a BIG deal).  Minor
+leaders are reborn at a good clip, but you should guard them because they
+are important to your ability to wage war.
+
+Note that birth rates given on the last table are per year (not per turn).
+END
+                          EXOTIC TRADE GOODS
+  
+Special products, or exotic trade goods, are another way to customize
+your nation.  Many sectors have the ability to produce these goods...
+it is your choice to redesignate these sectors so as to be able to use
+them.  The goods in a sector are listed as "special: ?????" on the
+right hand side of the screen.  There are 5 levels of exotic trade
+goods. Each requires prerequisite values in the nation attribute they
+shall effect. If you don't have the prerequisite, you don't even know
+that the good exists (surprise).
+  
+Exotic Trade Goods are distributed to sectors at the beginning of the
+game, and don't change.  Each sector has XTRADEPCT% chance of having an
+exotic trade good.  Goods are random distributed based on the goods
+value (a value 5 good occurs 1/5th as often as value 1 good).  Any
+sector can have any good except:
+
+corn,fruit - food value > 6                   fish - next to water
+timber,pine,oak - wood/forest
+
+They add ( value * sect_pop / 1000) to your nations attributes as follows:
+END
+                        WHAT GOODS EXIST          pg. 1
+
+There are approximately 60 different trade goods.  They affects specific 
+national attributes WHEN the sector they are in has the correct designation.  
+The following lists the value, designation needed, and nation attribute 
+changed for each trade good.  Thus, an wool sector designated as a farm 
+produces 3 points of popularity.  Special display and redesignation options
+will help you redesignate sectors to use the tradegood you desire.
+
+popularity     fur(2,any),wool(5,farm),beer(6,farm),cloth(6,farm),wine(9,farm)
+communications mules(1,town),horses(5,town),pigeons(7,town),griffons(9,town)
+spoilrate      pottery(1,town),salt(3,mine),timber(1,lumberyard),
+               granite(1,mine),pine(3,lumberyd),oak(5,lumberyd),nails(7,town)
+knowledge      papyrus(3,town),math(4,university),library(5,university),
+               drama(6,city),paper(7,town),literature(7,city),
+               law(8,city),philosophy(9,city)
+END
+                          WHAT GOODS EXIST          pg. 2
+
+farm            irrigation(1,farm),oxen(2,farm),plows(3,farm)
+magic           mercury(5,mine),guild(7,town)
+spell points    magic stones(9,special)
+health          herbs(3,any),medicine(7,town)
+terror          torture(5,city),prison(7,city)
+
+The following trade goods add directly to a sectors food value:
+       corn(1,farm),fish(1,farm),sugar(3,farm),honey(3,farm),fruit(3,farm)
+END
+                          NATION ATTRIBUTES          pg. 1
+
+All nation attributes range from 0 to 100 except for eatrate, spoilrate,
+and communications.  The base figures stated below are just that.  These 
+values may be modified by random events and by trade goods.
+
+tax rate     Each player can control their tax rate.  This number directly
+                impacts your revenue, but lowers your governments popularity 
+                and increases the chances of a revolt.  Anything over
+                15% pretty much lose you the game when your nation revolts.
+prestige     National prestige.  Lowers chance of military revolts.
+popularity   Modifies the chance of peasant revolts.  You get one added
+             point of popularity for each sector you take.
+power        Relative power of your nation.
+END
+                          NATION ATTRIBUTES          pg. 2
+
+communications  Effects leader range ( to keep units at full movement ).
+wealth          How wealthy is your nation
+eatrate         How much food each civilian can eat each turn.  This is
+                a value in terms of food per civilian person.  
+storerate       How much food per civilian you can store each turn.
+knowledge       Knowledge of the arts and sciences in your nation.
+farm ability    How good are you at farming.
+mine ability    How good are you at mining.
+poverty         Percent of the nation that cant eat, live, or be merry.  
+terror          How scared people are of you. Lowers chance of revolts.
+reputation      How well liked is your nation.
+END
+                FORMULAE USED FOR NATION ATTRIBUTES          pg. 1
+
+The formulae used to compute national attributes are listed on the next
+page.  Values are stored in an unsigned character (0 to 256).  One real
+point of communications range is gained for each 50 points of
+communications, and one point of eatrate and store rate are gained per 25
+points.  Other variables are normal.  Aggressiveness (see below) is gained
+when you change diplomatic status, and become more hostile to a nation than
+they are with you.  Thus, if you are neutral with phonos, and they are
+hostile to you, you lose nothing by going hostile with them, but accrue 1
+point of aggressiveness by going to war with them, and 2 by going on a
+jihad.  Aggressiveness points accrue doubled when against a nation of the
+same race as you.
+  
+# STARTING VALUES
+reputation = prestige = 50     knowledge = mine ability = farm ability = 10
+eatrate     = 1.00             tax rate=10%               poverty = 95%
+END
+                FORMULAE USED FOR NATION ATTRIBUTES          pg. 2
+
+terror      = 200*military/civilians + 200*mercenaries/military        max=100
+power       = 2*( % of worlds score + % of worlds military )           max=100
+reputation  = reputation + rand(8) - 2 per point of aggressiveness     max=100
+prestige    = ( old prestige + power + wealth ) / 3 + tradegoods       max=100
+tax_rate    = user definable parameter
+communicate = (townfolk/1000 + cityfolk/333 + tradegoods/50
+               + MONEY/(5000*sctrs))/50                                max=4
+farm ability= sum (sector people*foodvalue)*10/civilians + tradegoods  max=100
+mine ability= see special section below
+eat rate    = eatrate + food remaining/(5*population) + tradegoods/25  min=1
+spoil rate  = 30-(grainaries+cities+3*capitols)/sectors-tradegoods/25  min=1
+popularity  = (old popularity + charity modifier + wealth + 10*eatrate 
+              + tradegoods +2*clerics ) /2                             max=100
+knowledge   = cityfolk/333 + scholars/333 + townfolk/1000 + tradegoods max=100
+END
+                FORMULAE USED FOR NATION ATTRIBUTES          pg. 3
+
+charity     = Is the percent of net gold given directly to the general
+              population.  This has a direct effect of reducing poverty
+              by 1% for every two talons given to each person.
+poverty     = Poverty is a relative value of the number of talons you have
+              per each civilian.  The inital value is determined as:
+                talons/civilian  poverty       talons/civilian  poverty
+                      < 0          95%             80-120       40%-30%
+                     0-30        95%-65%          120-200       30%-20%
+                    30-80        65%-40%           > 200          20%
+              Poverty is then modified directly by the amount of talons given
+              directly to the people through charity.
+inflation   = inflation is an indicator as to the actual value of the national
+              talon.  If inflation is zero percent, then it is 1:1.
+              Inflation is calculated as:
+                  between 25%-125% of the tax rate [randomly determined]
+                  plus (poverty - 50)/2 and is then adjusted by the ratio of
+                  military to civilians.
+              Money lost due to inflation will be indicated in the budget.
+wealth      = see elsewhere.
+END
+                ADDITIONAL MODIFIERS TO NATIONAL ATTRIBUTES
+
+MAGIC POWERS ADD OR SUBTRACT 10 FROM POWERS AS FOLLOWS:
+        SLAVER.....terror      ARCHITECT..storerate
+        RELIGION...popularity  URBAN......-popularity
+        DEMOCRACY..-terror     ROADS......communication
+        KNOWALL....knowledge   DESTROYER..terror
+        VAMPIRE....terror      
+
+CLASSES ADD 30 TO POWERS AS FOLLOWS:
+        kingdom....popularity    dragon.....terror
+        wizard.....knowledge     priest.....popularity
+        pirate.....terror        shadow.....terror
+        warlord....prestige      demon......terror
+END
+                                REVOLTS
+
+Revolts are the worst thing that can happen to your nation.  Revolts
+occur based on the following formulae:
+
+probability of peasant revolt  = 10*tax_rate - popularity - terror - 3*charity
+probability of military revolt = 5*tax_rate - prestige
+
+Revolts only occur when a nation has more than 20 sectors and a
+score > 20.  To prevent abuse of this "charity" the maximum tax_rate
+before this time is 10%.
+END
+DONE

@@ -1,0 +1,45 @@
+   File Name		Archive #	Description
+-----------------------------------------------------------
+ MANIFEST                   1	This shipping list
+ Makefile                  14	
+ README                     1	
+ admin.c                    9	
+ cexecute.c                14	
+ check.c                    9	
+ combat.c                   4	
+ commands.c                 6	
+ data.c                    13	
+ data.h                     8	
+ display.c                 11	
+ extcmds.c                  2	
+ forms.c                   13	
+ header.h                  13	
+ io.c                       4	
+ magic.c                    8	
+ main.c                    10	
+ makeworl.c                 9	
+ man.pag                   14	
+ misc.c                     3	
+ move.c                     7	
+ nations                    6	
+ navy.c                     3	
+ newhelp.c                 12	
+ newlogin.c                 7	
+ newlogin.h                 9	
+ notes.v4                   2	
+ npc.c                      5	
+ patchlevel.h               1	
+ randeven.c                11	
+ reports.c                 10	
+ rules                     12	
+ run                        4	
+ sort.c                    14	
+ spew.c                    12	
+ trade.c                   12	
+ txt0                      13	
+ txt1                       5	
+ txt2                       6	
+ txt3                      14	
+ txt4                       7	
+ txt5                      11	
+ update.c                   1	

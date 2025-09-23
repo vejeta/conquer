@@ -1,0 +1,340 @@
+                          THE WORLD OF CONQUER
+
+The Conquer world is very bloody, and a player needs skills at war gaming,
+diplomacy, and building an economy to succeed.  Rival races are constantly
+at war, and the world starts filled with player nations, random peoples
+(lizard men in their cities of gold, savages, nomads, pirates, brigands),
+and both hostile and friendly computer controlled non player countries.
+Conquer can be played solitaire.  The computer uses a highly intelligent
+movement algorithm to run the armies and navies of these non player
+countries (NPC), and has intelligent algorithms built in that control these
+nations diplomacy, construction, and economies.  You can find NPCs allied with
+you against a common enemy,  but can also suddenly be stabbed in the
+back and find hostile NPC armies at your doorstep.
+END
+                       WHAT IS WHAT IN THE WORLD
+
+The world is composed of a 2 dimensional map of sectors, created by the
+computer at the beginning of the game.  Each sector has about 10 unique
+characteristics (altitude, gold, vegetation...).
+
+SECTOR ELEVATIONS include:
+        ZMOUNTAIN       ZHILL        ZCLEAR
+        ZWATER          ZPEAK
+SECTOR VEGETATION
+Uninhabitable Areas (do not produce food and people simply do not like)
+        ZVOLCANO        ZDESERT      ZJUNGLE
+        ZTUNDRA         ZICE         ZSWAMP
+Inhabitable (people like, number is relative value of food production)
+        ZGOOD...9       ZFOREST...3 (4 ELF)       ZLIGHT...6
+        ZWOOD...7       ZBARREN...4 (3 ELF)
+
+CONQUER is designed so each race likes their appropriate terrain.  Elves like
+woods & forests,  Humans like good & light vegetation, and Orcs and Dwarves
+like hills and mountains.  You can only redesignate inhabitable sector types.
+END
+                             RACES OF THE WORLD
+
+ORC       'O'   See next page.
+ELF       'E'   Great at defense and quick, but few in numbers.  They start
+                with VOID power, which is perhaps the most potent power in the
+                game, but which costs them an extra distribution point.
+DWARF     'D'   Dwarves are good at combat, but slow and few in numbers.  They
+                start with MINER power, which allows them to quickly mine
+                metal/jewels, and thus improve their combat skills and powers.
+HUMAN     'H'   Humans start average at everything -- with reasonable numbers,
+                of people, and WARRIOR power, which gives them +10% in combat.
+                They have OK reproduction and good movement.
+LIZARD    'L'   (NPC only)  An ancient race bound to their cities of gold
+PIRATE    'P'   (NPC only)  Wandering pirates/brigands intent on plunder
+NOMAD     'N'   (NPC only)  Will the wandering nomads tribes leave you alone?
+SAVAGES   'S'   (NPC only)  Indigenous natives and monsters
+END
+                          ORC NATIONS IN CONQUER
+
+Orc nations are very special in Conquer.  The only thing an orc is good at is 
+making other orcs.  They are slow, poor at combat, & bad in special abilities.
+They can get reproduction of up to 14% per year (the normal limit is 10%) & 
+can start with a large number of people as initial reproduction costs are less
+than normal.  Orcs are led by monsters (they start with MINOR MONSTER power),
+and are always evil (the only good orc is a dead orc...).  They are so nasty,
+EVERYBODY they meet start out hostile (50%) or at war (50%) with them.
+Player nations get an option here, but they usually start out hostile to you.
+
+In combat, orc & goblin units types flee just like mercenaries (a random
+chance, modified by odds...), and orcs are charged 2x normal cost for raising
+their combat bonus at game start and 3x during play, so they usually need
+2:1 odds or better to win (expect heavy losses).  
+
+Finally, Orcs are slow, as they require tremendous leader incentive to move
+and not kill each other.  Large orc nations do have the ability to take over
+other Orc nations (The Sauron Syndrome).  There is no Orc CAVALRY.
+END
+                       POSSIBLE NATION ALIGNMENTS
+
+Nations in conquer can be good, neutral, or evil.  Alignment impacts how
+non player nations will react to your nation ( good nations like good
+nations, but hate evil nations.  Nobody is mean to neutral nations,
+but nobody likes them either ).  Player nations choose an alignment
+when they get created (no limitations) which can not change.  Players
+actions are not restricted by their alignments, but players should
+play "in character".  There are more evil non player nations than there
+are good non player nations, so it is more fun/challenging to play the
+good guys.
+END
+                       SECTOR DESIGNATIONS
+
+The following is the list of possible sector designations:
+
+       ZTOWN       ZFORT       ZMILL
+       ZCITY       ZSTOCKADE       ZGRANARY
+       ZCAPITOL       ZUNIVERSITY       ZCHURCH
+       ZMINE       ZLUMBERYARD       ZSPECIAL
+       ZGOLD       ZBLACKSMITH       ZRUIN
+       ZFARM       ZROAD       ZDEVASTATED
+
+For more information on each, see the helpfile on 'Designations'
+END
+                            METAL, FOOD, AND GOLD
+
+FOOD:      You MUST have enough food to feed your people... One civilian eats
+        your national eatrate units of food.  Soldiers eat double.  If you
+        run out of food, you run the risk of famine.  Food will spoil based
+        on the spoilrate percentage for each nation.
+METAL:     You need to have metal to draft new military, as per the unit types
+        section.  One person produces one metal per point of mineral in
+        the sector per turn.  An amount of Metal (based on how many troops
+        you have) can be used to buy +1% in your nations attack or defense.
+JEWELS:    You can have a maximum of 10 talons debt for every jewel
+        point that you mined.  After that point, you undergo a TAX REVOLT,
+        which has not yet been implemented. Thus gold can be negative to
+        a certain level.  Jewels are also useful to obtain magic, spending
+        Jewels will buy you one random new power (command M).  The cost for
+        the magic power is dependent on your race and how many other powers
+        you have.  See the helpfile on magic for more information.  You can
+        have 10 talons in the treasury for each jewel (gold based economy).
+        After that, your gold talons will be converted to jewels at a 10:1
+        ratio.
+END
+                           CIVILIAN MOVEMENT
+
+The game offers users the capability to forcibly move civilians around
+the map (via the 'Z' command).  Civilians will, however, move of their
+own volition.  Below are how civilians of different races think about "good"
+sectors of various types.  The program is intelligent enough to appropriately
+handle poor or low value sectors.  Sum the numbers found below.  The result
+is the relative "attractiveness" of a sector.
+
+General Modifiers:   Goldmine: XGOLDATTR * jewels   Farm: XFARMATTR * food value  Other: XOTHRATTR
+  Trade Good: XTGATTR     Mine: XMINEATTR * metals       Town: XTOWNATTR             City: XCAPATTR
+
+                                Racial Modifiers
+Race        Mtn    Hill   Clear  Forest    Wood    City    Mine Gldmine
+Dwarf       XDMNTNATTR     XDHILLATTR     XDCLERATTR     XDFOREATTR     XDWOODATTR     XDCITYATTR     XDMINEATTR     XDGOLDATTR
+Elf         XEMNTNATTR     XEHILLATTR     XECLERATTR     XEFOREATTR     XEWOODATTR     XECITYATTR     XEMINEATTR     XEGOLDATTR
+Human       XHMNTNATTR     XHHILLATTR     XHCLERATTR     XHFOREATTR     XHWOODATTR     XHCITYATTR     XHMINEATTR     XHGOLDATTR
+Orc         XOMNTNATTR     XOHILLATTR     XOCLERATTR     XOFOREATTR     XOWOODATTR     XOCITYATTR     XOMINEATTR     XOGOLDATTR
+END
+                            VIEWING THE WORLD
+
+When you first log in, you will notice that you can only see a portion of the
+entire world.  Your range of vision is determined by the magic powers you
+possess and the location of your sectors and armies.  Scouts are useful to
+expand the amount of land you can view.
+
+The 'd' command allows you to change what you see on the map.  You can
+alter the information in the sector and can  change the type of sectors that
+are highlighted.  See the next two sections for the list of possible display
+and hightlight options.
+
+Normally, the conquer display shows your chosen display option with blank
+spaces to the right to space out the map nicely.  But, you may also use the
+area thus provided to show a secondary display.  This secondary display may
+be turned on and off using the '/' display selection.  Also, you may
+distinguish between what to display in the primary or secondary display by
+prefacing your selection with either a '1' or '2'.   If neither is chosen,
+then the primary display is set to the selected option, while the secondary
+display is turned off.
+END
+                            DISPLAY OPTIONS
+
+This section describes the possible display options proceeded by their
+associated keystroke:
+
+ (d)  designation:  show your designations and other nation's marks.
+ (r)  race:  show race of owned sectors (Human, Orc, Elf, Dwarf, Lizard, etc.)
+ (M)  move cost:  show the cost in movement points to move into a sector.
+ (p)  people:  show how many people live in a sector; arabic numbers indicate
+        the amount in hundreds, while 'I', 'V' and 'X' are used to indicate
+        at least one thousand, five thousand, and ten thousand respectively.
+ (D)  defense:  show the relative defensive strength of a sector.  Both sector
+        terrain and sector fortifications are taken into account.
+ (f)  food:  display relative food production ability of a sector.
+ (c)  contour:  display the elevation symbol of each sector.
+ (v)  vegetation:  display the vegetation symbol of each sector.
+ (m)  metal:  show the relative metal production ability of a sector.
+ (n)  nation mark:  display the national mark for all owned sectors.
+ (j)  jewels:  show the relative jewel production ability of a sector.
+ (i)  items:  display the designation neccesary to take advantage of the
+        special item in a sector.
+END
+                         HIGHLIGHT OPTIONS
+
+This section describes the possible modes of highlighting proceeded by the
+keystroke used to select each:
+
+ (o)  owned:  highlight all sectors owned by your country.
+ (a)  army:  highlight all sectors containing army units.
+ (y)  your army:  hightlight all sectors containing at least on of your
+        army units.
+ (l)  moves left:  hightlight any sectors containing one of your armies with
+        movement points remaining.
+ (s)  special:  highlight any sector containing a special item visable to
+        your nation.
+ (x)  none:  do not highlight any sectors.
+
+   In general, the most useful displays are the production displays (food,
+metal, and jewels), and the most useful highlights are the army highlight
+(to show where your enemies are), and the moves left highlight (to indicate
+those units which may still be moved onto your enemies).
+END
+                        COMMERCE AND TRADING
+
+Trading makes it be possible to exchange items between nations.
+
+There are seven types of items available for trade:  gold, food, metal,
+jewels, land, soldiers, and ships.  To place an item up for trade,
+the player need only select the sell option on the commerce board.  The
+player will then enter the type and amount of his product followed by the
+type and minimum amount of what he wants in return.  The product will
+remain on the commerce board until it is purchased or removed by the
+owner of the product.  To purchase an item, a player can just select the
+item number to purchase and then enter a bid amount.  You may only trade
+mercenary, siege engine, catapult, (summoned) monster, or elephant units.
+Certain Items will be available for "instant purchase" from the game
+itself, these are indicated by the nation name of "Conquer".
+
+During every update, bids will be resolved and the highest bid for a
+product will receive the product.  There is a 20% administration fee
+for a trade (i.e. 20% of the traded goods on each side disappear)
+NOTE: the trading code is buggy and trading should be used with caution.
+END
+                         DIPLOMACY IN CONQUER
+
+Diplomacy is very important in conquer.  You maintain a diplomatic status with
+each nation in the game.  This is adjusted via the 'S' (diplomacy) command.
+Possible status' are TREATY, ALLIED, FRIENDLY, NEUTRAL, HOSTILE,
+WAR, and JIHAD.  Be very careful with TREATY and JIHAD.  Once chosen,
+it will take XBREAKJIHAD gold talons to change your mind (and might ruin
+your reputation).  You can only take land from a nation that you are at
+WAR or JIHAD with.  TREATY implies that you AUTOMATICALLY declare war on
+nations who ATTACK your ally - but not on nations whom they attack.
+
+Diplomacy with non player nations is important as it determines if you get
+attacked or not.
+END
+                           BRIBING NPC NATIONS
+
+Conquer allows you a chance to bribe non player nations for the paltry sum
+of XBRIBE per 1000 troops in the bribee's nation.  A nation with 10000 troops
+can be bribed for only 10xXBRIBE gold talons (a bargain). This has a 
+percentage chance of working, but you wont know if it worked until the update.
+
+                 same allignment:                50%
+                 1 level allignment difference:  30%
+                 2 level allignment difference:  20%
+                 They are isolationist:          15%
+                 same race:                     +20%
+
+Bribing NPCs is a good way to get some breathing room.
+You waste your money if you are at war with them that turn.
+You can not bribe player nations, savages, nomads, lizards, or pirates.
+END
+                              SEASONS
+                (only food production is implemented)
+
+winter: army units must end turn in town or suffer 10% attrition.
+        farms produce no food.  movement is at half ability.
+spring: produce 1/2x food.
+summer: produce 1x food. units get 50% movement bonus.
+fall:   produce 2.5x food.
+
+you must have a sector spring,summer,and fall or it will produce no food
+global events should be good too; typhoon season, famine times, etc.
+Perhaps the climate of a region should also effect the events. ie,
+more typhoons in the equatorial belt. Typhoon should be calculated
+with a starting point and an ending point and then it walks in
+between causing devastation.
+END
+                        FINAL HINTS & OTHER COSTS
+
+It is important to initially have a reproduction of 9-10% and a move of ~8-9.
+You need about 1000 military to start - to take enough new land.
+Take as much land as possible in the beginning.
+Make sure your combat bonus stays respectable.
+
+                             OTHER COSTS
+
+            Designation Costs:              $XDESCOST
+            Designation to Fort or Town:    10x$XDESCOST+$XDESCOST METAL
+            Designation to City:            20x$XDESCOST+5*$XDESCOST METAL
+            Fortification:                  $XFORTCOST*(2**Fort Level)
+            Bribe Nation:                   $XBRIBE/level
+            Move Civilians:                 $50/civilian
+END
+                            OTHER NOTES
+
+   The computer can move for players if they don't enter a turn and the
+CMOVE variable is set before the program is compiled.  This works well...
+for a time.  The Computer will NOT redesignate captured sectors for you.
+
+Mercenaries must be paid a fee equal to enlistment fee when disbanded.
+
+If you have too many people in a given non Town, non capitol sector,
+reproduction and production is halved for them.  If you have a large
+number of people in a sector, they will not reproduce.
+
+WARNING: The Naval and Trade Code has been known to be buggy.  Please
+pay attention and send the author notes on discrepancies in the code.
+END
+                        OPTIONS OF YOUR VERSION
+
+        Maximum Number of Armies Per Nation....XMAXARM
+        Maximum Number of Navies Per Nation....XMAXNAVY
+        Absolute Maximum Number of Nations.....XNTOTAL
+        Starting Points to buy your nation.....XMAXPTS
+        Percentage of land that is mountains...XPMOUNT
+        Storm Percentage.......................XPSTORM
+        Cost for Orc Npc Takeover..............XTAKEPRICE
+        Average Number of Random Events........XNORANDEVENTS
+        Chance of Volcano Eruption.............XPVULCAN
+
+        Mail Checker  XSYSMAIL       System V      XSYSV
+        Monsters      XMONSTER       Npc Cheat     XCHEAT
+        Storms        XSTORMS       Volcanos      XVULCANIZE
+        Npc Nations   XNPC       PC Automove   XCMOVE
+        Random Events XRANEVENT       Orc Takeovers XORCTAKE
+        Super God     XOGOD       Hidden News   XHIDELOC
+        Trading       XTRADE
+END
+                        ADDITIONAL OPTIONS
+
+        Land Vision Range is..................XLANDSEE
+        Navy Vision Range is..................XNAVYSEE
+        Army Vision Range is..................XARMYSEE
+
+        Taxation Rates:
+        Food tax per value point per person...XTAXFOOD
+        Jewel tax per jewel point per person..XTAXGOLD
+        Metal tax per metal point per person..XTAXMETAL
+        Town tax per person...................XTAXTOWN
+        City tax per person...................XTAXCITY
+
+        100% chance per XTOMUCHMINED metal mined of deplete metal mines.
+        100% chance per XTOMUCHMINED jewels mined of deplete gold mines.
+        XFINDPERCENT% chance that new materials are found in a sector.
+        Sector overpopulation occurs with XTOMANYPEOPLE people.
+        Maximum Sector Population is XABSMAXPEOPLE people.
+        Ships may carry XSHIPHOLD items per holding unit.
+END
+DONE

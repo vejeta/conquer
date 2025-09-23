@@ -1,0 +1,248 @@
+.TH CONQUER 6
+.SH NAME
+conquer \- multiuser game of strategy
+.SH SYNOPSIS
+.B conquer
+[-Ghps -nNAT -dDIR]
+.sp
+.B conqrun
+[-max -dDIR ]
+.SH DESCRIPTION
+.I CONQUER
+is a multi player computer game designed to run under the UNIX
+operating system.  In
+.I CONQUER,
+each player is the leader of a nation,
+composed of people (humans, orcs, elves, dwarves), recourses, and land.
+Rulers customize their nation at creation by chosing their race and by giving
+their nation special powers (magic, combat factor, location, speed...)
+and resources (civilians, troops, metal, gold...).  Play involves building,
+moving, and controlling armies and navies, diplomacy with other players,
+and adjusting economic activity, which is primarily geared to the production
+of gold for your treasury.  Metal is needed, however to build ships & armies,
+and food is needed to prevent revolts and keep people alive.
+.SH ENVIRONMENT
+Conquer now supports the environment variable CONQ_OPTS.  This allows
+the setting of default values for nation name and data directory.  The
+format is as follows:
+.sp
+.nf
+setenv CONQ_OPTS "G,nation=MyLand,datadir=this_game"
+.fi
+.sp
+If you then type just
+.I conquer
+to enter conquer, it will be equivalent to typing
+.I conquer -G -n MyLand -d this_game.
+.sp
+The data directory and nation settings through the environment are
+just defaults and maybe overridden by actually entering a different
+option using '-d' or '-n'.  [Note: to specify the default directory,
+you may simply specify '-d ""'.]
+.sp
+The CONQ_OPTS environment variable combined with the use of shell
+aliases should allow quick access for players in multiple campaigns.
+.fi
+.SH ON LINE HELP
+For detailed information, run conquer with the -h option (see below).
+.SH GAME OPTIONS
+.B conquer
+[-Ghps -nNAT -dDIR]
+.IP \-h
+display the conquer help files.
+.IP "\-n NTN"
+run as nation NTN
+.IP "\-d DIR"
+Run on data in directory DIR.  Each game has its own data directory.  The
+default is set up at compile time and should only be used if only one game
+is run.
+.IP \-G
+Gaudily highlight country name when reading the world news.
+.IP \-p
+Output a map of the world as visible by a nation.  The map is sent
+to the standard output and interactive prompting is done through standard
+error.  Therefore, the command:
+.I conquer -p > foo
+will create a file called foo containing the map.
+.IP \-s
+print out scores
+.SH CONTROL OPTIONS
+.B conqrun
+[-max -dDIR ]
+.IP \-a     
+add new player	
+.IP \-m     
+make a world
+.IP \-x     
+execute program
+.IP "\-d DIR  "
+run on data in directory DIR.  If DIR does not begin with a '/'
+character then the directory will be considered a sub directory of the
+default directory.
+.SH CURSOR MOVEMENT
+.nf
+h: move west
+y: move north-west
+k: move north
+u: move north-east
+l: move east
+n: move south-east
+j: move south
+b: move south west
+J: scroll south
+K: scroll north
+L: scroll east
+H: scroll west
+.fi
+.SH COMMANDS
+.TP 
+\'a\':
+.B army report:
+Gives army details & permits changing army status, merging 2 armies,
+splitting armies, and disbanding armies.
+.TP 
+\'c\':
+.B administration:
+Report on nation status and then change name, password,
+add to combat bonus, or (if god) destroy a nation.
+.TP
+\'d\':
+.B change display:
+Change display mode.  Numbers in gold screens... are
+relative values of the materials.  People are displayed
+by hundreds as arabic digits and by thousands with roman
+numerals.
+.TP
+\'f\':
+.B fleet report:
+Report on the status of your fleets.
+.TP
+\'g\':
+.B group report:
+Gives army details on current sector & permits changing army status,
+merging 2 armies, splitting armies, and disbanding armies.
+.TP
+\'m\':
+.B move unit:
+move selected unit. The unit will stop when it runs out
+of move points or runs into an army larger than it.
+.TP
+\'o\':
+.B pick previous item:
+allows you to select the previous army or navy in the
+sector.  Other commands will operate on that unit.
+.TP
+\'p\':
+.B pick next item:
+allows you to select the next army or navy in the
+sector.  Other commands will operate on that unit.
+.TP
+\'r\':
+.B redesignate:
+you can change habitable sectors you own to other
+designations.  Cities require 500+ people & Capitols
+require cities.  God can redesignate anything.
+.TP
+\'s\':
+.B score:
+print out a screen showing the scores.
+.TP
+\'t\':
+.B transport:
+unload or load a fleet with soldiers or civilians.
+.TP
+\'w\':
+.B wizardry:
+you may cast spell to allow flight, increase battle
+performance or summon monsters if you have the ability.
+.TP
+\'?\':
+.B help screen:
+print out help text
+.TP
+\'B\':
+.B budget :
+ESTIMATE your nations budget statistics
+.TP
+\'C\':
+.B construct:
+If you have cash, you can build fortifications and
+ships in your cities.  Ships can only be built in cities
+located on the water.
+.TP
+\'D\':
+.B draft:
+You may draft a quarter of the population of your
+cities (those with more than a certain percent of
+your population in it) if you have the gold.  You
+need 10 per man iron for this.
+.TP
+\'F\':
+.B next fleet:
+Move cursor to your next fleet
+.TP
+\'G\':
+.B next army:
+Move cursor to your next army
+.TP
+\'M\':
+.B magic:
+Prints your magic powers & offers you the option to
+purchase more (cost doubles each power). Monster Power
+gives you the chance to take over NPC nations.
+.TP
+\'N\':
+.B newspaper:
+Briefs you on world happenings.  Note the News has 4 pages.
+.TP
+\'P\':
+.B production:
+ESTIMATE your nations production statistics
+.TP
+\'S\':
+.B diplomacy:
+Alloy you to see and alter your diplomatic status.
+.TP
+\'Q\':
+.B quit:
+Save your move and quit the game.  Note there is no
+means supported to quit without saving your moves.
+.TP
+\'R\':
+.B read mail:
+Read mail messages
+.TP
+\'W\':
+.B write mail:
+Write mail messages
+.TP
+\'Z\':
+.B move people:
+Civilians can move between two of your sectors at a cost
+of 50 per civilian.  Civilians move naturally in the update.
+.SH FILES
+/usr/games/lib/conquerdir/data	default datafile for the running game
+.SH MAILING LIST
+I have established a mailing list to provide a location for discussion
+of conquer, and for a place where I will bounce my ideas and test
+patches off of people.  If you would like to be added to the mailing
+list, send mail to
+.I conquer-news-request@bu-cs.bu.edu.
+.SH BUGS
+Probably lots, if you find any please mail them to either:
+.br
+.I adb@bu-cs.bu.edu
+or
+.I conquer-bugs@bu-cs.bu.edu.
+.sp
+1) Security is not as tight as it should be.  People might be able to alter
+the data of others nations... this is cheating and unacceptable.  
+.br
+2) Naval battles may not work properly.
+.br
+3) NPC nations can not build navies or move over water.  God should be
+sure that all NPC nations have a minimum of 5 sectors to move to.
+.br
+4) Documentation is becoming too large.  A better method for updating
+it and reading it should be implemented.  Some sections need sprucing
+up.
