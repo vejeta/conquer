@@ -1,0 +1,13 @@
+
+This directory contains the code for conqrast, a program for
+displaying nice maps of conquer games on sun consoles and, sometime in
+the future, on X windows displays.
+
+See the manual page conqrast.1 for more details.
+
+Bugs should probably be sent to me, Richard Caley.
+
+	rjc@uk.ac.ed.aipna
+
+or permutations thereof that your local mailer demands.
+

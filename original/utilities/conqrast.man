@@ -1,0 +1,247 @@
+.TH CONQRAST 1 "17th August 1989" "CONQUER"
+.SH NAME
+conqrast \- Displaying and saving maps for conquer
+.SH SYNOPSIS
+.B sunconqrast
+[argumants] [mapfile]...
+.br
+.B xconqrast
+[arguments] [mapfile]...
+.SH NOTE
+.I
+xconqrast does not work yet. If you want it, do it . . .
+.SH DESCRIPTION
+.I Conqrast
+is a program which sits on top of conquer and displays maps on bitmap
+devices. Two versions exist at the moment
+.I sunconqrast
+display on a sun workstation screen and saves in sun rasterfile
+format;
+.I xconqrast
+displays in the root window of and X Windows display and stores in X
+bitmap format.
+.PP
+The map which is drawn is either supplied as a command line argument
+or is obtained by running conquer. In the latter case, the nation and
+game are supplied with the \fB-N\fR and \fB-D\fR arguments described
+below, the nation name will be taken from any map files supplied or,
+by default, is "god".
+.SH OPTIONS
+Arguments are as follows
+.IP "\fB-o\fR \fIfilename\fR"
+Save the resulting image in \fIfilename\fR rather than
+displaying it on the screen.
+
+.IP "\fB-o\fR \fIdisplay\fR"
+Use the display \fIdisplay\fR rather than the default.
+\fISunconqrast\fR defaults to "/def/fb" and recognised
+screen names by the leading "/dev/" while
+xconqrast defaults to "unix:0" and recognises screeen
+names by the colon. This will probaby be needed if you are
+running on a system with multiple screens etc.
+
+.IP "\fB-l\fR"  
+Produce the image "live". That is on the screen as it
+is built rather than in memory. Unsafe since you can
+corrupt the image as as it is drawn, but prety.
+
+.IP "\fB-D\fR \fIdir\fR"
+Use the conquer game in directory \fIdir\fR.
+
+.IP "\fB-N\fR \fIname\fR"
+Make map for nation \fInation\fR.
+
+.IP "\fB-m\fR \fInumber\fR"
+Magnify the image \fInumber\fR times. The default
+magnification is 11.
+
+.IP"\fB-n\fR" 
+Draw in the national boundries and label the capitals
+with the symbol of the nation.
+
+.IP "\fB-na\fR"
+Draw in national boundries and label _all_ the sectors
+with who owns them. This is useful for when a game has
+been going a while and the nations do not form nice
+connected regions, so isolated fragments of nations
+are hard to identify. Capitals are identified by being
+labeled in bold. 
+
+.IP "\fB-d\fR"
+Display the designations of sectors. This can be
+combined with -n to draw in the nation boundries and
+label the capitals with the nations character. In this
+case the capital is displayed bold to distinguish, for
+example, nation 'f's capital from a farm.
+
+.IP "\fB-b\fR"
+Draw in the boundries of barbarian ( ie savages,
+nomad, lizard, or pirate ) owned lands. Only
+useful when used with -n or -na.
+
+.IP "\fB-ba\fR" 
+Like \fB-b\fR but labels the barbarian lands with stars.
+
+.IP "\fB-a\fR"  
+Do \fInot\fR draw in the altitudes. This is not useful for
+actually drawing nice maps, but since drawing in
+altitude information is slow, it speeds up
+experimentation with different fonts for the nation
+labels. 
+
+.IP "\fB-c\fIc\fR \fInumber\fR"
+Draw altitudes of type \fIc\fR with brightness \fInumber\fR.
+\fIc\fR is one of "~-%#^" as used by conquer. \fInumber\fR is
+between 0 and 256 with 0 being black and 256 white.
+
+.IP "\fB-t\fR"  
+Do not title the map. This is necesary when there is
+no font small enough.
+
+.IP "\fB-f\fR \fItype\fR \fIfont\fR"
+Use font \fIfont\fR for things of type \fItype\fR.
+Possible types are
+.RS
+.IP "title"     
+For the title.
+.IP "nation"    
+For the nation/capital labels.
+.IP "designation" 
+For the designations.
+.RE
+or any of the above with `b' prepended ( eg. "btitle"
+) to set the bold version. If no fonts are specified,
+conqrast will choose for you.
+
+.IP "\fB-v\fR"  
+Print out notes on what is being done. 
+.PP
+The \fImapfiles\fR should be as produced by 
+.IP
+conquer -p > mapfile'
+.PP
+If you do not supply a mapfile which is needed to produce the map you
+request ( altitude unless `\fB-a\fR'; nation and designation for `-n';
+designation for `\fB-d\fR' ) \fIconqrast\fR will prompt you for the nation's
+password and attempt to run 
+.IP
+conquer -p -n\fIname\fR
+.PP
+to get the map it wants.
+
+More than one map may be put into a single file as shown in the example below. 
+
+.SH EXAMPLE
+.IP
+.br
+% \fBconquer -p -nTolland >mapfile\fR
+.br
+conquer Version 4.4: Copyright (c) 1988 by Edward M Barlow
+.br
+
+.br
+What is your Nation's Password: 
+.br
+
+.br
+For convenience, this output is to stderr,
+.br
+while the maps will be sent to stdout.
+.br
+
+.br
+The valid options are,
+.br
+1) altitudes
+.br
+2) vegetations
+.br
+3) nations
+.br
+4) designations
+.br
+
+.br
+What type of map? \fB1\fR
+.br
+
+.br
+doing print of altitude
+.br
+% \fBconquer -p -nTolland >> mapfile\fR
+.br
+conquer Version 4.4: Copyright (c) 1988 by Edward M Barlow
+.br
+
+.br
+What is your Nation's Password: 
+.br
+
+.br
+For convenience, this output is to stderr,
+.br
+while the maps will be sent to stdout.
+.br
+
+.br
+The valid options are,
+.br
+1) altitudes
+.br
+2) vegetations
+.br
+3) nations
+.br
+4) designations
+.br
+
+.br
+What type of map? \fB3\fR
+.br
+
+.br
+doing print of nations
+.br
+% \fBsunconqrast -n -m 11 mapfile\fR
+.br
+Enter conquer password: 
+.br
+
+notice how it prompts for your password when it
+finds it needs the designation map which was not given in the file.
+
+.SH PROBLEMS
+
+.I
+xconqrast
+does not work yet! not even slightly. Don't even think of it.
+
+The method used to produce bold when there is no bold font is
+rather poor.
+
+no fonts for small maps ( < mag 9 ) on my machine so that is
+the minimum. If you want a smaller one have a look in
+/usr/lib/fonts/fixedwidthfonts on your machine or create your
+own. In the latter case, you could send it to me too . . .
+
+The way -o works makes it impossible to draw live on a
+non-standard screen then dump to a file. Doesn't seem to be
+likely to cause anyone too many problems ( famous last words!
+).
+
+
+.SH "THINGS TO DO"
+
+create a set nice fonts ( different sizes ) for designations
+so that they can be represented by a symbol rather than by a
+letter. 
+
+disconnect the conquer process from the terminal rathert then
+sunconqrast.
+
+better help message.
+
+.SH SEE ALSO
+conquer(6) rasterfile(5) screenload(1) bitmap(1x)
+.SH AUTHER
+Richard Caley

@@ -16,3 +16,63 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = ["1987-1989 Original Authors (see headers)", "2006-2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"]
 SPDX-License-Identifier = "GPL-3.0-or-later"
 SPDX-FileComment = "Fallback rule for all other files not covered above."
+version = 1
+SPDX-PackageName = "conquer"
+SPDX-PackageSupplier = "Juan Manuel Méndez Rey <vejeta@gmail.com>"
+SPDX-PackageDownloadLocation = "https://github.com/vejeta/conquer"
+
+# Richard Caley's specific contribution (highest precedence)
+[[annotations]]
+path = ["original/utilities/xconqrast.h"]
+precedence = "override"
+SPDX-FileCopyrightText = "1989 Richard Caley <rjc@cstr.ed.ac.uk>"
+SPDX-License-Identifier = "LicenseRef-Richard-Caley"
+SPDX-FileComment = "Map drawing utility for Conquer worlds. Written by Richard Caley July 1989. Original permissive license allows copying, distribution, and modification but prohibits charging fees."
+
+# GPL release folder - clean modern distribution
+[[annotations]]
+path = ["gpl-release/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["1987-1988 Ed Barlow <barlowedward@hotmail.com>", "1987-1988 Adam Bryant <adb@usa.com>", "2006-2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"]
+SPDX-License-Identifier = "GPL-3.0-or-later"
+SPDX-FileComment = "Core Conquer game - relicensed to GPL with explicit permission from all original authors. Ed Barlow: Original creator, core engine. Adam Bryant: Co-author, maintainer. Juan Manuel Méndez Rey: Relicensing coordinator and current maintainer."
+
+# Original folder - preserves historical restrictive licensing (except Richard Caley's file)
+[[annotations]]
+path = ["original/**.c", "original/**.h"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["1987-1988 Ed Barlow <barlowedward@hotmail.com>", "1987-1988 Adam Bryant <adb@usa.com>"]
+SPDX-License-Identifier = "LicenseRef-Original-Restrictive"
+SPDX-FileComment = "Original Conquer distribution preserved with historical restrictive licensing. Cannot be redistributed without author permission. Relicensed version available in gpl-release/ folder."
+
+# Original folder non-source files
+[[annotations]]
+path = ["original/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["1987-1988 Ed Barlow <barlowedward@hotmail.com>", "1987-1988 Adam Bryant <adb@usa.com>"]
+SPDX-License-Identifier = "LicenseRef-Original-Restrictive"
+SPDX-FileComment = "Original Conquer distribution preserved with historical restrictive licensing."
+
+# Richard Caley utilities documentation folder
+[[annotations]]
+path = ["richard-caley-utilities/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"
+SPDX-License-Identifier = "CC0-1.0"
+SPDX-FileComment = "Documentation and preservation materials for Richard Caley's contributions. Released as public domain documentation."
+
+# Root level documentation and build files
+[[annotations]]
+path = ["README.md", "LICENSE-NOTICE.md", "Makefile*", "*.toml"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2006-2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"
+SPDX-License-Identifier = "CC0-1.0"
+SPDX-FileComment = "Repository documentation, build configuration, and licensing framework."
+
+# Fallback rule for any remaining files
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["1987-1989 Original Authors (see specific file headers)", "2006-2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"]
+SPDX-License-Identifier = "LicenseRef-Original-Restrictive"
+SPDX-FileComment = "Fallback rule - preserves original restrictive licensing unless explicitly overridden. See LICENSE-NOTICE.md for detailed licensing framework."

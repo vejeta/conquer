@@ -1,0 +1,333 @@
+                       MILITARY AND WAR IN CONQUER
+
+Conquer permits both players and the computer to draft a variety
+of unit types via the 'D'raft command.  Ships can be created via
+the 'C'onstruct command.  Units differ in combat ability, movement
+rate, and costs.  Some unit types have prerequisite powers.  For
+example, as detailed on the next two tables, a archer unit requires
+the drafting nation to have ARCHER power, and costs 100 talons and 
+100 metal points per soldier to draft.  Archer units move at 1 times
+the nations default movement rate, and fight at +10% if they are
+defending.  The special list shows that archers gain special combat
+advantages in certain circumstances.  In other words, archers cost the 
+same as infantry, but fight slightly better (so if you have ARCHER power, 
+you will draft Archers, not Infantry).
+END
+                                UNIT TYPES
+
+                   costs           combat                power
+              enlist maintain  attack defend move  metal prerequisites
+
+MILITIA         $50    $20     -40     -25     0     0
+GOBLIN          $70    $20     -15     -15    x1     80    MI_MONST
+ORC             $85    $50      +0      +0    x1     80    MI_MONST
+INFANTRY        $100   $50      +0      +0    x1     100
+SAILOR          $100   $50      +0      +0     0     100
+MARINES         $100   $50      +5      +0     0     100   SAILOR
+ARCHER          $100   $50      +0     +10    x1     100   ARCHER
+ZOMBIE          $100   $0      -15     -15    x1     100   VAMPIRE
+URUK-HAI        $125   $50      +5      +5    x1     150   AV_MONST
+NINJA           $125   $50     +20      +0    x1     150   NINJA
+PHALANX         $150   $50     +10     +10    x1     150   CAPTAIN
+OLOG-HAI        $180   $75     +15     +15    x1     150   BREEDER+AV_MONST
+LEGION          $180   $75     +20     +20    x1     150   WARLORD
+DRAGOON         $300   $200    +10     +10    x1.5   100   
+MERCENARY       $225   $100      *       *    x1     0
+TROLL           $225   $100    +25     +15    x1     200   MA_MONST
+END
+                        UNIT TYPES - CONTINUED
+
+                   costs           combat                power
+              enlist maintain  attack defend move  metal prerequisites
+
+ELITE           $225   $100    +20     +20  x1.3     200   ARMOR
+LT_CAVALRY      $275   $175    +20     +20  x1.5     100   CAVALRY
+HV_CAVALRY      $450   $225    +30     +30    x2     300   CAVALRY
+CATAPULT        $600   $250    -20     -20   x.5    1000
+SIEGE           $600   $250    -20     -20   x.5    1000
+ROC             $600   $250    +20     +30    x1     300   AVIAN
+KNIGHT          $600   $250    +40     +40    x2     600   ARMOR & CAVALRY
+ELEPHANT        $600   $250    +50     +50   x.5     600   DERVISH
+GRIFFON         $800   $250    +40     +50  x1.5     400   AVIAN
+SPY           $10000  $2000    -30     -30    x1       0
+SCOUT           $100   $100    -30     -30    x2       0
+END
+                          ADDITIONAL NOTES ON UNITS
+
+INFANTRY     are the default units. You can't get them if you have any powers 
+             (ARCHER, VAMPIRE, or any MONSTER) which change your default unit.
+DRAGOONS     are cavalry that fight on foot as regular infantry.  They move
+             as cavalry but fight as infantry.
+ARCHERS      gain bonuses when fighting cavalry or near fortifcations.  They
+             get an additional +15%*(percent of cavalry/knight opponents)
+             and gain +15% defending & +5% attacking forts/cities... They
+             don't get the bonus vs cavalry if they are in a fort.
+MERCENARIES  are drafted from the world mercenary pool and thus don't deplete 
+             your nations population when hired.  Only 1/2 your troops can
+             be mercenaries.  They must be paid their enlistment cost to 
+             disband them.  They have a tendency to run away from combats if
+             outnumbered.  Mercenary combat bonuses are independent of the
+             drafting nations bonus, and are based on an average worldwide
+             mercenary combat bonus.
+CAVALRY/KNIGHTS get -20% attacking or defending fortress.
+
+note.  you can purchase non catapult/seige/knight/elephant units even if 
+you have inadequate iron reserves if you pay triple their enlistment cost.
+END
+                          ADDITIONAL NOTES ON UNITS p.2
+
+SIEGE_ENGINES add +1%/20 men *TO WHOLE COMBAT* attacking fortress (max +30%)
+             siege engines can damage any fortifications they attack.
+CATAPULTS    add +1%/40 men *TO WHOLE COMBAT* in normal combat (max +10%)
+             add +1%/20 men *TO WHOLE COMBAT* when defending castle (max +10%)
+             catapults can damage any fortifications they attack.
+PHALANX &    Phalanx and Legionaries get an additional +10 combat bonus if in
+LEGIONARY       500+ men units +20 combat bonus if in 1000+ men units
+ROC/GRIFFON  units have the ability of flight.
+NINJA        units ignore enemy zones of control
+SAILOR       units may disembark from ships into unowned sectors.
+MARINE       units are the only units that can disembark from ships in another
+             nation's territory.
+             marines also have excellent combat ability while aboard ships.
+ZOMBIE       units are just plain dumb.  They don't know how to MARCH, only
+             use half of a forts defenses and cannot even play follow the
+             leader.  But, to the horror of their enemies, they obsorb 33% of
+             the enemy dead into their ranks.
+SPY          units are never captured and start in another nations capitol
+SCOUT        scouts can ignore enemy zones of control.
+END
+                         POSSIBLE ARMY STATUS
+
+The following is the list of normally selectable army statuses:
+
+MARCH    :Marching doubles army movement at the expense of combat strength.
+         :   One fifth of national moverate is required to stop marching.
+SCOUT    :Scout and spy units can have scout status, and will, if possible,
+         :   avoid any enemy.  They can move through hostile armies but are
+         :   not able to take unowned land.  They are useful to check out
+         :   the map and to determine the enemy combat strength.
+ATTACK   :Armies in this mode can take owned sectors, initiate
+         :   combat, and have they reasonable movement rates.
+DEFEND   :In this mode, can take owned sectors and have good defense
+         :   and movement, but can not initiate combat.
+GARRISON :This mode offers the strongest defense but is used only in YOUR
+         :   Towns, Capitol, and castles.  Garrisons may not move.
+RULE     :This mode is available to leaders within cities.  It means that
+         :   the leader will not participate in battle and may only be
+         :   killed if surrounding troops receive more than 80% of damage.
+SORTIE   :A quick attack from a fortification. See page on CITY COMBAT.
+SIEGE    :An encampment to pin armies in a sector. See page on CITY COMBAT.
+END
+                         POSSIBLE ARMY STATUS  (page 2)
+
+The following is the list of specialized statuses:
+
+MILITIA  :Militia units have this status, which indicates that they are
+         :   unable to move but DO get the bonuses of GARRISON troops.
+         :   Militia units are not full time troops, and are intrinsically
+         :   weak in combat.
+FLIGHT	 :Flying units ignore normal movement costs while moving, and can
+         :   cross water.  See the FLIGHT section below.
+MAGDEF   :Magically enhanced DEFEND is normal DEFEND mode with a +30% bonus.
+         :   You get this status by spending spell points via 'w'izardry
+MAGATT   :Magically enhanced ATTACK is normal ATTACK mode with a +30% bonus.
+         :   You get this status by spending spell points via 'w'izardry
+GROUP    :Members of army groups move at the rate of the slowest unit in
+         :   the group.  They gain leader bonuses and have the same
+         :   properties in combat as would an army in attack mode.
+BESIEGED :A troop which is under siege.  See page on CITY COMBAT.
+
+Due to unit reorganization, switching from one status to another consumes
+one point of movement.  (Only march is unchangable with zero movement.)
+END
+                      CAPTURING SECTORS AND TAKING COUNTRIES
+
+It takes armies greater than 75 AND greater than your total civilians/350 to 
+take a sector.  You MUST be either at WAR or in JIHAD with the nation you want
+to take the sector from.  Because leader and monster units are really just a
+single entity per unit, they do not possess enough men to take sectors.
+
+If one nation captures another nation's Capitol, that Capitol is sacked and
+all items kept there are transfered to the conquerer:  metal, gold, jewels and
+a fifth of the food supply.  In addition, the nation will be depleted because
+it will now lack a Capitol.  That will result in the loss of all monster and
+mercenary troops and XDEPLETE% of it's regular armies and sectors.  If a nation
+loses all of it's population and army units, that nation is destroyed.
+
+Mercenaries are not drafted from your populace.  15% of all troops 
+disbanded become mercenaries and are added to the mercenary soldier pool 
+for potential drafting by any nation.  
+END
+                              FLIGHT
+
+Some avian units have the ability of flight, these units will have a
+status of FLYING automatically set after each update.  Also, magicians
+will have the ability to grant flight to individual units.  Flying
+units may not be combined with other units, but may be separated as
+per normal units.
+
+Flying allows a unit to pass over land and water without being stopped
+by enemy troops.  It also allows allows cheaper travel over most
+sectors.  The major difference between flying and normal movement is that,
+when a flying unit stops its movement, it will have landed, and its
+status will become DEFEND, prohibiting any further flight.
+
+NOTE: if a FLYING unit runs out of movement over water, it will drown.
+END
+                        SHIPS AND SHIP COSTS
+
+There are three types of ships available:
+
+   ship type    cargo/hold      base move     base cost
+
+Warships        combat ships    XWARSPD            XWARSHPCOST
+Galleys         XSHIPHOLD soldiers    XGALSPD            XGALSHPCOST
+Merchants       XSHIPHOLD civilians   XMERSPD            XMERSHPCOST
+
+Of each type, there are three classes of ships:
+
+   ship class   holds           move bonus    cost rate
+
+Light           One             +(2*XSIZESPD)        1 x Base
+Medium          Two             +XSIZESPD            2 x Base
+Heavy           Three           +0            3 x Base
+
+Ship maintenance will cost XSHIPMAINT per holding space on each update.
+(Un)loading costs XNCITYCOST movement in cities, full movement elsewhere.
+END
+                           SHIP INFORMATION
+
+     Ships travel in fleets which may contain up to XNMASK ships of each type
+and class.  The movement ability of the fleet is determined by the movement
+ability of the slowest member.  It is important to note that it costs 4 move
+points to land a fleet and fleets with light ships may not enter deep water.
+
+     Each ship also has a maximum crew of XSHIPCREW/hold.  If the crew is
+below the maximum, movement will be reduced by the percentage of crew missing
+is until the ship is repaired in harbor.  (via the 'C'onstruct command)
+
+     Also, ships may be loaded (or unloaded) with armies and civilians via
+the 't'ransport command.  Only sailors or marines may be unloaded in
+unowned sectors and only marines may be unloaded in someone else's land.
+The maximum transport capability of a fleet is determined by how many
+holds are in the fleet of the proper type.  So, a fleet with 2 medium
+merchants and 1 light galley may carry up to XSHIPHOLD soldiers and 4
+* XSHIPHOLD civilians.  Loading or unloading of a fleet means the
+fleet loses all remaining movement.  NOTE:  Due to the hazards of the
+sea, some of the civilians will not survive the trip.
+END
+                                NOTES ON COMBAT
+
+Towns / Cities / Forts / Capitols result in bloodier battles than normal.  
+Battles in these sectors result in 20% more casualties on both sides (so
+if there would be 30% casualties, the result is 36% casualties).  Also,
+special tactics may be needed in such sectors. See following page.
+
+You can expect to take several turns to reduce a large army, especially
+in a Town or Capitol.  NPC defenders will draft new troops each turn.
+
+Combats calculations are based on an even 1:1 battle, and then the results
+are adjusted based on the calculated odds of the battle.  First, an initial
+roll from 0 to 100 is made with probabilities being an even gaussian
+distribution.  Then odds are calculated based on the number of men and their
+combat strength, with better soldiers having the same weight as more men of
+poorer quality. The losses given by the initial combat roll are then
+adjusted by removing from the percent loss of the side the with the better
+odds and adding to the percent losses of the side with unfavorable odds.
+END
+                              CITY COMBAT
+
+In fortified sectors, such as cities, towns, forts and capitols, armies may
+perform SORTIES and SIEGES, and may RULE or be BESIEGED.
+
+Cities may issue special SORTIE attacks.  These attacks occur as if 20%
+more men are in the unit and they are also given an increase of 10% to attack
+bonus.  If a SORTIE unit is caught by an enemy attack it will fight at a -30%
+defensive bonus.  Note: once a SORTIE is sent out, it may not be recalled.
+
+Special SORTIE considerations and extra bonuses:
+   ARCHERS and CATAPULTS take only half damage due to attacking from walls.
+   DRAGOONS, LEGIONS and PHALANX gain +5% to attack.
+   LT_CAVALRY and CAVALRY gain +10% to attack.
+   KNIGHTS, ELEPHANTS, and AVIAN units gain +15% to attack.
+   Summoned MONSTERS gain an additional 5% due to shock.
+
+A leader unit within a fortification may decide to RULE.  This unit
+will not participate in any combat and may only be damaged if the
+surrounding troops suffer 80% casualties.  This is a good way to protect
+national leaders from harm within the Capitol.
+END
+                          CITY COMBAT (page 2)
+
+If a unit is placed on SIEGE status and there are twice as many units on
+siege as there are of the sector owners', any non flying troops will be set
+to a status of BESIEGED.  BESIEGED units have a movement of zero and may
+only have their status changed to SORTIE.  In addition, defensive bonus
+for BESIEGED troops is at -20% after addition of fortification bonuses.
+
+An ideal method of taking a city would be to have four times the troops
+inside and set half of your troops on SIEGE and half on ATTACK.
+
+Special Considerations for SIEGES:
+   SIEGE engines count triple for calculations of sieging troops.
+   MILITIA troops count half for calculations of besieged troops.
+
+The only method to take an occupied City or Capitol is to be the the only army
+in the sector when the combat is *over*.  This is VERY difficult, as it should
+be.  Fortifications can be damaged in combat by SIEGE ENGINES and CATAPULTS.
+END
+                          AN EXAMPLE OF COMBAT
+
+A battle occurs in 22,29 (a "good" farm) between your nation "uru" (defender) 
+and "edland".  They have 339 infantry vs. 100 of your infantry. Your defensive 
+bonus is +70, their attack bonus is +40. Infantry are +0/+0. A movement bonus 
+goes to both sides = 5*(9-movecost)=+40.  Their total bonus is 40+40+=+80. 
+Yours is 70+40=110. This leads to dice modifier of 30 in your favor.
+The roll is 91 which becomes +91-30=61; the defenders base loss is then:
+(61+30)/160*60 = 40% and the attackers base loss is then: (160-(61+30))
+/160*60 = 20%.  Since the odds favor the attacker, there is a (339/10)-10
+adjustment to the defenders losses, bringing their losses to 63%.
+The actual loss to each unit is troops * Percent * random / 100, where the 
+random is a random value between 0 and 2.  For you this leads
+to 84*63*(~1) / 100 = 45 men. for them it leads to 56 men.
+Despite your awful luck at the dice, you still came out quite well.
+
+However, because they did cream you, there was a chance that you were
+     forced to retreat, which you did to 21 28.
+END
+                         MAIL MESSAGE FROM COMBAT
+
+The following is a mail message you might receive after the combat described
+on the last page.
+
+BATTLE SUMMARY for sector 22, 29
+You are on the Defending Side
+ edland is attacking with army 17 (type Infantry, men 125, bonus=80)
+ edland is attacking with army 23 (type Infantry, men 160, bonus=80)
+ uru is defending with army 9 (type Infantry, men 84, bonus=110)
+attacking soldiers=285 -> attackers percent loss 20%
+defending soldiers=84 -> defenders percent loss 63%
+ODDS are 339 to 100; ADJUSTED ROLL is 61
+RESULT: Attackers lose 56 men, Defenders lose 45 men
+Additionally, All defenders retreat to 21 28
+END
+                             NAVAL COMBAT
+
+        Naval Combat is very similar to army combat, except that capturing
+of ships is taken into account and fleets within two sectors may
+participate in battle.  Odds are calculated based on the amount of crews
+for each ships.  Warship crew is added in on a 1 to 1 basis, while Galleys
+are at half that, and Merchants are halved again.  Then, any soldiers on
+board are added in at half strength except for ARCHERS and SAILORS which
+are full strength and MARINES which are twice strength.  If a nation has
+SAILOR power, his crews are given a 20% bonus in strength due to better
+ability.
+
+        Finally, if a ship is damaged in combat there is a percent
+chance based on the odds of combat that that ship will be captured.
+At 1:1 odds, only a 15% capture chance exists; At 10:1 odds there is a
+60% chance; At >60:1 odds there is a 100% chance; And then if the odds
+are against the player, 1:10 has only a 1% chance of capturing, and
+below that it drops to 0%.
+END
+DONE

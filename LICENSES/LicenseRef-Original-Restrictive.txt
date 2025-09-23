@@ -1,0 +1,45 @@
+Conquer Original License
+Copyright (c) 1988, 1989 by Ed Barlow.
+
+    MODIFICATION OF THIS FILE IMPLIES THAT THE MODIFIER WILL ACCEPT
+	A LIMITED USE COPYRIGHT AS FOLLOWS:
+
+
+	1) This software is copyrighted and protected by law. The
+		sole owner of this software, which hereafter is known as
+		"conquer" is Edward M. Barlow, who hereby grants you a
+		personal, non-exclusive right to use this software.
+		All rights on this software are reserved.
+	2) conquer may not be redistributed in any form. Any requests for
+		new software shall, for now, be the perogative of the author.
+	3) loss or damage caused by this software shall not be
+		the responsibility of the author.
+	4) Ed Barlow or Adam Bryant shall be notified of enhancements to this
+		software via electronic mail and, if there is no response, via
+		US mail to:
+
+			Ed Barlow
+			115 E 34ths St.
+			NY, NY 10016
+
+		My home phone is 212-679-1439. Use it sparingly and call
+		before 11PM if it is important.  Note that I no longer have
+		access to the arpanet and cant really support conquer like
+		I used to.  If somebody knows of a cheap (free) way of getting
+		a login somewhere where there is network access - HELP ME!!!!
+		Since i am "volunteering" my time for this project, I am not
+		about to spend millions of dollars to buy network access...
+		I can get a modem for my PC if somebody will help me get
+		something to call into. -ED-
+	5) no attempt shall be made to make any money from this game or to
+		use any portion of this code to make any money without the
+		authors permission.
+	6) no attempt shall be made to port this software to any form of
+		personal computer without the permission of Ed Barlow.
+	7) you agree to use your best efforts to see that any user
+		of conquer complies with the terms and conditions stated above.
+	8) The above copyright agreement will not be tampered with in any form.
+
+
+   Special thanks to Brian Beuning, Adam Bryant, and any others who helped
+	me by making enhancements and bug reports

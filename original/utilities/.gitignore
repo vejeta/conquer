@@ -1,0 +1,11 @@
+*.o
+xconqrast
+makefile.x
+sunconqrast
+makefile.sun
+lint.x
+lint.sun
+shar.*
+*.diff
+newfiles
+difffiles

@@ -1,0 +1,88 @@
+
+
+  Description
+
+The conqps program translates maps from conquer to postscript suitable for
+printing on a postscript printer. Conqps can act as a filter, or you
+can give filenames to it. There is a lot of options to customise the output.
+But the only option you should remember is the h option, which gives
+a brief desription of all the options. If you are anxious to try it out
+just type  'conquer -p | conqps >psmap'  which should give you a file called
+psmap, which can be sent to a postscript printer. There is a limitation of how
+big the maps may be, this lies in the postscript language. But at our
+site I have been able to print 256x256 maps (I haven't tried bigger) on
+a LaserWriter II.
+
+  Options
+
+ There is a lot of options, but you don't need to know all of them. Some
+ options were put in to let advanced users get more control over the output.
+ Valid options are 'cfghlLnopstuvWXY'. They do the following:
+
+  c  Turns off printing of coordinates around the edge of the map.
+
+  f fontname  Sets the font to 'fontname', you can use any font that is in your
+	      printer. Default is Times-Roman. The program also looks for
+	      the environment variable CONQ_PSFONT. The f option overrides
+	      both the default and the environment variable.
+  
+  g  Turns off printing of the grid at the unknown parts of the map.
+
+  h  Shows a brief description of the options and some defaults.
+
+  l  If you print larger maps it's possible to exhaust the memory of your
+     printer. This option uses a feature in the Apple LaserWriter which 
+     conserves memory, but gives you a smaller map. This option is not
+     fully tested, and should probably not be used.
+
+  n  Normally the map is centered around the parts of the world you know.
+     This option turns off this feature, and lets the program do as it
+     damn well pleases with your map :-)
+
+  o x,y  If you want to print just a small part of a bigger map use this
+         option. It makes conqps just to produce one page centered around
+	 coordinates x,y.
+
+  p type  Sets the type of paper you have in the printer. Possible values
+	  today are: A4 (European standard) LETTER (American standard) or
+	  OTHER (should be local standard). You shouldn't have to use this
+	  option since the person who maintains conquer at your site should
+	  have set the right papersize as default (This is done in the
+	  Makefile).
+
+  s size  Sets the size of each square of the map. This is useful to get
+	  more map printed on fewer pages, but it will be smaller.
+	  Default value is 9.
+
+  t string  Conqps tries to guess a nice title to the map for you. Normally
+	    this is something like 'Designation Map for Nation Midkemia on
+	    Turn 2' (this title is actually provided from the conquer program).
+	    If however you would like to have your own title shown, just use
+	    the t option, which replaces the default title with string.
+
+  u  Normally conqps put small pictures in some of your squares instead of
+     just letters. This option forces conqps not to do this, but instead
+     print the letters.
+
+  v  Puts conqps in verbose mode. For example you will be told how big the map
+     is and how big it will be on the printer.
+
+  L,W,X,Y  If none of the paper types fits your needs you can alter the size
+	   directly with these options. All these options use one postscript
+	   point (1/72 inch) as their unit. L sets the length of the page.
+	   W sets the width. X sets the x coordinate for the leftmost viewable
+	   pixel on the output, and Y sets the y coordinate. These options
+	   are normally never used, instead you should experiment with
+	   the p option.
+
+  Bugs
+
+ Hopefully no.
+
+
+  Comments
+
+ If you have any comments or ideas mail them to d8forma@dtek.chalmers.se  .
+
+						MaF
+

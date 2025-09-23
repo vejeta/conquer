@@ -1,5 +1,5 @@
 #!/bin/bash
-# Equivalent to your test-alpine.sh but for Debian
+# Test the Debian package built from gpl-release source
 
 set -e
 
@@ -8,6 +8,7 @@ SCRIPT_DIR="$(dirname "$0")"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$REPO_ROOT"
 
+echo "Testing Debian package built from gpl-release source"
 echo "Debug: Script location: $SCRIPT_DIR"
 echo "Debug: Repo root: $REPO_ROOT"
 echo "Debug: Current PWD: $PWD"

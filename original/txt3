@@ -1,0 +1,162 @@
+                                MAGIC POWERS
+
+Magic powers differentiate your nation from all  the  other  nations  in  the
+world.  There are three types of powers - truly MAGICAL powers, which usually
+involve summoning or spell use, CIVILIAN powers, which are related to civili-
+zation  and  trade,  and  MILITARY powers, which measure your ability to make
+war.
+
+All nations start with at least one power (based on race or  class)  and  can
+purchase  additional  powers by expending jewels.  On the Magic Screen ('M'),
+if you have enough jewels, you will be asked if  you  wish  to  buy  a  magic
+power.
+
+The magic screen also permits you to see what powers you have, and  to  take-
+over ORC nations if you are an ORC nation with the appropriate powers.
+END
+                              HOW TO GET MAGIC
+
+Magic powers cost jewels to obtain; the cost to obtain a power  is  based  on
+your  nations  magic  ability.   The  formulae for this is to take two to the
+power of the sum of the number of powers you have from that type and half the
+number of other powers times your base value:
+
+jewel cost for civilian power = Base * 2**( #mgk/2 + #civ + #mil/2 )
+
+                             type of power desired
+         race         magical    civilian      military
+        elves -        XEMMAG        XECMAG          XEWMAG
+        dwarves -      XDMMAG        XDCMAG          XDWMAG
+        humans -       XHMMAG        XHCMAG          XHWMAG
+        orcs -         XOMMAG        XOCMAG          XOWMAG
+
+for example a human with 1 of each power wanting a magic power would pay
+                XHMMAG * 2**(1+1/2+1/2) = 4 *XHMMAG jewels
+END
+                        COMBAT TYPE POWERS
+
+WARRIOR        +10% in combat. 1/2 Enlistment cost.
+CAPTAIN        +10% in combat. Can have PHALANX Units. Need WARRIOR power.
+WARLORD        +10% in combat. Can have LEGIONARY Units. Need CAPTAIN power.
+ARCHER         Can get ARCHER units.
+CAVALRY        Can get LIGHT & HEAVY CAVALRY units.
+SAPPER         CATAPULT/SIEGE @ 1/2 price & 1/2 metal. 1/2 maint.
+               +10% against cities/forts/capitols.
+ARMOR          With CAVALRY, can get KNIGHTS; Can Get ELITE Units,
+               -3 Move (4 Min), +20 Defense
+AVIAN          Use ROC and GRIFFON units.
+
+MONSTER POWERS The three powers below are monster powers for orc nations.
+               If using the Orc Takeover option, monster nations have a 
+               chance to takeover ORC NPCs for jewels.
+MINOR MONST    1 minor monster unit/spring. Can get ORCs. 1/2 spell point/turn
+AVERAGE MONST  1 avg monster unit/spring. Can get URUK HAI. 1 spell point/turn
+MAJOR MONST    1 major monster unit/spring. Can get TROLLs. 2 spell point/turn
+END
+                        CIVILIAN TYPE POWERS
+
+DERVISH    Desert/ICE sectors => 1 move point, vegetation 6, +30% combat in
+           XDERVDESG redesignate desert/ice sectors.
+HIDDEN     Nobody can count troops in your armies on map.
+ARCHITECT  Double strength forts, Double Town revenue.
+RELIGION   +2 repro to 10% limit.  excess adds +5% to defense. (Not ORCS).
+MINER      2x metal and jewel production.  Elves cant get.
+URBAN      +3% Birth Rate to 12% limit.  remainder gives + to move (roads)
+BREEDER    +3% Birth Rate (ORCS ONLY) (to 14% limit). -10% combat. (no urban)
+           remainder adds to movement.
+STEEL      Additional 2x Metal Production for MINERS.
+NINJA      Can have Ninja units.  Spys show enemy troop/civilian strength
+           exactly (even voids).
+SAILOR     1/2 price naval units.  Can use marines.  Double ship speed.
+           sailor nations ships are immune to storms at sea.
+DEMOCRACY  +10% in combat (moralle) +1 Move +1 repro. +1 eatrate.  Also if you
+           don't watch your charity level, you will give too much to the poor.
+ROADS      +4 to move if unit starts in your nation.
+SLAVER     you gain 25% of the populace of *any* sector you take over.
+END
+                        MAGICAL TYPE POWERS
+
+THE_VOID   Nobody can see your sectors/armies (they appear blank).
+KNOWALL    Know all troop strengths and see the whole map (except voids).
+DESTROYER  Vegetation in 3 sectors of Capitol = Desert.  Act as Dervish.
+           Note: you cant have both DESTROYER and DERVISH power.
+VAMPIRE    35% of troops killed become your zombies, -35% in all combat,
+           All infantry/militia become zombies.  Can't add to combat bonus.
+           Vampire Power causes all nations to go to jihad with you.
+SUMMON     gives 4 spell pts per turn... can summon monsters with them
+           Can also do spell casting.  100K Jewels and 1M gold gives
+           a 20% chance of gaining +1 spell point per turn.  Not Dwarves.
+WYZARD     Gives +3 spell points.  Must have SUMMON Power.
+SORCERER   Gives +3 spell points.  Must have SUMMON Power.
+END
+                          SPELL CASTING
+
+If a nation has magical spell points, that nation may cast a number of
+useful spells.
+
+The current list of spells and their costs:
+
+Summon          -- must have SUMMON to cast this spell; cost is dependent
+                    on the monster summoned.  (see next page)
+Flight          -- give flight to a unit at a cost of 1 spell pt / 100 men
+Enhance Attack  -- 30% increase in attack at a cost of 1 spell pt / 300 men
+Enhance Defense -- 30% increase in defense at a cost of 1 spell pt / 300 men
+
+All of the above spells except summoning have an effect area of one army unit
+and  a  duration  of one turn.  Flight and the Combat Enhancements each cause
+the unit to lose one movement point due to the change in status.
+END
+                              SUMMONED MONSTERS
+
+A monster unit represents one monster, but is the equivalent in combat of  an
+army of the given number of men.  When summoned, they appear in your Capitol,
+and are yours to command until you disband them or  can  not  afford  to  pay
+their  per/turn  jewel  cost  *and*  5x  that  cost in gold.  Monsters may be
+wounded in combat as can normal army units.  Wounded monsters have a  percent
+chance of dying based on the percent damage taken (a dragon (1000 men) taking
+200 equivalent men of damage has a 20% chance of dying).  Next turn,  however
+its  strength  will be fully restored (1000 men again).  A number of the mon-
+sters will also have the ability of flight.
+
+Spell points can accumulate from turn to turn, but there is a 25% chance that
+half  your  unused  spell points disappear each turn....  This gives you some
+incentive to use them.
+END
+                        SUMMONED MONSTER TYPES
+
+           spell    combat                 jewels      power
+           points   bonus    move    men    turn       prerequisites
+Spirit        2       +0      x1      50     1000
+Assasin       2      +20      x1      50      400      NINJA
+Efreet        2      +10      x1.5    50      400      DERVISH
+Gargoyl       2      +10      x1      75      450      MI_MONST
+Wraith        2      +10      x1      75      450      VAMPIRE
+Hero          2       +0      x1      75      200      WARRIOR
+Centaur       2      +10      x1.5    50      200      CAVALRY
+Giant         5       +0      x1     150     2100
+Suphero       5      +15      x1     150      450      WARLORD
+Mummy         5      +15      x1     150     1000      VAMPIRE
+Elmentl       5       +5      x1.5   175     1900      SORCERER
+Mintaur       5      +20      x1     150     2100      DESTROYER
+Daemon        10     +50      x1     500     6000      DESTROYER
+Balrog        10     +40      x1.5   500     6000      WIZARD & VAMPIRE
+Dragon        15     +50      x2    1000    10000      MA_MONST & WIZARD
+END
+                   FURTHER RESTRICTIONS ON ACQUIRING MAGIC
+
+Note: This applies only to powers acquired during the course of the game  and
+not  to innate powers of nations.  Further, extra random powers bought by new
+nations are considered to be bought  on  their  first  turn  as  their  first
+action.
+
+God only:              KNOWALL
+Orc only:              MI_MONST, AV_MONST, MA_MONST, BREEDER
+PC only:               ARMOR, AVIAN, SAPPER,
+                       DEMOCRACY, NINJA, ROADS, SAILOR, SLAVER,
+                       SUMMON, WYZARD, SORCEROR
+Forbidden to Dwarves:  SUMMON, WYZARD, SORCEROR
+Forbidden to Elves:    DESTROYER, VAMPIRE, MINER
+Forbidden to Orcs:     RELIGION, CAVALRY
+Forbidden to NPC's:    CAVALRY
+END
+DONE

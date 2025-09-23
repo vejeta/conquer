@@ -1,0 +1,16 @@
+Richard Caley Map Drawing Utility License
+
+This program draws a map of the conquer world on a bitmap system
+
+Written by Richard Caley July 1989 and hacked extensively thereafter.
+
+You may copy, distribute, modify or do what you will with this code so long as
+this message remains in it and so long as you do not charge for it, nor
+distribute the program without the source.
+
+There is a horrid hack for getpass - to make this read the password from
+standard in one has to disconnect from the control terminal. GAG! It should
+be possible to disconnect just the conquer from the control terminal . . .
+someday.
+
+See Readme for more details.

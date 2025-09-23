@@ -1,0 +1,13 @@
+*** Warning:
+
+This patch contains the "CHECKUSER" option which will make the data file
+incompatible with previous versions of 4.x data files.  If you wish to use
+this patch with 4.10 data files -=DO NOT=- compile with the CHECKUSER option
+enabled.
+
+-spide
+ mcy1580@ultb.isc.rit.edu
+ mcy1580@ritvax.isc.rit.edu
+
+-adam
+ adb@cs.bu.edu

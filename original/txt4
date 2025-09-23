@@ -1,0 +1,122 @@
+                    SECTOR DESIGNATIONS
+
+For nations to make use of the sectors that they own, they
+must indicate what each sector should be used for. The following
+table lists sector designations and the cost for their designation:
+
+  name     symbol      gold cost         iron cost
+  ----------------     ---------         ---------
+  ZCITY        20 * XDESCOST         5 * XDESCOST
+  ZCAPITOL        20 * XDESCOST         5 * XDESCOST
+  ZTOWN        10 * XDESCOST         XDESCOST
+  ZFORT        10 * XDESCOST         XDESCOST
+  ZSTOCKADE        ZSTOCKCOST              ----
+
+All of the following designations only cost XDESCOST gold:
+ 
+  ZMILL      ZUNIVERSITY      ZCHURCH
+  ZMINE      ZLUMBERYARD      ZSPECIAL
+  ZGOLD      ZBLACKSMITH      ZGRANARY
+  ZFARM      ZROAD      ZRUIN
+  ZDEVASTATED
+END
+                      DESIGNATION DESCRIPTIONS              pg.1
+
+ZTOWN  Towns, Cities, & Capitols are your power bases.  You can draft
+ZCITY  troops (if population > civilians / 16+(number of sectors)/2)
+ZCAPITOL  and can build ships here.  Town tax=rate*XTAXTOWN talons/person and
+       City tax=rate*XTAXCITY talons/person.  Both cost a lot to redesignate
+       AND take metal to create.  They are captured only if you are the ONLY
+       occupant of the sector when the world is updated.  Nations become
+       depleted if they lose their capitol.  Cities, Towns, and Capitols
+       add to many of a nations characteristics.
+ZMINE  Mine:  Produce (tax/100)*XTAXMETAL*Metal*People Talons & Produces
+       Metal Ores.  Each mine you own adds to your nations mine_ability.
+ZFARM  Produces (tax/100)*XTAXFOOD*Vegetation*People Talons & Produces Food
+       Each farm you own adds to your nations farm_ability.
+ZGOLD  Produces (tax/100)*XTAXGOLD*Gold*People Talons & Produces Jewels
+ZDEVASTATED  Devastated sector.  People dont like to live where devastated.
+ZRUIN  Ruins are devastated Cities.  They may be rebuilt to cities at
+       half cost or for XREBUILDCOST talons may be redesignated otherwise.
+END
+                      DESIGNATION DESCRIPTIONS              pg.2
+
+ZFORT   Expensive fortress. Cost same as town cost. Only for defense.
+ZSPECIAL   Produces Exotic Trade Goods - see next page.
+ZSTOCKADE   Stockades are minor (+10%) fortresses. They cost ZSTOCKCOST.
+ZUNIVERSITY   produce knowledge points (see nation attributes)
+ZLUMBERYARD   UNUSED
+ZBLACKSMITH   adds to nations mine ability
+ZROAD   Roads add 0.1 to communication ability.  1/2 cost to movement,
+	but they cost gold to maintain.  You may only build 2 each turn.
+        You must have 100 civilians in a sector to build a road.
+ZMILL   1.2x food production in one sector range if there are adequate
+        people in the sector.  It does not produce food on its own.
+ZGRANARY   these "warehouses" serve as a point to store any food for the
+        winter.  They decrease national spoilrate.
+ZCHURCH   add to your nations popularity and patriotism
+
+sector redesignation requires food ability of XDESFOOD (not forts/stockades).
+Stockade, City, Town, & Fort defenses work for defenders with garrison status.
+END
+                         MINE ABILITY & WEALTH
+
+Mine ability impacts your nations ability to mine ores (see below), and
+wealth impacts your nations ability to use specialty luxury items that
+can be produced in your nation.  As such, these are the most important
+attributes your nation has.  It is difficult to get these attibutes to
+OK levels at the beginning of the game - you must work at it.
+
+mine ability = (people in cities,capitols,&towns)/333 + blacksmiths/167 
+             + (number of metal points being mined)/3
+add 15 if the nation has MINER power 
+add 15 if the nation has STEEL power (in addition to miner bonus)
+
+wealth      = % of worlds gold + % of worlds jewels + % of worlds metal 
+                + cityfolk/1000 + townfolk/2000
+
+add 30 to wealth if the nation is either a trader or empire class
+
+The maximum wealth and mine ability is 100.
+END
+                                METAL
+
+Many sectors have metal ores.  Nations can use these ores if they have the
+appropriate mine ability.  The following table details the metal type, 
+required mine ability, metal production value, and percentage of the world
+metal sectors containing that type of metal.
+
+                        required        metal     world
+            type       mine_ability     value    percent
+            copper          0            1-2       10%
+            lead            8            1-4       10%
+            tin            11            2-5       15%
+            bronze         15            2-5       20%
+            iron           25            2-8       25%
+            steel          30            3-10      15%
+            mithral        30            5-15       4%
+            adamantine     40            8-20       1%
+END
+                            WEALTH & JEWELS
+
+Jewels is the "generic" name given to any luxury items you can make in
+your nation.  Like iron, certain sectors have an inate ability to produce
+these luxury goods, which can be used only if the nation has a high enough
+wealth.  The following table details the luxury good type, required wealth, 
+jewel value, and percentage of the world jewel sectors containing that type 
+of good.
+
+                        required       jewel     world
+           type          wealth        value    percent
+           spice            0           1-2       20
+           silver           0           1-3       20
+           pearls           0           1-3        8
+           dye              5           1-5        8
+           silk             5           1-5        8
+           gold             8           1-6       20
+           rubys            8           1-6        7
+           ivory           15           2-8        5
+           diamonds        20          2-12        3
+           platinum        25          4-20        1
+END
+DONE
