@@ -4,22 +4,22 @@
 # Packages should be in packages/x86_64/ after running build-melange.sh
 
 # Check if package exists
-if [ ! -f packages/x86_64/conquer-4.12-r0.apk ]; then
-    echo "Error: Package not found at packages/x86_64/conquer-4.12-r0.apk"
+if [ ! -f packages/alpine/x86_64/conquer-4.12-r0.apk ]; then
+    echo "Error: Package not found at packages/alpine/x86_64/conquer-4.12-r0.apk"
     echo "Please run scripts/build-melange.sh first"
     echo ""
     echo "Available packages:"
-    ls -la packages/x86_64/ 2>/dev/null || echo "packages/x86_64/ directory doesn't exist"
+    ls -la packages/alpine/x86_64/ 2>/dev/null ||co echo "packages/alpine/x86_64/ directory doesn't exist"
     exit 1
 fi
 
-echo "Found package: packages/x86_64/conquer-4.12-r0.apk"
+echo "Found package: packages/alpine/x86_64/conquer-4.12-r0.apk"
 
 # Start Alpine container with the APK available
 docker run --rm -it -v "$PWD":/work alpine:latest sh -c "
   # Install dependencies and the game
   apk add --no-cache ncurses-terminfo-base ncurses
-  apk add --allow-untrusted /work/packages/x86_64/conquer-4.12-r0.apk
+  apk add --allow-untrusted /work/packages/alpine/x86_64/conquer-4.12-r0.apk
   
   # Set up environment
   export TERM=xterm

@@ -76,7 +76,7 @@ This utility represents an early example of game data visualization tools, creat
 
 ## In Memory
 
-Richard Caley passed away in 2006. This code is preserved in his memory and as a testament to the early Unix gaming community's collaborative spirit.
+Richard Caley passed away in 2005. This code is preserved in his memory and as a testament to the early Unix gaming community's collaborative spirit.
 
 ### Historical Materials
 
