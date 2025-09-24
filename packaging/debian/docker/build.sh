@@ -15,9 +15,9 @@ echo "=== Starting Debian package build ==="
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 
-# Clone the repository
-echo "Cloning repository..."
-git clone https://github.com/vejeta/conquer conquer-4.12
+# Instead of cloning, copy the source from the mounted volume
+echo "Copying source from mounted volume..."
+cp -r "$WORK_DIR/gpl-release" ./conquer-4.12
 cd conquer-4.12
 
 # Copy Debian packaging files
@@ -47,7 +47,7 @@ debuild -us -uc -b
 # Create output directory and copy packages
 mkdir -p "$OUTPUT_DIR"
 cp ../*.deb "$OUTPUT_DIR/"
-cp ../*.changes "$OUTPUT_DIR/"
+cp ../*.changes "$OUTPUT_DIR/" || true
 
 echo "=== Package build complete ==="
 ls -la "$OUTPUT_DIR/"
