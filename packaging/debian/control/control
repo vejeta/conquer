@@ -1,7 +1,7 @@
 Source: conquer
 Section: games
 Priority: optional
-Maintainer: Vejeta <vejeta@example.com>
+Maintainer: Vejeta <vejeta@vejeta.com>
 Build-Depends: debhelper-compat (= 13),
                libncurses-dev,
                pkg-config,
