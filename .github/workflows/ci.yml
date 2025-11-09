@@ -3,6 +3,8 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [ master ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ master ]
 
@@ -80,7 +82,7 @@ jobs:
 
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
         with:
           name: conquer-apk-${{ github.sha }}
           path: packages/**/*.apk
@@ -119,12 +121,81 @@ jobs:
             dpkg-deb --contents "$DEB_FILE" | head -20
           fi
 
-      - name: Upload DEB atrifacts
+      - name: Upload DEB artifacts
         uses: actions/upload-artifact@v4
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
         with:
           name: conquer-deb-${{ github.sha }}
           path: packages/**/*.deb
+          retention-days: 90
+
+  create-tarball:
+    name: Create Source Tarball
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create source tarball
+        run: |
+          cd gpl-release
+          tar -czf ../conquer-${{ steps.get_version.outputs.VERSION }}.tar.gz \
+            --exclude='*.o' \
+            --exclude='*.a' \
+            --exclude='*.d' \
+            --exclude='.git*' \
+            .
+
+      - name: Verify tarball
+        run: |
+          echo "Created tarball:"
+          ls -lh conquer-*.tar.gz
+          echo "Tarball contents (first 20 files):"
+          tar -tzf conquer-*.tar.gz | head -20
+
+      - name: Upload source tarball
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-tarball
+          path: conquer-*.tar.gz
+          retention-days: 90
+
+  generate-checksums:
+    name: Generate Checksums
+    needs: [package-apk, package-deb, create-tarball]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Generate checksums
+        run: |
+          mkdir -p release-files
+
+          # Copy all files to release-files directory
+          find artifacts -type f \( -name "*.apk" -o -name "*.deb" -o -name "*.tar.gz" \) \
+            -exec cp {} release-files/ \;
+
+          # Generate checksums
+          cd release-files
+          sha256sum * > checksums.txt
+
+          echo "Generated checksums:"
+          cat checksums.txt
+
+      - name: Upload checksums
+        uses: actions/upload-artifact@v4
+        with:
+          name: checksums
+          path: release-files/checksums.txt
           retention-days: 90
 
   # Lightweight verification for PRs
@@ -142,12 +213,12 @@ jobs:
           echo "This PR successfully builds both package formats."
           echo "Full testing and artifact upload will occur when merged to master."
 
-  # Full integration testing for master branch
+  # Full integration testing for master branch and tags
   test-packages:
-    name: Integration Testing (Master Only)
+    name: Integration Testing
     needs: [package-apk, package-deb]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
         test: [deb-install, apk-inspect]
@@ -242,33 +313,85 @@ jobs:
           fi
 
   release:
-    name: Create Release
-    needs: [test-packages]
+    name: Publish GitHub Release
+    needs: [test-packages, generate-checksums]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Extract version from tag
+        id: get_version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "VERSION_NUM=${VERSION#v}" >> $GITHUB_OUTPUT
+
       - name: Download all artifacts
         uses: actions/download-artifact@v4
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v4.12-${{ github.sha }}
-          release_name: Conquer v4.12 (${{ github.sha }})
+          path: artifacts
+
+      - name: Organize release files
+        run: |
+          mkdir -p release-files
+
+          # Copy packages and checksums
+          find artifacts -type f \( -name "*.apk" -o -name "*.deb" -o -name "*.tar.gz" -o -name "checksums.txt" \) \
+            -exec cp {} release-files/ \;
+
+          echo "Release files:"
+          ls -lh release-files/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-files/*
+          generate_release_notes: true
           body: |
-            Automated release of Conquer v4.12
+            ## Conquer ${{ steps.get_version.outputs.VERSION }}
 
-            **Packages included:**
-            - 📦 APK for Alpine Linux (melange)
-            - 📦 DEB for Debian/Ubuntu
+            Classic Unix strategy game - GPL v3 licensed version
 
-            **Installation:**
-            - APK: `apk add --allow-untrusted conquer-*.apk`
-            - DEB: `dpkg -i conquer_*.deb`
+            ### Installation
+
+            **Debian/Ubuntu:**
+            ```bash
+            wget https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.VERSION }}/conquer_${{ steps.get_version.outputs.VERSION_NUM }}_amd64.deb
+            sudo dpkg -i conquer_${{ steps.get_version.outputs.VERSION_NUM }}_amd64.deb
+            sudo apt-get install -f
+            ```
+
+            **Alpine Linux:**
+            ```bash
+            wget https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.VERSION }}/conquer-4.12-r0.apk
+            sudo apk add --allow-untrusted conquer-4.12-r0.apk
+            ```
+
+            **Build from Source:**
+            ```bash
+            wget https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.VERSION }}/conquer-${{ steps.get_version.outputs.VERSION }}.tar.gz
+            tar -xzf conquer-${{ steps.get_version.outputs.VERSION }}.tar.gz
+            cd conquer-${{ steps.get_version.outputs.VERSION }}
+            make all OPTFLG="-std=gnu99 -D_GNU_SOURCE"
+            make install
+            ```
+
+            ### Verification
+
+            Download `checksums.txt` and verify your downloads:
+            ```bash
+            sha256sum -c checksums.txt
+            ```
+
+            ### What's Included
+
+            - Debian package (amd64): `conquer_${{ steps.get_version.outputs.VERSION_NUM }}_amd64.deb`
+            - Alpine package (x86_64): `conquer-4.12-r0.apk`
+            - Source tarball: `conquer-${{ steps.get_version.outputs.VERSION }}.tar.gz`
+            - SHA256 checksums: `checksums.txt`
           draft: false
           prerelease: false
