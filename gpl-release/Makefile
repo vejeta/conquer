@@ -48,9 +48,7 @@ EXEDIR = $(PREFIX)/bin
 # =============================================================================
 
 # Base compiler definitions
-#CDEFS = -DDEFAULTDIR=\"$(DEFAULT)\" -DEXEDIR=\"$(EXEDIR)\"
-# This change has been introduced for proper packaging
-CDEFS = -DDEFAULTDIR=\"/usr/lib/conquer\" -DEXEDIR=\"/usr/bin\"
+CDEFS = -DDEFAULTDIR=\"$(DEFAULT)\" -DEXEDIR=\"$(EXEDIR)\"
 CDEFS += -DVERSION=\"$(VERSION)\" -DPATCHLEVEL=\"$(PATCHLEVEL)\"
 CDEFS += -DLOGIN=\"$(shell whoami)\"
 
@@ -74,11 +72,12 @@ else
 endif
 
 # Build type specific flags
+# -std=gnu99 -D_GNU_SOURCE required for legacy K&R-style C code with modern compilers
 ifeq ($(BUILD_TYPE),debug)
-    OPTFLG = -DDEBUG -g3 -O0 -fno-omit-frame-pointer -Wall -Wextra -Wpedantic
+    OPTFLG = -std=gnu99 -D_GNU_SOURCE -DDEBUG -g3 -O0 -fno-omit-frame-pointer -Wall -Wextra -Wpedantic
     DO_STRIP = false
 else
-    OPTFLG = -g -fno-strict-aliasing -fwrapv -Wall -Wextra -O2
+    OPTFLG = -std=gnu99 -D_GNU_SOURCE -g -fno-strict-aliasing -fwrapv -Wall -Wextra -O2
     DO_STRIP = true
 endif
 
