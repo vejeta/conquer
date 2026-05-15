@@ -67,7 +67,7 @@ else ifeq ($(UNAME_S),Darwin)
     LTFLG = -h $(NCURSES_LIBS)
 else
     # BSD and other Unix-like systems
-    LIBRARIES = -lcurses -ltermcap
+    LIBRARIES = -lcurses -ltermcap -lcrypt
     LTFLG = -h -lcurses
 endif
 
