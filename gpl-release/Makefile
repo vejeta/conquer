@@ -65,9 +65,18 @@ else ifeq ($(UNAME_S),Darwin)
     NCURSES_CFLAGS := $(shell pkg-config --cflags ncurses 2>/dev/null)
     LIBRARIES = $(NCURSES_LIBS)
     LTFLG = -h $(NCURSES_LIBS)
-else
-    # BSD and other Unix-like systems
+else ifeq ($(UNAME_S),FreeBSD)
     LIBRARIES = -lcurses -ltermcap -lcrypt
+    LTFLG = -h -lcurses
+else ifeq ($(UNAME_S),NetBSD)
+    LIBRARIES = -lcurses -ltermcap -lcrypt
+    LTFLG = -h -lcurses
+else ifeq ($(UNAME_S),DragonFly)
+    LIBRARIES = -lcurses -ltermcap -lcrypt
+    LTFLG = -h -lcurses
+else
+    # OpenBSD and other Unix-like systems (crypt() in libc)
+    LIBRARIES = -lcurses -ltermcap
     LTFLG = -h -lcurses
 endif
 
